@@ -18,6 +18,22 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
+## Environment Variables
+
+Create a local env file (`.env.local`) with:
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+For production, set:
+
+```
+NEXT_PUBLIC_API_URL=https://api.yourdomain.com/api
+```
+
+This value must point to your deployed backend domain.
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
