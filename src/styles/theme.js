@@ -1,17 +1,29 @@
+const cssVar = (name, fallback) => `var(${name}, ${fallback})`;
+
+const APP_PRIMARY = cssVar('--app-primary-color', '#1B6B3A');
+const APP_SECONDARY = cssVar('--app-secondary-color', '#0A4D2E');
+const APP_TEXT = cssVar('--app-text-color', '#1A1A2E');
+const APP_HEADING = cssVar('--app-heading-color', '#1A1A2E');
+const APP_BACKGROUND = cssVar('--app-background-color', '#FFFFFF');
+const APP_SURFACE = cssVar('--app-surface-color', '#F8FAF8');
+const APP_BODY_FONT = cssVar('--app-body-font-family', "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif");
+const APP_HEADING_FONT = cssVar('--app-heading-font-family', "'Playfair Display', 'Georgia', serif");
+
 export const lightTheme = {
     // Brand Colors
-    primary: '#1B6B3A',
+    primary: APP_PRIMARY,
     primaryLight: '#2D9B5A',
-    primaryDark: '#145230',
-    secondary: '#0A4D2E',
+    primaryDark: APP_SECONDARY,
+    secondary: APP_SECONDARY,
     accent: '#E8F5E9',
 
     // Neutrals
-    background: '#FFFFFF',
+    background: APP_BACKGROUND,
     backgroundAlt: '#F5F7F5',
-    backgroundCard: '#FFFFFF',
-    surface: '#F8FAF8',
-    text: '#1A1A2E',
+    backgroundCard: APP_BACKGROUND,
+    surface: APP_SURFACE,
+    text: APP_TEXT,
+    heading: APP_HEADING,
     textSecondary: '#5A5A7A',
     textMuted: '#8E8EA0',
     textOnPrimary: '#FFFFFF',
@@ -30,8 +42,8 @@ export const lightTheme = {
     info: '#3498DB',
 
     // Gradients
-    heroGradient: 'linear-gradient(135deg, #F5F7F5 0%, #E8F5E9 50%, #F5F7F5 100%)',
-    primaryGradient: 'linear-gradient(135deg, #1B6B3A 0%, #2D9B5A 100%)',
+    heroGradient: `linear-gradient(135deg, ${APP_BACKGROUND} 0%, ${APP_SURFACE} 55%, ${APP_BACKGROUND} 100%)`,
+    primaryGradient: `linear-gradient(135deg, ${APP_PRIMARY} 0%, ${APP_SECONDARY} 100%)`,
     cardGradient: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 100%)',
 };
 
@@ -68,20 +80,20 @@ export const darkTheme = {
 };
 
 export const typography = {
-    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    fontFamilyHeading: "'Playfair Display', 'Georgia', serif",
+    fontFamily: APP_BODY_FONT,
+    fontFamilyHeading: APP_HEADING_FONT,
 
     // Font sizes
     xs: '0.75rem',
     sm: '0.875rem',
-    base: '1rem',
+    base: cssVar('--app-body-font-size', '1rem'),
     md: '1.125rem',
-    lg: '1.25rem',
-    xl: '1.5rem',
-    '2xl': '2rem',
-    '3xl': '2.5rem',
-    '4xl': '3rem',
-    '5xl': '3.5rem',
+    lg: 'calc(1.25rem * var(--app-heading-scale, 1))',
+    xl: 'calc(1.5rem * var(--app-heading-scale, 1))',
+    '2xl': 'calc(2rem * var(--app-heading-scale, 1))',
+    '3xl': 'calc(2.5rem * var(--app-heading-scale, 1))',
+    '4xl': 'calc(3rem * var(--app-heading-scale, 1))',
+    '5xl': 'calc(3.5rem * var(--app-heading-scale, 1))',
 
     // Font weights
     light: 300,
@@ -92,7 +104,7 @@ export const typography = {
 
     // Line heights
     tight: 1.2,
-    normal: 1.5,
+    normal: cssVar('--app-line-height', '1.5'),
     relaxed: 1.75,
 
     // Letter spacing

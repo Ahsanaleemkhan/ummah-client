@@ -1,41 +1,71 @@
 'use client';
 
 import styled from 'styled-components';
+import { handleImageError, withImageFallback } from '../lib/imageFallbacks';
 
 const Section = styled.section`
-  background: #ffffff;
-  padding: 4rem 2rem;
+  background: #ececec;
+  padding: 3.2rem 2rem;
   text-align: center;
 `;
 
 const SectionHeader = styled.div`
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
+`;
+
+const HeaderTop = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+`;
+
+const SliderControl = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #404040;
+  font-size: 0.76rem;
+  font-weight: 700;
+
+  @media (max-width: 680px) {
+    display: none;
+  }
+`;
+
+const SliderLine = styled.span`
+  width: 56px;
+  height: 2px;
+  background: #7d7d7d;
+  border-radius: 999px;
 `;
 
 const Title = styled.h2`
-  font-size: 2rem;
+  font-size: 2.85rem;
   font-weight: 900;
   color: #1B6B3A;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin: 0;
 
   @media (max-width: 640px) {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
   }
 `;
 
 const Subtitle = styled.p`
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   color: #777;
-  margin: 0;
+  margin: 0.35rem auto 0;
+  max-width: 450px;
+  line-height: 1.4;
 `;
 
 const CardsRow = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  max-width: 960px;
+  gap: 1rem;
+  max-width: 980px;
   margin: 0 auto;
 
   @media (max-width: 768px) {
@@ -49,9 +79,9 @@ const CardsRow = styled.div`
 
 const Card = styled.div`
   background: #fff;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.08);
   text-align: left;
   transition: box-shadow 0.2s, transform 0.2s;
 
@@ -63,7 +93,7 @@ const Card = styled.div`
 
 const CardImg = styled.div`
   width: 100%;
-  height: 175px;
+  height: 150px;
   overflow: hidden;
   position: relative;
 
@@ -81,36 +111,52 @@ const CardImg = styled.div`
 
 const NightsBadge = styled.span`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   background: rgba(0,0,0,0.55);
   color: #fff;
-  font-size: 0.65rem;
+  font-size: 0.58rem;
   font-weight: 700;
-  padding: 0.2rem 0.55rem;
+  padding: 0.18rem 0.45rem;
   border-radius: 999px;
   letter-spacing: 0.04em;
   backdrop-filter: blur(4px);
 `;
 
 const CardBody = styled.div`
-  padding: 1rem 1.1rem;
+  padding: 0.72rem 0.8rem;
+`;
+
+const CardTitleRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.55rem;
+  margin-bottom: 0.25rem;
+`;
+
+const GreenDot = styled.span`
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #1B6B3A;
+  flex-shrink: 0;
 `;
 
 const CardTitle = styled.h3`
-  font-size: 0.92rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: #222;
-  margin-bottom: 0.3rem;
+  margin: 0;
 `;
 
 const CardDesc = styled.p`
-  font-size: 0.78rem;
+  font-size: 0.7rem;
   color: #888;
-  line-height: 1.5;
-  margin-bottom: 0.75rem;
+  line-height: 1.35;
+  margin-bottom: 0.45rem;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
@@ -118,14 +164,14 @@ const CardDesc = styled.p`
 const CardMeta = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.85rem;
+  gap: 0.9rem;
+  margin-bottom: 0.5rem;
 `;
 
 const MetaItem = styled.div`
-  font-size: 0.72rem;
+  font-size: 0.62rem;
   color: #999;
   display: flex;
   align-items: center;
@@ -136,20 +182,20 @@ const CardFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 0.75rem;
+  padding-top: 0.5rem;
   border-top: 1px solid #f0f0f0;
 `;
 
 const Price = styled.div`
   .label {
-    font-size: 0.62rem;
+    font-size: 0.56rem;
     color: #999;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
 
   .amount {
-    font-size: 1.05rem;
+    font-size: 0.86rem;
     font-weight: 800;
     color: #1B6B3A;
     line-height: 1;
@@ -158,10 +204,10 @@ const Price = styled.div`
 
 const DetailsBtn = styled.a`
   display: inline-block;
-  padding: 0.38rem 1rem;
+  padding: 0.25rem 0.72rem;
   background: #1B6B3A;
   color: #fff;
-  font-size: 0.72rem;
+  font-size: 0.58rem;
   font-weight: 700;
   border-radius: 999px;
   text-decoration: none;
@@ -174,53 +220,76 @@ const DetailsBtn = styled.a`
   }
 `;
 
-const packages = [
+const defaultPackages = [
   {
+    id: 'UMH001',
     img: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=80',
     nights: '14 Nights',
-    title: 'Economy Umrah Package',
-    desc: 'Comfortable economy-class experience with group accommodation near Haram in Makkah and Madinah.',
-    hotel: '4-Star Hotel',
-    meals: 'Breakfast Included',
-    price: 'Rs. 500+',
+    title: 'Lorem Ipsum',
+    desc: 'Lorem ipsum',
+    hotel: 'Lorem ipsum',
+    meals: 'Rs. 500/-',
+    price: 'Rs. 500/-',
   },
   {
+    id: 'UMH002',
     img: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=600&q=80',
     nights: '21 Nights',
-    title: 'Premium Umrah Package',
-    desc: 'Upgraded rooms 50m from Haram, direct flights, full visa support, and dedicated group guide.',
-    hotel: '5-Star Hotel',
-    meals: 'Full Board',
-    price: 'Rs. 500+',
+    title: 'Lorem Ipsum',
+    desc: 'Lorem ipsum',
+    hotel: 'Lorem ipsum',
+    meals: 'Rs. 500/-',
+    price: 'Rs. 500/-',
   },
   {
+    id: 'UMH003',
     img: 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=600&q=80',
     nights: '10 Nights',
-    title: 'Budget Umrah Package',
-    desc: 'Ideal for solo travelers seeking an affordable yet complete Umrah experience with group transport.',
-    hotel: '3-Star Hotel',
-    meals: 'Bed & Breakfast',
-    price: 'Rs. 300+',
+    title: 'Lorem Ipsum',
+    desc: 'Lorem ipsum',
+    hotel: 'Lorem ipsum',
+    meals: 'Rs. 500/-',
+    price: 'Rs. 500/-',
   },
 ];
 
-export default function UmrahPackages() {
+export default function UmrahPackages({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const packages = Array.isArray(data.packages) && data.packages.length > 0 ? data.packages : defaultPackages;
+  const detailsHref = data.detailsHref || '/umrah-packages';
+  const detailsLabel = data.detailsLabel || 'Details';
+
   return (
     <Section id="umrah">
       <SectionHeader>
-        <Title>Umrah Packages 2026</Title>
-        <Subtitle>Discover top flight deals for elite travel experiences at unprecedented prices</Subtitle>
+        <HeaderTop>
+          <Title>{data.title || 'Umrah Packages 2026'}</Title>
+          <SliderControl aria-hidden="true">
+            <span>←</span>
+            <SliderLine />
+            <span>→</span>
+          </SliderControl>
+        </HeaderTop>
+        <Subtitle>{data.subtitle || 'Discover top flight deals for elite travel experiences at unprecedented prices'}</Subtitle>
       </SectionHeader>
 
       <CardsRow>
-        {packages.map((pkg) => (
-          <Card key={pkg.title}>
+        {packages.map((pkg, index) => (
+          <Card key={pkg.id}>
             <CardImg>
-              <img src={pkg.img} alt={pkg.title} loading="lazy" />
+              <img
+                src={withImageFallback(pkg.img, index)}
+                alt={pkg.title}
+                loading="lazy"
+                onError={(event) => handleImageError(event, index)}
+              />
               <NightsBadge>{pkg.nights}</NightsBadge>
             </CardImg>
             <CardBody>
-              <CardTitle>{pkg.title}</CardTitle>
+              <CardTitleRow>
+                <CardTitle>{pkg.title}</CardTitle>
+                <GreenDot />
+              </CardTitleRow>
               <CardDesc>{pkg.desc}</CardDesc>
               <CardMeta>
                 <MetaItem>🏨 {pkg.hotel}</MetaItem>
@@ -231,7 +300,7 @@ export default function UmrahPackages() {
                   <div className="label">Starting from</div>
                   <div className="amount">{pkg.price}</div>
                 </Price>
-                <DetailsBtn href="#umrah">Details</DetailsBtn>
+                <DetailsBtn href={detailsHref}>{detailsLabel}</DetailsBtn>
               </CardFooter>
             </CardBody>
           </Card>

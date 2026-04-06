@@ -5,11 +5,10 @@ import styled from 'styled-components';
 
 const Section = styled.section`
   background: #d6e4d6;
-  /* top padding = card height (160px) so carousel content clears the overlapping CTA card */
-  padding: 80px 2rem 3.5rem;
+  padding: 64px 2rem 3.1rem;
 
   @media (max-width: 768px) {
-    padding: 130px 1rem 3rem;
+    padding: 100px 1rem 2.7rem;
   }
 `;
 
@@ -17,8 +16,8 @@ const Inner = styled.div`
   max-width: 1060px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 2.5rem;
+  grid-template-columns: 200px 1fr;
+  gap: 2.1rem;
   align-items: start;
 
   @media (max-width: 768px) {
@@ -32,7 +31,7 @@ const LeftPanel = styled.div`
 `;
 
 const QuoteIcon = styled.div`
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 900;
   color: #1B6B3A;
   line-height: 0.75;
@@ -42,7 +41,7 @@ const QuoteIcon = styled.div`
 `;
 
 const HeadingText = styled.h2`
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: #1a2e1a;
   line-height: 1.4;
@@ -64,7 +63,7 @@ const TrustRow = styled.div`
 `;
 
 const TrustLogo = styled.span`
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 800;
   color: #1a1a1a;
   letter-spacing: -0.01em;
@@ -95,48 +94,38 @@ const StarBox = styled.span`
 const NavRow = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.55rem;
 `;
 
-const RangeSlider = styled.input`
-  -webkit-appearance: none;
-  appearance: none;
+const Rail = styled.div`
   flex: 1;
-  height: 3px;
+  height: 2px;
   border-radius: 999px;
-  background: linear-gradient(
-    to right,
-    #1B6B3A calc(${({ $pct }) => $pct}%),
-    rgba(27,107,58,0.25) calc(${({ $pct }) => $pct}%)
-  );
-  outline: none;
-  cursor: pointer;
+  background: rgba(27,107,58,0.28);
+  position: relative;
+`;
 
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 0;
-    height: 0;
-  }
-
-  &::-moz-range-thumb {
-    width: 0;
-    height: 0;
-    border: none;
-  }
+const RailProgress = styled.span`
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: ${({ $pct }) => `${$pct}%`};
+  background: #1B6B3A;
+  border-radius: 999px;
 `;
 
 const NavArrow = styled.button`
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  border: 2px solid #1B6B3A;
+  border: 1px solid #1B6B3A;
   background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: #1B6B3A;
   transition: all 0.2s;
 
@@ -167,13 +156,13 @@ const CarouselTrack = styled.div`
 const ReviewCard = styled.div`
   flex: 0 0 calc(33.333% - 0.67rem);
   background: #fff;
-  border-radius: 14px;
-  padding: 1.4rem 1.3rem 1.2rem;
+  border-radius: 10px;
+  padding: 1.1rem 1rem 1rem;
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 200px;
+  min-height: 188px;
 
   @media (max-width: 768px) {
     flex: 0 0 calc(100% - 0.5rem);
@@ -181,10 +170,10 @@ const ReviewCard = styled.div`
 `;
 
 const CardText = styled.p`
-  font-size: 0.8rem;
+  font-size: 0.74rem;
   color: #444;
-  line-height: 1.65;
-  margin-bottom: 1.1rem;
+  line-height: 1.55;
+  margin-bottom: 0.9rem;
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
@@ -194,9 +183,9 @@ const CardText = styled.p`
 
 const CardStars = styled.div`
   color: #f5a623;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   letter-spacing: 2px;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.65rem;
 `;
 
 const CardReviewer = styled.div`
@@ -206,8 +195,8 @@ const CardReviewer = styled.div`
 `;
 
 const Avatar = styled.div`
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: #2a2a2a;
   flex-shrink: 0;
@@ -215,18 +204,18 @@ const Avatar = styled.div`
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 0.72rem;
+  font-size: 0.64rem;
   font-weight: 700;
 `;
 
 const ReviewerInfo = styled.div`
   .name {
-    font-size: 0.82rem;
+    font-size: 0.74rem;
     font-weight: 800;
     color: #1a1a1a;
   }
   .sub {
-    font-size: 0.72rem;
+    font-size: 0.64rem;
     color: #888;
   }
 `;
@@ -279,6 +268,7 @@ const reviews = [
 export default function CustomerReviews() {
   const [offset, setOffset] = useState(0);
   const maxOffset = reviews.length - 3;
+  const progressPct = maxOffset === 0 ? 100 : (offset / maxOffset) * 100;
 
   return (
     <Section id="reviews">
@@ -307,14 +297,9 @@ export default function CustomerReviews() {
             >
               ←
             </NavArrow>
-            <RangeSlider
-              type="range"
-              min={0}
-              max={maxOffset}
-              value={offset}
-              $pct={maxOffset === 0 ? 100 : (offset / maxOffset) * 100}
-              onChange={e => setOffset(Number(e.target.value))}
-            />
+            <Rail>
+              <RailProgress $pct={progressPct} />
+            </Rail>
             <NavArrow
               onClick={() => setOffset(o => Math.min(maxOffset, o + 1))}
               disabled={offset >= maxOffset}

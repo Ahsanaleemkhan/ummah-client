@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { handleImageError, withImageFallback } from '../../lib/imageFallbacks';
 
 const CardWrapper = styled.div`
   background: ${({ theme }) => theme.colors.backgroundCard};
@@ -60,7 +61,12 @@ Card.Image = function CardImageComponent({ src, alt, height, badge, children }) 
     return (
         <CardImage $height={height}>
             {badge && <CardBadge>{badge}</CardBadge>}
-            <img src={src} alt={alt || ''} loading="lazy" />
+      <img
+        src={withImageFallback(src, 0)}
+        alt={alt || ''}
+        loading="lazy"
+        onError={(event) => handleImageError(event, 0)}
+      />
             {children}
         </CardImage>
     );

@@ -1,23 +1,24 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme, typography, spacing, borderRadius, transitions, breakpoints } from '../styles/theme';
 
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-    const [isDark, setIsDark] = useState(false);
-
-    useEffect(() => {
-        const saved = localStorage.getItem('ummah-travel-theme');
-        if (saved) {
-            setIsDark(saved === 'dark');
-        } else {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setIsDark(prefersDark);
+    const [isDark, setIsDark] = useState(() => {
+        if (typeof window === 'undefined') {
+            return false;
         }
-    }, []);
+
+        const saved = window.localStorage.getItem('ummah-travel-theme');
+        if (saved) {
+            return saved === 'dark';
+        }
+
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
 
     const toggleTheme = useCallback(() => {
         setIsDark(prev => {

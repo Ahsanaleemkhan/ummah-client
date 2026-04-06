@@ -1,6 +1,7 @@
 import './globals.css';
 import StyledComponentsRegistry from '../lib/registry';
 import { ThemeProvider } from '../context/ThemeContext';
+import CmsDesignTokensProvider from '../components/CmsDesignTokensProvider';
 
 export const metadata = {
   title: 'Ummah Travel — Premium Umrah, Flights, Hotels & Tour Packages',
@@ -19,7 +20,9 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning>
         <StyledComponentsRegistry>
           <ThemeProvider>
-            {children}
+            <CmsDesignTokensProvider>
+              {children}
+            </CmsDesignTokensProvider>
           </ThemeProvider>
         </StyledComponentsRegistry>
       </body>

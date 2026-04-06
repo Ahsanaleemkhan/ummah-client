@@ -1,15 +1,16 @@
 'use client';
 
 import styled from 'styled-components';
+import { handleImageError, withImageFallback } from '../lib/imageFallbacks';
 
 const Section = styled.section`
-  background: #ffffff;
-  padding: 3.5rem 2rem 4rem;
+  background: #ececec;
+  padding: 3.2rem 2rem 3.6rem;
   text-align: center;
 `;
 
 const Title = styled.h2`
-  font-size: 2.6rem;
+  font-size: 3rem;
   font-weight: 900;
   color: #1B6B3A;
   letter-spacing: 0.04em;
@@ -17,7 +18,7 @@ const Title = styled.h2`
   margin-bottom: 2.75rem;
 
   @media (max-width: 640px) {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 1.75rem;
   }
 `;
@@ -100,7 +101,7 @@ const ArrowIcon = styled.span`
 `;
 
 // flagcdn.com/w40/{iso2}.png — free, reliable flag images
-const leftVisas = [
+const defaultLeftVisas = [
   { code: 'au', name: 'Australia',       price: 'PKR 95,000' },
   { code: 'ca', name: 'Canada',          price: 'PKR 95,000' },
   { code: 'gr', name: 'Greece',          price: 'PKR 75,000' },
@@ -109,7 +110,7 @@ const leftVisas = [
   { code: 'gb', name: 'United Kingdom',  price: 'PKR 95,000' },
 ];
 
-const rightVisas = [
+const defaultRightVisas = [
   { code: 'az', name: 'Azerbaijan',              price: 'PKR 13,000' },
   { code: 'eg', name: 'Egypt',                   price: 'PKR 75,000' },
   { code: 'hk', name: 'Hong Kong',               price: 'PKR 49,000' },
@@ -118,15 +119,16 @@ const rightVisas = [
   { code: 'us', name: 'USA',                     price: 'PKR 95,000' },
 ];
 
-function VisaList({ visas }) {
+function VisaList({ visas, fallbackOffset = 0 }) {
   return (
     <Column>
-      {visas.map((visa) => (
+      {visas.map((visa, index) => (
         <VisaRow key={visa.name} href="#visas">
           <FlagImg
-            src={`https://flagcdn.com/w40/${visa.code}.png`}
+            src={withImageFallback(`https://flagcdn.com/w40/${visa.code}.png`, fallbackOffset + index)}
             srcSet={`https://flagcdn.com/w80/${visa.code}.png 2x`}
             alt={visa.name}
+            onError={(event) => handleImageError(event, fallbackOffset + index)}
           />
           <VisaInfo>
             <CountryName>{visa.name}</CountryName>
@@ -139,13 +141,17 @@ function VisaList({ visas }) {
   );
 }
 
-export default function TrendingVisas() {
+export default function TrendingVisas({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const leftVisas = Array.isArray(data.leftVisas) && data.leftVisas.length > 0 ? data.leftVisas : defaultLeftVisas;
+  const rightVisas = Array.isArray(data.rightVisas) && data.rightVisas.length > 0 ? data.rightVisas : defaultRightVisas;
+
   return (
     <Section id="visas">
-      <Title>Trending Visas</Title>
+      <Title>{data.title || 'Trending Visas'}</Title>
       <TwoColumns>
         <VisaList visas={leftVisas} />
-        <VisaList visas={rightVisas} />
+        <VisaList visas={rightVisas} fallbackOffset={20} />
       </TwoColumns>
     </Section>
   );

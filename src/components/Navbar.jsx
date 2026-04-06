@@ -1,140 +1,109 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-/* ── Full-width white background wrapper ── */
-const NavOuter = styled.nav`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  height: 60px;
-  background: #ffffff;
-  box-shadow: ${({ $scrolled }) => $scrolled ? '0 1px 6px rgba(0,0,0,0.06)' : 'none'};
-  transition: box-shadow 0.25s ease;
+const HeaderShell = styled.header`
+  background: ${({ $backgroundColor }) => $backgroundColor};
+  position: ${({ $sticky }) => ($sticky ? 'fixed' : 'relative')};
+  top: ${({ $sticky }) => ($sticky ? '0' : 'auto')};
+  left: ${({ $sticky }) => ($sticky ? '0' : 'auto')};
+  right: ${({ $sticky }) => ($sticky ? '0' : 'auto')};
+  z-index: ${({ $sticky }) => ($sticky ? '1000' : '5')};
+  padding: 0.75rem 1.25rem 0.6rem;
+  box-shadow: ${({ $sticky }) => ($sticky ? '0 1px 6px rgba(0,0,0,0.06)' : 'none')};
 `;
 
-/* ── Inner content — narrower, centered ── */
-const NavInner = styled.div`
-  max-width: 1200px;
+const HeaderInner = styled.div`
+  max-width: 1040px;
   margin: 0 auto;
-  height: 100%;
+`;
+
+const TopRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 3.5rem;
-  position: relative;
+  gap: 1rem;
 
-  /* Bottom line — aligned with logo and button */
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 3.5rem;
-    right: 3.5rem;
-    height: 3px;
-    background: #1B6B3A;
-    border-radius: 3px 3px 0 0;
-  }
-
-  @media (max-width: 1080px) {
-    padding: 0 1.5rem;
-
-    &::after {
-      left: 1.5rem;
-      right: 1.5rem;
-    }
+  @media (max-width: 960px) {
+    gap: 0.8rem;
   }
 `;
 
-/* ── Logo ── */
-const Logo = styled.a`
+const Logo = styled(Link)`
   display: flex;
   flex-direction: column;
   line-height: 1;
   text-decoration: none;
-  cursor: pointer;
   flex-shrink: 0;
 `;
 
 const LogoBrand = styled.span`
-  font-size: 1.85rem;
+  font-size: 1.95rem;
   font-weight: 800;
-  color: #1B6B3A;
-  letter-spacing: -0.02em;
+  color: ${({ $dark }) => ($dark ? '#ffffff' : '#131313')};
+  letter-spacing: -0.03em;
   line-height: 1;
 `;
 
 const LogoSub = styled.span`
-  font-size: 0.55rem;
+  font-size: 0.58rem;
   font-weight: 400;
-  color: #1B6B3A;
-  letter-spacing: 0.12em;
+  color: ${({ $dark }) => ($dark ? '#d8ebdd' : '#1b6b3a')};
+  letter-spacing: 0.14em;
   font-style: italic;
-  margin-top: -1px;
+  margin-top: -2px;
 `;
 
-/* ── Nav Links (Center) ── */
-const NavCenter = styled.ul`
-  display: flex;
-  align-items: center;
-  gap: 0;
+const DesktopLinks = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.62rem;
 
-  @media (max-width: 1080px) {
+  @media (max-width: 960px) {
     display: none;
   }
 `;
 
-const NavItem = styled.li`
-  a {
-    display: block;
-    padding: 0.5rem 0.65rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #333333;
-    white-space: nowrap;
-    transition: color 0.15s;
-    text-decoration: none;
-
-    &:hover {
-      color: #1B6B3A;
-    }
-  }
-`;
-
-/* ── Right Side ── */
-const NavRight = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-`;
-
-const LoginBtn = styled.a`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.45rem 1.1rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #ffffff;
-  background: #1B6B3A;
-  border: 2px solid #1B6B3A;
-  border-radius: 999px;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition: all 0.2s;
+const DesktopLink = styled(Link)`
   text-decoration: none;
+  color: ${({ $dark }) => ($dark ? 'rgba(255, 255, 255, 0.92)' : '#202020')};
+  font-size: 0.72rem;
+  font-weight: 500;
   white-space: nowrap;
 
   &:hover {
-    background: #145230;
-    border-color: #145230;
+    color: ${({ $dark }) => ($dark ? '#ffffff' : '#1b6b3a')};
+  }
+`;
+
+const RightSide = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+`;
+
+const LoginButton = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 999px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.36rem 0.86rem;
+  background: ${({ $dark }) => ($dark ? '#ffffff' : '#126c39')};
+  color: ${({ $dark }) => ($dark ? '#135b34' : '#ffffff')};
+  white-space: nowrap;
+
+  &:hover {
+    background: ${({ $dark }) => ($dark ? '#f2f6f3' : '#145230')};
   }
 
   @media (max-width: 768px) {
@@ -142,116 +111,129 @@ const LoginBtn = styled.a`
   }
 `;
 
-/* ── Mobile Menu ── */
 const MobileBtn = styled.button`
   display: none;
-  width: 36px;
+  border: none;
+  background: none;
+  color: ${({ $dark }) => ($dark ? '#ffffff' : '#202020')};
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  min-width: 52px;
   height: 36px;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
-  color: #333;
-  background: none;
-  border: none;
-  cursor: pointer;
 
-  @media (max-width: 1080px) {
+  @media (max-width: 960px) {
     display: flex;
   }
 `;
 
-const MobileOverlay = styled.div`
-  position: fixed;
-  top: 60px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #ffffff;
-  z-index: 999;
-  padding: 1.5rem;
+const Divider = styled.div`
+  height: 1px;
+  background: ${({ $dark }) => ($dark ? 'rgba(255, 255, 255, 0.45)' : '#969696')};
+  margin-top: 0.6rem;
+`;
+
+const MobileMenu = styled.div`
+  margin-top: 0.65rem;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  overflow-y: auto;
+  gap: 0.4rem;
 
-  a {
-    display: block;
-    padding: 0.85rem 1rem;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #333;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background 0.15s;
-
-    &:hover {
-      background: #f5f5f5;
-      color: #1B6B3A;
-    }
+  @media (min-width: 961px) {
+    display: none;
   }
 `;
 
-/* ── Data ── */
+const MobileLink = styled(Link)`
+  text-decoration: none;
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: ${({ $dark }) => ($dark ? '#ffffff' : '#202020')};
+  background: ${({ $dark }) => ($dark ? 'rgba(255,255,255,0.08)' : 'rgba(18,108,57,0.08)')};
+
+  &:hover {
+    background: ${({ $dark }) => ($dark ? 'rgba(255,255,255,0.14)' : 'rgba(18,108,57,0.14)')};
+  }
+`;
+
 const navItems = [
-  { label: 'Flights', href: '#flights' },
-  { label: 'Hotels', href: '#hotels' },
-  { label: 'Tour Packages', href: '#tours' },
-  { label: 'Destinations', href: '#destinations' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Blog / Travel Tips', href: '#blog' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Flights', href: '/flights' },
+  { label: 'Hotels', href: '/hotels' },
+  { label: 'Umrah Packages', href: '/umrah-packages' },
+  { label: 'Tour Packages', href: '/tours' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Blog / Travel Tips', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
 ];
 
-export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+export default function Navbar({
+  navLinks = navItems,
+  loginButtonText = 'LOGIN / REGISTER',
+  loginButtonHref = '/contact',
+  backgroundColor = '#ececec',
+  dark = false,
+  sticky = true,
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 5);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
-    <>
-      <NavOuter $scrolled={scrolled}>
-        <NavInner>
-          <Logo href="/">
-            <LogoBrand>ummah</LogoBrand>
-            <LogoSub>travel</LogoSub>
+    <HeaderShell $backgroundColor={backgroundColor} $sticky={sticky}>
+      <HeaderInner>
+        <TopRow>
+          <Logo href="/" onClick={() => setMobileOpen(false)}>
+            <LogoBrand $dark={dark}>ummah</LogoBrand>
+            <LogoSub $dark={dark}>travel</LogoSub>
           </Logo>
 
-          <NavCenter>
-            {navItems.map(item => (
-              <NavItem key={item.label}>
-                <a href={item.href}>{item.label}</a>
-              </NavItem>
+          <DesktopLinks>
+            {navLinks.map((item) => (
+              <li key={item.label}>
+                <DesktopLink $dark={dark} href={item.href}>
+                  {item.label}
+                </DesktopLink>
+              </li>
             ))}
-          </NavCenter>
+          </DesktopLinks>
 
-          <NavRight>
-            <LoginBtn href="#login">LOGIN / REGISTER</LoginBtn>
-            <MobileBtn onClick={() => setMobileOpen(o => !o)} aria-label="Menu">
-              {mobileOpen ? '✕' : '☰'}
+          <RightSide>
+            <LoginButton $dark={dark} href={loginButtonHref}>
+              {loginButtonText}
+            </LoginButton>
+            <MobileBtn
+              $dark={dark}
+              onClick={() => setMobileOpen((state) => !state)}
+              aria-label="Menu"
+            >
+              {mobileOpen ? 'CLOSE' : 'MENU'}
             </MobileBtn>
-          </NavRight>
-        </NavInner>
-      </NavOuter>
+          </RightSide>
+        </TopRow>
 
-      {mobileOpen && (
-        <MobileOverlay>
-          {navItems.map(item => (
-            <a key={item.label} href={item.href} onClick={() => setMobileOpen(false)}>
-              {item.label}
-            </a>
-          ))}
-          <div style={{ padding: '1rem 1rem 0' }}>
-            <LoginBtn href="#login" style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-              LOGIN / REGISTER
-            </LoginBtn>
-          </div>
-        </MobileOverlay>
-      )}
-    </>
+        <Divider $dark={dark} />
+
+        {mobileOpen ? (
+          <MobileMenu>
+            {navLinks.map((item) => (
+              <MobileLink
+                key={item.label}
+                $dark={dark}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+              >
+                {item.label}
+              </MobileLink>
+            ))}
+            <MobileLink $dark={dark} href={loginButtonHref} onClick={() => setMobileOpen(false)}>
+              {loginButtonText}
+            </MobileLink>
+          </MobileMenu>
+        ) : null}
+      </HeaderInner>
+    </HeaderShell>
   );
 }

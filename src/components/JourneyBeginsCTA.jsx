@@ -2,26 +2,19 @@
 
 import styled from 'styled-components';
 
-/*
-  Section has NO top padding.
-  The card uses a true negative margin-top (-80px = half its height)
-  so it physically protrudes 80px ABOVE the section boundary into
-  the DestinationGrid section above.
-*/
 const Section = styled.section`
   background: #d6e4d6;
-  padding: 1rem 2rem 0;
+  padding: 0 2rem 0;
   position: relative;
-  z-index: 3;          /* sit above DestinationGrid so card is visible */
+  z-index: 3;
   overflow: visible;
 `;
 
-/* White card — sharp corners, half-protruding above the section */
 const Card = styled.div`
   max-width: 1060px;
-  margin: -50px auto 0;  /* true negative: card top is 80px above section top */
+  margin: -24px auto 0;
   background: #ffffff;
-  border-radius: 0;       /* sharp edges */
+  border-radius: 8px;
   box-shadow: 0 8px 36px rgba(0,0,0,0.14);
   display: flex;
   align-items: flex-start;
@@ -33,20 +26,19 @@ const Card = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    margin: -50px auto 0;
+    margin: -20px auto 0;
     min-height: auto;
   }
 `;
 
-/* Text on the left — pinned to top */
 const TextSide = styled.div`
   flex-shrink: 0;
-  padding: 2rem 2.5rem;
+  padding: 1.65rem 2.2rem;
   align-self: flex-start;
 `;
 
 const HeadingNormal = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 400;
   color: #1B6B3A;
   line-height: 1.2;
@@ -57,7 +49,7 @@ const HeadingNormal = styled.div`
 `;
 
 const HeadingBold = styled.div`
-  font-size: 1.8rem;
+  font-size: 1.65rem;
   font-weight: 900;
   color: #1B6B3A;
   line-height: 1.15;
@@ -67,13 +59,12 @@ const HeadingBold = styled.div`
   }
 `;
 
-/* Mosque fills the right side and is pinned to the bottom */
 const MosqueSide = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;   /* mosque sits at bottom of card */
-  height: 160px;
+  height: 148px;
   overflow: hidden;
 
   svg {
@@ -154,13 +145,20 @@ function MosqueSVG() {
   );
 }
 
-export default function JourneyBeginsCTA() {
+const defaultJourneyContent = {
+  headingNormal: 'Your Umrah Journey',
+  headingBold: 'Begins Here',
+};
+
+export default function JourneyBeginsCTA({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+
   return (
     <Section id="start-journey">
       <Card>
         <TextSide>
-          <HeadingNormal>Your Umrah Journey</HeadingNormal>
-          <HeadingBold>Begins Here</HeadingBold>
+          <HeadingNormal>{data.headingNormal || defaultJourneyContent.headingNormal}</HeadingNormal>
+          <HeadingBold>{data.headingBold || defaultJourneyContent.headingBold}</HeadingBold>
         </TextSide>
         <MosqueSide>
           <MosqueSVG />

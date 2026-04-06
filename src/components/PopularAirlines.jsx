@@ -3,21 +3,21 @@
 import styled from 'styled-components';
 
 const Section = styled.section`
-  background: #ffffff;
-  padding: 3.5rem 2rem 2.5rem;
+  background: #ececec;
+  padding: 1.5rem 2rem 2.2rem;
   text-align: center;
 `;
 
 const Title = styled.h2`
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 900;
   color: #1B6B3A;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.7rem;
 
   @media (max-width: 640px) {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 `;
 
@@ -157,15 +157,17 @@ const SkyToursLogo = styled.div`
   }
 `;
 
-export default function PopularAirlines() {
+export default function PopularAirlines({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+
   return (
     <Section id="airlines">
-      <Title>Popular Airlines</Title>
+      <Title>{data.title || 'Popular Airlines'}</Title>
       <LogosRow>
         <AirlineLogo>
           <FlyJinnahLogo>
             FlyJinnah
-            <span>Pakistan's Low Cost Airline</span>
+            <span>Pakistan&apos;s Low Cost Airline</span>
           </FlyJinnahLogo>
         </AirlineLogo>
 

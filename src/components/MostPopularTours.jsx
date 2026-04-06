@@ -2,43 +2,48 @@
 
 import { useState } from 'react';
 import styled from 'styled-components';
+import { handleImageError, withImageFallback } from '../lib/imageFallbacks';
 
 const Section = styled.section`
-  background: #f0f0ed;
-  padding: 4rem 2rem;
+  background: #ececec;
+  padding: 3.2rem 2rem;
   text-align: center;
 `;
 
 const SectionHeader = styled.div`
-  margin-bottom: 2.75rem;
+  margin-bottom: 1.9rem;
 `;
 
 const Title = styled.h2`
-  font-size: 2.6rem;
+  font-size: 3rem;
   font-weight: 900;
   color: #1B6B3A;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.3rem;
 
   @media (max-width: 640px) {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 `;
 
 const Subtitle = styled.p`
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   color: #666;
   margin: 0;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.45;
 `;
 
 /* Flex row — cards redistribute space on hover */
 const CardsRow = styled.div`
   display: flex;
-  gap: 1rem;
-  max-width: 1100px;
+  gap: 0.8rem;
+  max-width: 980px;
   margin: 0 auto;
-  height: 320px;
+  height: 265px;
   align-items: stretch;
 
   @media (max-width: 768px) {
@@ -50,7 +55,7 @@ const CardsRow = styled.div`
 /* Each card stretches/shrinks via flex */
 const Card = styled.div`
   flex: ${({ $active }) => $active ? '2.6' : '1'};
-  border-radius: 18px;
+  border-radius: 14px;
   overflow: hidden;
   position: relative;
   cursor: pointer;
@@ -68,7 +73,7 @@ const Card = styled.div`
 /* Image fills the card, always visible */
 const CardImage = styled.div`
   flex-shrink: 0;
-  width: ${({ $active }) => $active ? '55%' : '100%'};
+  width: ${({ $active }) => $active ? '52%' : '100%'};
   transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -94,17 +99,17 @@ const CardImage = styled.div`
 /* Arrow button shown on inactive cards */
 const ArrowBtn = styled.div`
   position: absolute;
-  bottom: 14px;
-  right: 14px;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  bottom: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
   background: rgba(27,107,58,0.88);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.78rem;
   font-weight: 700;
   transition: opacity 0.3s;
   opacity: ${({ $visible }) => $visible ? 1 : 0};
@@ -114,7 +119,7 @@ const ArrowBtn = styled.div`
 /* Content panel slides in from the right when active */
 const ContentPanel = styled.div`
   background: #fff;
-  padding: 1.75rem 1.5rem;
+  padding: 1.15rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -122,8 +127,8 @@ const ContentPanel = styled.div`
   overflow: hidden;
 
   /* Width animates via the parent flex transition */
-  width: ${({ $active }) => $active ? '45%' : '0'};
-  min-width: ${({ $active }) => $active ? '200px' : '0'};
+  width: ${({ $active }) => $active ? '48%' : '0'};
+  min-width: ${({ $active }) => $active ? '180px' : '0'};
   flex-shrink: 0;
   opacity: ${({ $active }) => $active ? 1 : 0};
   transform: ${({ $active }) => $active ? 'translateX(0)' : 'translateX(20px)'};
@@ -142,7 +147,7 @@ const ContentPanel = styled.div`
 `;
 
 const TourTitle = styled.h3`
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 800;
   color: #1a1a2e;
   margin-bottom: 0.2rem;
@@ -152,28 +157,28 @@ const TourTitle = styled.h3`
 `;
 
 const TourSubtitle = styled.div`
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   color: #888;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.5rem;
 `;
 
 const TourDesc = styled.p`
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: #555;
-  line-height: 1.6;
-  margin-bottom: 1.1rem;
+  line-height: 1.45;
+  margin-bottom: 0.7rem;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
 
 const LearnMoreBtn = styled.a`
   display: inline-block;
-  padding: 0.45rem 1.2rem;
+  padding: 0.34rem 0.95rem;
   background: #1B6B3A;
   color: #fff;
-  font-size: 0.75rem;
+  font-size: 0.62rem;
   font-weight: 700;
   border-radius: 999px;
   text-decoration: none;
@@ -188,35 +193,40 @@ const LearnMoreBtn = styled.a`
   }
 `;
 
-const tours = [
+const defaultTours = [
   {
-    img: 'https://picsum.photos/seed/baku/800/600',
+    img: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=1000&q=80',
     title: 'Baku City Explorer',
     subtitle: 'Azerbaijan',
     desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.',
   },
   {
-    img: 'https://picsum.photos/seed/maldives/800/600',
+    img: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=1000&q=80',
     title: 'Maldives Retreat',
     subtitle: 'Maldives',
     desc: 'Escape to paradise with overwater bungalows, pristine beaches, and crystal-clear lagoons. An unforgettable halal-friendly getaway for couples and families.',
   },
   {
-    img: 'https://picsum.photos/seed/vietnam/800/600',
+    img: 'https://images.unsplash.com/photo-1528127269322-539801943592?w=1000&q=80',
     title: 'Vietnam Discovery',
     subtitle: 'Vietnam',
     desc: 'Journey through ancient temples, lush valleys and iconic floating villages. A cultural adventure blending history, nature and authentic local cuisine.',
   },
 ];
 
-export default function MostPopularTours() {
+export default function MostPopularTours({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const tours = Array.isArray(data.tours) && data.tours.length > 0 ? data.tours : defaultTours;
+  const learnMoreLabel = data.learnMoreLabel || 'Learn More';
+  const learnMoreHref = data.learnMoreHref || '#tours';
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <Section id="tours">
       <SectionHeader>
-        <Title>Most Popular Tours</Title>
-        <Subtitle>Discover top flight deals for elite travel experiences at unprecedented prices</Subtitle>
+        <Title>{data.title || 'Most Popular Tours'}</Title>
+        <Subtitle>{data.subtitle || 'Discover top flight deals for elite travel experiences at unprecedented prices'}</Subtitle>
       </SectionHeader>
 
       <CardsRow>
@@ -224,13 +234,18 @@ export default function MostPopularTours() {
           const isActive = activeIndex === i;
           return (
             <Card
-              key={tour.title}
+              key={tour.id || `${tour.title}-${i}`}
               $active={isActive}
               onMouseEnter={() => setActiveIndex(i)}
             >
               {/* Image side */}
               <CardImage $active={isActive}>
-                <img src={tour.img} alt={tour.title} loading="lazy" />
+                <img
+                  src={withImageFallback(tour.img, i)}
+                  alt={tour.title}
+                  loading="lazy"
+                  onError={(event) => handleImageError(event, i)}
+                />
                 <ArrowBtn $visible={!isActive}>↗</ArrowBtn>
               </CardImage>
 
@@ -239,7 +254,7 @@ export default function MostPopularTours() {
                 <TourTitle>{tour.title}</TourTitle>
                 <TourSubtitle>{tour.subtitle}</TourSubtitle>
                 <TourDesc>{tour.desc}</TourDesc>
-                <LearnMoreBtn href="#tours">Learn More</LearnMoreBtn>
+                <LearnMoreBtn href={learnMoreHref}>{learnMoreLabel}</LearnMoreBtn>
               </ContentPanel>
             </Card>
           );

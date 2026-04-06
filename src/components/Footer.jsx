@@ -1,40 +1,27 @@
 'use client';
 
+import Link from 'next/link';
 import styled from 'styled-components';
 
-/* ── Outer gray background ── */
-const FooterOuter = styled.footer`
-  background: #f0f1ec;
-  padding: 0 2rem 2rem;
-
-  @media (max-width: 768px) {
-    padding: 0 1rem 1rem;
-  }
+const FooterWrap = styled.footer`
+  background: var(--app-surface-color, #e6e8e3);
+  padding: 2.6rem 2rem 2rem;
 `;
 
-/* ── White card container ── */
-const FooterCard = styled.div`
-  max-width: 1000px;
+const FooterInner = styled.div`
+  max-width: 1040px;
   margin: 0 auto;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 3rem 3.5rem;
+  padding: 0;
 
   @media (max-width: 1024px) {
-    padding: 2.5rem 2rem;
-  }
-
-  @media (max-width: 768px) {
-    padding: 2rem 1.5rem;
-    border-radius: 12px;
+    padding: 0;
   }
 `;
 
-/* ── 4-column grid ── */
 const FooterGrid = styled.div`
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1.3fr 1fr;
-  gap: 2.5rem;
+  grid-template-columns: 1.3fr 1fr 1.3fr 1fr;
+  gap: 2.2rem;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr 1fr;
@@ -47,21 +34,20 @@ const FooterGrid = styled.div`
   }
 `;
 
-/* ── Brand column ── */
 const BrandCol = styled.div``;
 
 const LogoBrand = styled.div`
-  font-size: 2rem;
+  font-size: 2.15rem;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--app-heading-color, #1a1a1a);
   line-height: 1;
   letter-spacing: -0.02em;
 `;
 
 const LogoSub = styled.div`
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   font-weight: 400;
-  color: #1B6B3A;
+  color: var(--app-primary-color, #1B6B3A);
   font-style: italic;
   letter-spacing: 0.12em;
   margin-top: -1px;
@@ -69,81 +55,125 @@ const LogoSub = styled.div`
 `;
 
 const BrandDesc = styled.p`
-  font-size: 0.78rem;
-  color: #555;
-  line-height: 1.65;
+  font-size: 0.72rem;
+  color: var(--app-text-color, #4f4f4f);
+  line-height: 1.6;
   max-width: 240px;
 `;
 
-/* ── Link columns ── */
 const LinkCol = styled.div``;
 
 const ColTitle = styled.h4`
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--app-heading-color, #1a1a1a);
   margin-bottom: 0.85rem;
   letter-spacing: -0.01em;
 `;
 
 const ColLink = styled.a`
   display: block;
-  font-size: 0.82rem;
-  color: #444;
+  font-size: 0.8rem;
+  color: var(--app-text-color, #444);
   text-decoration: none;
-  padding: 0.22rem 0;
+  padding: 0.18rem 0;
   line-height: 1.5;
   transition: color 0.15s;
   cursor: pointer;
 
   &:hover {
-    color: #1B6B3A;
+    color: var(--app-primary-color, #1B6B3A);
   }
 `;
 
-export default function Footer() {
+const defaultFooterContent = {
+  brandMain: 'ummah',
+  brandSub: 'travel',
+  brandDesc: 'Trusted travel partner for flights, hotels, tours, Umrah, and Hajj with transparent pricing and dedicated support.',
+  quickLinksTitle: 'Quick links',
+  quickLinks: [
+    { label: 'Tour Packages', href: '/tours' },
+    { label: 'Hotels', href: '/hotels' },
+    { label: 'Flights', href: '/flights' },
+    { label: 'Who We Are', href: '/about' },
+  ],
+  packagesTitle: 'Packages',
+  packagesLinks: [
+    { label: 'Umrah Packages 2026', href: '/umrah-packages' },
+    { label: 'Hajj Packages 2026', href: '/hajj-packages' },
+    { label: 'International Tours', href: '/tours' },
+    { label: 'Custom Packages', href: '/contact' },
+    { label: 'Visa Assistance', href: '/contact' },
+  ],
+  supportTitle: 'Support',
+  supportLinks: [
+    { label: 'Contact', href: '/contact' },
+    { label: 'FAQs', href: '/contact' },
+    { label: 'Travel Blog', href: '/blog' },
+    { label: 'Partner With Us', href: '/contact' },
+  ],
+};
+
+function normalizeLinks(value, fallback) {
+  if (!Array.isArray(value) || value.length === 0) {
+    return fallback;
+  }
+
+  return value
+    .map((item) => ({
+      label: item?.label || '',
+      href: item?.href || '#',
+    }))
+    .filter((item) => item.label);
+}
+
+export default function Footer({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+
+  const quickLinks = normalizeLinks(data.quickLinks, defaultFooterContent.quickLinks);
+  const packagesLinks = normalizeLinks(data.packagesLinks, defaultFooterContent.packagesLinks);
+  const supportLinks = normalizeLinks(data.supportLinks, defaultFooterContent.supportLinks);
+
   return (
-    <FooterOuter>
-      <FooterCard>
+    <FooterWrap>
+      <FooterInner>
         <FooterGrid>
-          {/* Column 1: Brand */}
           <BrandCol>
-            <LogoBrand>ummah</LogoBrand>
-            <LogoSub>travel</LogoSub>
+            <LogoBrand>{data.brandMain || defaultFooterContent.brandMain}</LogoBrand>
+            <LogoSub>{data.brandSub || defaultFooterContent.brandSub}</LogoSub>
             <BrandDesc>
-              Lorem ipsum dolor sit amet, con-sectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas ac-cumsan lacus vel facilisis.
+              {data.brandDesc || defaultFooterContent.brandDesc}
             </BrandDesc>
           </BrandCol>
 
-          {/* Column 2: Quick links */}
           <LinkCol>
-            <ColTitle>Quick links</ColTitle>
-            <ColLink href="#">Packages</ColLink>
-            <ColLink href="#">Transport</ColLink>
-            <ColLink href="#">Umrah Visa</ColLink>
-            <ColLink href="#">Who We Are</ColLink>
+            <ColTitle>{data.quickLinksTitle || defaultFooterContent.quickLinksTitle}</ColTitle>
+            {quickLinks.map((item) => (
+              <ColLink as={Link} href={item.href} key={`${item.label}-${item.href}`}>
+                {item.label}
+              </ColLink>
+            ))}
           </LinkCol>
 
-          {/* Column 3: Packages */}
           <LinkCol>
-            <ColTitle>Packages</ColTitle>
-            <ColLink href="#">Umrah packages Pakistan 2026</ColLink>
-            <ColLink href="#">Umrah packages Canada 2026</ColLink>
-            <ColLink href="#">Umrah packages UK 2026</ColLink>
-            <ColLink href="#">Umrah packages USA 2026</ColLink>
-            <ColLink href="#">Umrah packages UAE 2026</ColLink>
+            <ColTitle>{data.packagesTitle || defaultFooterContent.packagesTitle}</ColTitle>
+            {packagesLinks.map((item) => (
+              <ColLink as={Link} href={item.href} key={`${item.label}-${item.href}`}>
+                {item.label}
+              </ColLink>
+            ))}
           </LinkCol>
 
-          {/* Column 4: Support */}
           <LinkCol>
-            <ColTitle>Support</ColTitle>
-            <ColLink href="#">Contact</ColLink>
-            <ColLink href="#">FAQ&apos;s</ColLink>
-            <ColLink href="#">Affiliate Page</ColLink>
-            <ColLink href="#">Blog</ColLink>
+            <ColTitle>{data.supportTitle || defaultFooterContent.supportTitle}</ColTitle>
+            {supportLinks.map((item) => (
+              <ColLink as={Link} href={item.href} key={`${item.label}-${item.href}`}>
+                {item.label}
+              </ColLink>
+            ))}
           </LinkCol>
         </FooterGrid>
-      </FooterCard>
-    </FooterOuter>
+      </FooterInner>
+    </FooterWrap>
   );
 }

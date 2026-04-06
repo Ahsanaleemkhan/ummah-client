@@ -3,72 +3,81 @@
 import styled from 'styled-components';
 
 const Section = styled.section`
-  background: #eef4f0;
-  padding: 3.5rem 2rem;
+  background: #ececec;
+  padding: 3.2rem 2rem;
 `;
 
 const Inner = styled.div`
-  max-width: 1100px;
+  max-width: 980px;
   margin: 0 auto;
+  background: #dbe7e0;
+  border-radius: 12px;
+  padding: 2rem 2.1rem;
+
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    max-width: 420px;
+    max-width: 460px;
+    padding: 1.6rem 1.2rem;
   }
 `;
 
 const FeatureCard = styled.div`
-  background: #fff;
-  border-radius: 16px;
-  padding: 2rem 1.75rem 1.75rem;
+  padding: 0.4rem 1rem;
   text-align: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 `;
 
 const IconCircle = styled.div`
-  width: 64px;
-  height: 64px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background: #e8f5e9;
+  background: #f2f7f4;
+  border: 1px solid #b7cbc0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.1rem;
+  margin: 0 auto 0.75rem;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
 `;
 
 const FeatureTitle = styled.h3`
   font-size: 1rem;
   font-weight: 800;
-  color: #1B6B3A;
-  margin-bottom: 0.5rem;
+  color: #0f4f2d;
+  margin-bottom: 0.45rem;
 `;
 
 const FeatureDesc = styled.p`
-  font-size: 0.82rem;
-  color: #777;
-  line-height: 1.6;
-  margin-bottom: 1.25rem;
+  font-size: 0.76rem;
+  color: #4f5d55;
+  line-height: 1.45;
+  margin: 0 auto 0.7rem;
+  max-width: 220px;
 `;
 
 const LearnMoreBtn = styled.a`
   display: inline-block;
-  padding: 0.4rem 1.1rem;
-  border: 2px solid #1B6B3A;
-  color: #1B6B3A;
-  font-size: 0.72rem;
+  padding: 0.27rem 0.72rem;
+  border: none;
+  background: #11683a;
+  color: #fff;
+  font-size: 0.62rem;
   font-weight: 700;
   border-radius: 999px;
   text-decoration: none;
   letter-spacing: 0.04em;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.2s;
 
   &:hover {
-    background: #1B6B3A;
-    color: #fff;
+    background: #0d542f;
   }
 `;
 
@@ -110,17 +119,17 @@ const features = [
   {
     Icon: BundleIcon,
     title: 'Bundle & Save',
-    desc: 'Combine flights, hotels and tours in one package and save up to 30% on your total booking value.',
+    desc: 'Combine flights and hotels in one booking and save more.',
   },
   {
     Icon: OneStopIcon,
     title: 'One-Stop Travel Shop',
-    desc: 'From visa applications to airport transfers — manage every part of your journey in one place.',
+    desc: 'Flights, hotels, visas and tours in a single smooth flow.',
   },
   {
     Icon: KeyRewardsIcon,
     title: 'Key Rewards',
-    desc: 'Earn points on every booking and redeem them for free upgrades, discounts and exclusive offers.',
+    desc: 'Earn points on every booking and unlock exclusive offers.',
   },
 ];
 
