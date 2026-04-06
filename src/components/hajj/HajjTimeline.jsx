@@ -2,10 +2,9 @@
 
 import styled, { keyframes } from 'styled-components';
 import { FiCheckCircle } from 'react-icons/fi';
-import { GiKaaba, GiMountainRoad } from 'react-icons/gi';
-import { MdNightsStay } from 'react-icons/md';
+import { GiMountainRoad } from 'react-icons/gi';
+import { FaKaaba } from 'react-icons/fa';
 import { HiOutlineLocationMarker, HiOutlineSun } from 'react-icons/hi';
-import { IoBedOutline } from 'react-icons/io5';
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(20px); }
@@ -141,7 +140,7 @@ const steps = [
     day: 'Day 1 — 8th Dhul Hijjah',
     title: 'Arrival & Ihram in Makkah',
     desc: 'Enter the sacred state of Ihram, perform Tawaf al-Qudum (arrival Tawaf), and proceed to Mina for overnight stay in air-conditioned tents.',
-    icon: GiKaaba,
+    icon: FaKaaba,
     color: '#1B6B3A',
   },
   {

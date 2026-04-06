@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import styled, { keyframes } from 'styled-components';
 import { FiChevronRight, FiMapPin, FiStar, FiUsers } from 'react-icons/fi';
-import { GiKaaba } from 'react-icons/gi';
+import { FaKaaba } from 'react-icons/fa';
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(24px); }
@@ -63,7 +63,7 @@ const SepIcon = styled(FiChevronRight)`
   color: rgba(255,255,255,0.35);
 `;
 
-const KaabaIcon = styled(GiKaaba)`
+const KaabaIcon = styled(FaKaaba)`
   font-size: 3.5rem;
   color: rgba(255,255,255,0.18);
   margin-bottom: 0.75rem;
