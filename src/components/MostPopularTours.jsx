@@ -1,265 +1,289 @@
 'use client';
 
-import { useState } from 'react';
 import styled from 'styled-components';
 import { handleImageError, withImageFallback } from '../lib/imageFallbacks';
+import { useInView } from '../lib/useInView';
+
+const enterT = (delay = 0) => `
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: ${delay}s;
+`;
+const exitT = `
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition-delay: 0s;
+`;
 
 const Section = styled.section`
-  background: #ececec;
-  padding: 3.2rem 2rem;
-  text-align: center;
+  background: #f5f5f5;
+  padding: 3rem 2rem 3.5rem;
+`;
+
+const Inner = styled.div`
+  max-width: 1140px;
+  margin: 0 auto;
 `;
 
 const SectionHeader = styled.div`
-  margin-bottom: 1.9rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+  transform: ${({ $inView }) => ($inView ? 'translateX(0)' : 'translateX(-28px)')};
+  ${({ $inView }) => ($inView ? enterT(0) : exitT)}
 `;
 
-const Title = styled.h2`
-  font-size: 3rem;
-  font-weight: 900;
-  color: #1B6B3A;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 0.3rem;
+const TitleBlock = styled.div``;
 
-  @media (max-width: 640px) {
-    font-size: 2rem;
-  }
+const Title = styled.h2`
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 0.3rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid #c9a227;
+  line-height: 1.2;
 `;
 
 const Subtitle = styled.p`
-  font-size: 0.82rem;
-  color: #666;
+  font-size: 0.76rem;
+  color: #777;
   margin: 0;
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.45;
+  padding-left: 0.75rem;
 `;
 
-/* Flex row — cards redistribute space on hover */
-const CardsRow = styled.div`
-  display: flex;
-  gap: 0.8rem;
-  max-width: 980px;
-  margin: 0 auto;
-  height: 265px;
-  align-items: stretch;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    height: auto;
-  }
+const ViewAll = styled.a`
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #1B6B3A;
+  text-decoration: none;
+  white-space: nowrap;
+  margin-top: 0.25rem;
+  &:hover { text-decoration: underline; }
 `;
 
-/* Each card stretches/shrinks via flex */
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  @media (max-width: 960px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 520px) { grid-template-columns: 1fr; }
+`;
+
+const CardWrap = styled.div`
+  opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+  transform: ${({ $inView }) => ($inView ? 'translateY(0)' : 'translateY(32px)')};
+  ${({ $inView, $delay }) => ($inView ? enterT($delay || 0) : exitT)}
+`;
+
 const Card = styled.div`
-  flex: ${({ $active }) => $active ? '2.6' : '1'};
-  border-radius: 14px;
+  background: #fff;
+  border-radius: 12px;
   overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  transition: flex 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  min-width: 0;
-
-  @media (max-width: 768px) {
-    flex: none;
-    height: ${({ $active }) => $active ? '300px' : '200px'};
-    transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  transition: box-shadow 0.2s, transform 0.2s;
+  &:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.13); transform: translateY(-3px); }
 `;
 
-/* Image fills the card, always visible */
-const CardImage = styled.div`
-  flex-shrink: 0;
-  width: ${({ $active }) => $active ? '52%' : '100%'};
-  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+const ImageWrap = styled.div`
   position: relative;
+  height: 155px;
   overflow: hidden;
-
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.4s;
   }
-
-  &:hover img {
-    transform: scale(1.04);
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    height: 100%;
-  }
+  ${Card}:hover & img { transform: scale(1.05); }
 `;
 
-/* Arrow button shown on inactive cards */
-const ArrowBtn = styled.div`
+const ImageOverlay = styled.div`
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 28px;
-  height: 28px;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20,50,30,0.75) 0%, transparent 55%);
+`;
+
+const BadgesRow = styled.div`
+  position: absolute;
+  top: 8px; left: 8px; right: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
+
+const CategoryBadge = styled.span`
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
   border-radius: 999px;
-  background: rgba(27,107,58,0.88);
+  background: ${({ $bg }) => $bg || '#1B6B3A'};
+  color: ${({ $color }) => $color || '#fff'};
+`;
+
+const DaysBadge = styled.span`
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  backdrop-filter: blur(4px);
+`;
+
+const ImageCaption = styled.div`
+  position: absolute;
+  bottom: 8px; left: 10px;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 0.78rem;
-  font-weight: 700;
-  transition: opacity 0.3s;
-  opacity: ${({ $visible }) => $visible ? 1 : 0};
-  pointer-events: none;
+  gap: 0.3rem;
+  &::before { content: '📍'; font-size: 0.6rem; }
 `;
 
-/* Content panel slides in from the right when active */
-const ContentPanel = styled.div`
-  background: #fff;
-  padding: 1.15rem 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
-  overflow: hidden;
-
-  /* Width animates via the parent flex transition */
-  width: ${({ $active }) => $active ? '48%' : '0'};
-  min-width: ${({ $active }) => $active ? '180px' : '0'};
-  flex-shrink: 0;
-  opacity: ${({ $active }) => $active ? 1 : 0};
-  transform: ${({ $active }) => $active ? 'translateX(0)' : 'translateX(20px)'};
-  transition:
-    width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-    min-width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s ease ${({ $active }) => $active ? '0.2s' : '0s'},
-    transform 0.35s ease ${({ $active }) => $active ? '0.15s' : '0s'};
-
-  @media (max-width: 768px) {
-    width: 100%;
-    min-width: 0;
-    height: ${({ $active }) => $active ? 'auto' : '0'};
-    padding: ${({ $active }) => $active ? '1.25rem 1.25rem' : '0 1.25rem'};
-  }
+const CardBody = styled.div`
+  padding: 0.85rem 0.9rem 0.9rem;
 `;
 
-const TourTitle = styled.h3`
-  font-size: 0.95rem;
+const CardTitle = styled.h3`
+  font-size: 0.9rem;
   font-weight: 800;
-  color: #1a1a2e;
-  margin-bottom: 0.2rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: #1a1a1a;
+  margin: 0 0 0.2rem;
 `;
 
-const TourSubtitle = styled.div`
-  font-size: 0.68rem;
+const CardMeta = styled.div`
+  font-size: 0.65rem;
   color: #888;
+  margin-bottom: 0.35rem;
+`;
+
+const RatingRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
   margin-bottom: 0.5rem;
 `;
 
-const TourDesc = styled.p`
+const Stars = styled.span`
+  color: #f5a623;
   font-size: 0.72rem;
-  color: #555;
-  line-height: 1.45;
-  margin-bottom: 0.7rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  letter-spacing: 1px;
 `;
 
-const LearnMoreBtn = styled.a`
-  display: inline-block;
-  padding: 0.34rem 0.95rem;
-  background: #1B6B3A;
-  color: #fff;
+const RatingNum = styled.span`
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #555;
+`;
+
+const CardFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid #f0f0f0;
+`;
+
+const Price = styled.div`
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #1B6B3A;
+`;
+
+const BtnRow = styled.div`
+  display: flex;
+  gap: 0.4rem;
+`;
+
+const BookBtn = styled.a`
   font-size: 0.62rem;
   font-weight: 700;
-  border-radius: 999px;
+  padding: 0.32rem 0.7rem;
+  border-radius: 5px;
+  background: #1B6B3A;
+  color: #fff;
   text-decoration: none;
-  letter-spacing: 0.04em;
   cursor: pointer;
-  align-self: flex-start;
-  transition: background 0.2s;
+  transition: background 0.15s;
   white-space: nowrap;
+  &:hover { background: #145c30; }
+`;
 
-  &:hover {
-    background: #145230;
-  }
+const DetailsBtn = styled.a`
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 0.32rem 0.7rem;
+  border-radius: 5px;
+  border: 1.5px solid #ddd;
+  color: #555;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+  &:hover { border-color: #1B6B3A; color: #1B6B3A; }
 `;
 
 const defaultTours = [
-  {
-    img: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=1000&q=80',
-    title: 'Baku City Explorer',
-    subtitle: 'Azerbaijan',
-    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=1000&q=80',
-    title: 'Maldives Retreat',
-    subtitle: 'Maldives',
-    desc: 'Escape to paradise with overwater bungalows, pristine beaches, and crystal-clear lagoons. An unforgettable halal-friendly getaway for couples and families.',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1528127269322-539801943592?w=1000&q=80',
-    title: 'Vietnam Discovery',
-    subtitle: 'Vietnam',
-    desc: 'Journey through ancient temples, lush valleys and iconic floating villages. A cultural adventure blending history, nature and authentic local cuisine.',
-  },
+  { id: 'T1', img: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=80', category: 'Umrah',         categoryBg: '#c9a227', categoryColor: '#fff', days: '7 Days', caption: 'Makkah & Madinah', title: 'Makkah & Madinah', meta: '7 Days Package · All Inclusive', rating: '4.9', price: 'Rs. 85,000',  href: '/umrah-packages' },
+  { id: 'T2', img: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=600&q=80', category: 'International', categoryBg: '#0e7490', categoryColor: '#fff', days: '5 Days', caption: 'Istanbul, Turkey',  title: 'Istanbul, Turkey',  meta: '5 Days Package · All Inclusive', rating: '4.9', price: 'Rs. 1,20,000', href: '/tours' },
+  { id: 'T3', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80', category: 'Popular',       categoryBg: '#d97706', categoryColor: '#fff', days: '4 Days', caption: 'Dubai Explorer',   title: 'Dubai Explorer',   meta: '4 Days Package · All Inclusive', rating: '4.9', price: 'Rs. 75,000',  href: '/tours' },
+  { id: 'T4', img: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&q=80', category: 'Domestic',      categoryBg: '#7c3aed', categoryColor: '#fff', days: '3 Days', caption: 'Swat Valley',      title: 'Swat Valley',      meta: '3 Days Package · All Inclusive', rating: '4.9', price: 'Rs. 18,000',  href: '/tours' },
 ];
 
 export default function MostPopularTours({ content = null }) {
   const data = content && typeof content === 'object' ? content : {};
   const tours = Array.isArray(data.tours) && data.tours.length > 0 ? data.tours : defaultTours;
-  const learnMoreLabel = data.learnMoreLabel || 'Learn More';
-  const learnMoreHref = data.learnMoreHref || '#tours';
-
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [ref, inView] = useInView();
 
   return (
-    <Section id="tours">
-      <SectionHeader>
-        <Title>{data.title || 'Most Popular Tours'}</Title>
-        <Subtitle>{data.subtitle || 'Discover top flight deals for elite travel experiences at unprecedented prices'}</Subtitle>
-      </SectionHeader>
+    <Section id="tours" ref={ref}>
+      <Inner>
+        <SectionHeader $inView={inView}>
+          <TitleBlock>
+            <Title>{data.title || 'Most Popular Tours'}</Title>
+            <Subtitle>{data.subtitle || 'Handpicked journeys, unbeatable prices'}</Subtitle>
+          </TitleBlock>
+          <ViewAll href="/tours">View All Tours →</ViewAll>
+        </SectionHeader>
 
-      <CardsRow>
-        {tours.map((tour, i) => {
-          const isActive = activeIndex === i;
-          return (
-            <Card
-              key={tour.id || `${tour.title}-${i}`}
-              $active={isActive}
-              onMouseEnter={() => setActiveIndex(i)}
-            >
-              {/* Image side */}
-              <CardImage $active={isActive}>
-                <img
-                  src={withImageFallback(tour.img, i)}
-                  alt={tour.title}
-                  loading="lazy"
-                  onError={(event) => handleImageError(event, i)}
-                />
-                <ArrowBtn $visible={!isActive}>↗</ArrowBtn>
-              </CardImage>
-
-              {/* Content panel — slides in on hover */}
-              <ContentPanel $active={isActive}>
-                <TourTitle>{tour.title}</TourTitle>
-                <TourSubtitle>{tour.subtitle}</TourSubtitle>
-                <TourDesc>{tour.desc}</TourDesc>
-                <LearnMoreBtn href={learnMoreHref}>{learnMoreLabel}</LearnMoreBtn>
-              </ContentPanel>
-            </Card>
-          );
-        })}
-      </CardsRow>
+        <Grid>
+          {tours.map((tour, i) => (
+            <CardWrap key={tour.id || i} $inView={inView} $delay={i * 0.1}>
+              <Card>
+                <ImageWrap>
+                  <img src={withImageFallback(tour.img, i)} alt={tour.title} loading="lazy" onError={(e) => handleImageError(e, i)} />
+                  <ImageOverlay />
+                  <BadgesRow>
+                    <CategoryBadge $bg={tour.categoryBg} $color={tour.categoryColor}>{tour.category}</CategoryBadge>
+                    <DaysBadge>● {tour.days}</DaysBadge>
+                  </BadgesRow>
+                  <ImageCaption>{tour.caption}</ImageCaption>
+                </ImageWrap>
+                <CardBody>
+                  <CardTitle>{tour.title}</CardTitle>
+                  <CardMeta>{tour.meta}</CardMeta>
+                  <RatingRow>
+                    <Stars>★★★★★</Stars>
+                    <RatingNum>({tour.rating})</RatingNum>
+                  </RatingRow>
+                  <CardFooter>
+                    <Price>{tour.price}</Price>
+                    <BtnRow>
+                      <BookBtn href={tour.href || '/tours'}>Book Now →</BookBtn>
+                      <DetailsBtn href={tour.href || '/tours'}>Details</DetailsBtn>
+                    </BtnRow>
+                  </CardFooter>
+                </CardBody>
+              </Card>
+            </CardWrap>
+          ))}
+        </Grid>
+      </Inner>
     </Section>
   );
 }

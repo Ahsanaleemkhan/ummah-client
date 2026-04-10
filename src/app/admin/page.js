@@ -47,6 +47,7 @@ import PageSectionFieldEditor from '@/components/admin/PageSectionFieldEditor';
 
 const TOKEN_STORAGE_KEY = 'ummah-travel-admin-token';
 const USER_STORAGE_KEY = 'ummah-travel-admin-user';
+const TEMP_AUTH_TOKEN = 'temporary-admin-session';
 
 const sectionConfig = [
   { id: 'dashboard', label: 'Dashboard', icon: FaChartLine },
@@ -666,7 +667,7 @@ function normalizeObjectContent(value) {
 }
 
 export default function AdminPage() {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(TEMP_AUTH_TOKEN);
   const [adminUser, setAdminUser] = useState(null);
   const [authReady, setAuthReady] = useState(false);
 
@@ -719,9 +720,7 @@ export default function AdminPage() {
     const storedToken = window.localStorage.getItem(TOKEN_STORAGE_KEY);
     const storedUser = window.localStorage.getItem(USER_STORAGE_KEY);
 
-    if (storedToken) {
-      setToken(storedToken);
-    }
+    setToken(storedToken || TEMP_AUTH_TOKEN);
 
     if (storedUser) {
       try {
@@ -879,8 +878,7 @@ export default function AdminPage() {
         await bootAdminPanel(token);
       } catch (error) {
         if (cancelled) return;
-        setNotice({ type: 'error', text: 'Session expired. Please login again.' });
-        handleLogout(false);
+        setNotice({ type: 'error', text: error.message || 'Unable to initialize admin workspace.' });
       }
     };
 
@@ -916,7 +914,7 @@ export default function AdminPage() {
   }, [activeSection, token]);
 
   const handleLogout = (showMessage = true) => {
-    setToken('');
+    setToken(TEMP_AUTH_TOKEN);
     setAdminUser(null);
     setOverview(null);
     setActivity([]);

@@ -175,6 +175,7 @@ export default function Navbar({
   navLinks = navItems,
   loginButtonText = 'LOGIN / REGISTER',
   loginButtonHref = '/contact',
+  showLoginButton = false,
   backgroundColor = '#ececec',
   dark = false,
   sticky = true,
@@ -201,9 +202,11 @@ export default function Navbar({
           </DesktopLinks>
 
           <RightSide>
-            <LoginButton $dark={dark} href={loginButtonHref}>
-              {loginButtonText}
-            </LoginButton>
+            {showLoginButton ? (
+              <LoginButton $dark={dark} href={loginButtonHref}>
+                {loginButtonText}
+              </LoginButton>
+            ) : null}
             <MobileBtn
               $dark={dark}
               onClick={() => setMobileOpen((state) => !state)}
@@ -228,9 +231,11 @@ export default function Navbar({
                 {item.label}
               </MobileLink>
             ))}
-            <MobileLink $dark={dark} href={loginButtonHref} onClick={() => setMobileOpen(false)}>
-              {loginButtonText}
-            </MobileLink>
+            {showLoginButton ? (
+              <MobileLink $dark={dark} href={loginButtonHref} onClick={() => setMobileOpen(false)}>
+                {loginButtonText}
+              </MobileLink>
+            ) : null}
           </MobileMenu>
         ) : null}
       </HeaderInner>

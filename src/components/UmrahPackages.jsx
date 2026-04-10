@@ -1,311 +1,202 @@
 'use client';
 
 import styled from 'styled-components';
-import { handleImageError, withImageFallback } from '../lib/imageFallbacks';
+import { useInView } from '../lib/useInView';
+
+const enterT = (delay = 0) => `
+  transition: opacity 0.65s ease, transform 0.65s ease;
+  transition-delay: ${delay}s;
+`;
+const exitT = `
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition-delay: 0s;
+`;
 
 const Section = styled.section`
-  background: #ececec;
-  padding: 3.2rem 2rem;
-  text-align: center;
+  background: linear-gradient(135deg, #1a3826 0%, #1e4530 60%, #162e1e 100%);
+  padding: 3.5rem 2rem 4rem;
+`;
+
+const Inner = styled.div`
+  max-width: 1140px;
+  margin: 0 auto;
 `;
 
 const SectionHeader = styled.div`
-  margin-bottom: 1.5rem;
-`;
-
-const HeaderTop = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-`;
-
-const SliderControl = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: #404040;
-  font-size: 0.76rem;
-  font-weight: 700;
-
-  @media (max-width: 680px) {
-    display: none;
-  }
-`;
-
-const SliderLine = styled.span`
-  width: 56px;
-  height: 2px;
-  background: #7d7d7d;
-  border-radius: 999px;
+  margin-bottom: 2rem;
+  opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+  transform: ${({ $inView }) => ($inView ? 'translateX(0)' : 'translateX(-28px)')};
+  ${({ $inView }) => ($inView ? enterT(0) : exitT)}
 `;
 
 const Title = styled.h2`
-  font-size: 2.85rem;
-  font-weight: 900;
-  color: #1B6B3A;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin: 0;
-
-  @media (max-width: 640px) {
-    font-size: 1.9rem;
-  }
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.4rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid #c9a227;
+  line-height: 1.2;
 `;
 
 const Subtitle = styled.p`
-  font-size: 0.78rem;
-  color: #777;
-  margin: 0.35rem auto 0;
-  max-width: 450px;
-  line-height: 1.4;
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.6);
+  margin: 0;
+  padding-left: 0.75rem;
 `;
 
-const CardsRow = styled.div`
+const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  max-width: 980px;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
+  gap: 1.25rem;
+  align-items: stretch;
+  @media (max-width: 860px) { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
 `;
 
 const Card = styled.div`
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 1px 10px rgba(0,0,0,0.08);
-  text-align: left;
-  transition: box-shadow 0.2s, transform 0.2s;
-
-  &:hover {
-    box-shadow: 0 8px 32px rgba(0,0,0,0.13);
-    transform: translateY(-4px);
-  }
-`;
-
-const CardImg = styled.div`
-  width: 100%;
-  height: 150px;
-  overflow: hidden;
-  position: relative;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s;
-  }
-
-  ${Card}:hover & img {
-    transform: scale(1.06);
-  }
-`;
-
-const NightsBadge = styled.span`
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(0,0,0,0.55);
-  color: #fff;
-  font-size: 0.58rem;
-  font-weight: 700;
-  padding: 0.18rem 0.45rem;
-  border-radius: 999px;
-  letter-spacing: 0.04em;
-  backdrop-filter: blur(4px);
-`;
-
-const CardBody = styled.div`
-  padding: 0.72rem 0.8rem;
-`;
-
-const CardTitleRow = styled.div`
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 1.6rem 1.4rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.55rem;
+  flex-direction: column;
+  position: relative;
+  transition: background 0.2s, border-color 0.2s, opacity 0.65s ease, transform 0.65s ease;
+  transition-delay: ${({ $inView, $delay }) => ($inView ? $delay || 0 : 0)}s;
+  opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+  transform: ${({ $inView }) => ($inView ? 'translateY(0)' : 'translateY(36px)')};
+
+  ${({ $featured }) => $featured && `
+    background: rgba(201,162,39,0.12);
+    border-color: #c9a227;
+  `}
+  &:hover { background: rgba(255,255,255,0.1); }
+`;
+
+const BestValueBadge = styled.div`
+  position: absolute;
+  top: -11px; left: 50%;
+  transform: translateX(-50%);
+  background: #c9a227;
+  color: #1a3826;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.22rem 0.9rem;
+  border-radius: 999px;
+  white-space: nowrap;
+`;
+
+const PackageName = styled.div`
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #fff;
   margin-bottom: 0.25rem;
 `;
 
-const GreenDot = styled.span`
-  width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  background: #1B6B3A;
-  flex-shrink: 0;
+const PackageMeta = styled.div`
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 1rem;
 `;
 
-const CardTitle = styled.h3`
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #222;
-  margin: 0;
-`;
-
-const CardDesc = styled.p`
-  font-size: 0.7rem;
-  color: #888;
-  line-height: 1.35;
-  margin-bottom: 0.45rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-`;
-
-const CardMeta = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-  margin-bottom: 0.5rem;
-`;
-
-const MetaItem = styled.div`
-  font-size: 0.62rem;
-  color: #999;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-`;
-
-const CardFooter = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 0.5rem;
-  border-top: 1px solid #f0f0f0;
+const PriceFrom = styled.div`
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.15rem;
 `;
 
 const Price = styled.div`
-  .label {
-    font-size: 0.56rem;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .amount {
-    font-size: 0.86rem;
-    font-weight: 800;
-    color: #1B6B3A;
-    line-height: 1;
-  }
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #c9a227;
+  line-height: 1;
+  margin-bottom: 1.2rem;
 `;
 
-const DetailsBtn = styled.a`
-  display: inline-block;
-  padding: 0.25rem 0.72rem;
-  background: #1B6B3A;
-  color: #fff;
-  font-size: 0.58rem;
-  font-weight: 700;
-  border-radius: 999px;
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition: background 0.2s;
+const Divider = styled.hr`
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 1rem;
+`;
 
-  &:hover {
-    background: #145230;
-  }
+const FeatureList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+`;
+
+const FeatureItem = styled.li`
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.8);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  &::before { content: '✓'; color: #c9a227; font-weight: 700; font-size: 0.7rem; flex-shrink: 0; }
+`;
+
+const BookBtn = styled.a`
+  display: block;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 7px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.9);
+  background: transparent;
+  margin-top: auto;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  ${({ $featured }) => $featured && `background: #c9a227; border-color: #c9a227; color: #1a3826;`}
+  &:hover { background: #c9a227; border-color: #c9a227; color: #1a3826; }
 `;
 
 const defaultPackages = [
-  {
-    id: 'UMH001',
-    img: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=80',
-    nights: '14 Nights',
-    title: 'Lorem Ipsum',
-    desc: 'Lorem ipsum',
-    hotel: 'Lorem ipsum',
-    meals: 'Rs. 500/-',
-    price: 'Rs. 500/-',
-  },
-  {
-    id: 'UMH002',
-    img: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=600&q=80',
-    nights: '21 Nights',
-    title: 'Lorem Ipsum',
-    desc: 'Lorem ipsum',
-    hotel: 'Lorem ipsum',
-    meals: 'Rs. 500/-',
-    price: 'Rs. 500/-',
-  },
-  {
-    id: 'UMH003',
-    img: 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=600&q=80',
-    nights: '10 Nights',
-    title: 'Lorem Ipsum',
-    desc: 'Lorem ipsum',
-    hotel: 'Lorem ipsum',
-    meals: 'Rs. 500/-',
-    price: 'Rs. 500/-',
-  },
+  { id: 'ECO', name: 'Economy Package',  meta: '15 Nights · 3★ Hotel', priceFrom: 'From', price: 'Rs. 85,000',   features: ['Return Flights', 'Umrah Visa', 'Madinah Transfer', 'Basic Guide'],                                  featured: false },
+  { id: 'STD', name: 'Standard Package', meta: '21 Nights · 4★ Hotel', priceFrom: 'From', price: 'Rs. 1,25,000', features: ['Return Flights', 'Umrah Visa', 'All Transfers', 'Group Guidance', 'Ziyarah Tour'], featured: true,  bestValue: true },
+  { id: 'PRE', name: 'Premium Package',  meta: '26 Nights · 5★ Hotel', priceFrom: 'From', price: 'Rs. 2,10,000', features: ['Business Class', 'Umrah Visa', 'Private Transfers', 'Personal Guide', 'All Meals'],  featured: false },
 ];
 
 export default function UmrahPackages({ content = null }) {
   const data = content && typeof content === 'object' ? content : {};
   const packages = Array.isArray(data.packages) && data.packages.length > 0 ? data.packages : defaultPackages;
-  const detailsHref = data.detailsHref || '/umrah-packages';
-  const detailsLabel = data.detailsLabel || 'Details';
+  const [ref, inView] = useInView();
 
   return (
-    <Section id="umrah">
-      <SectionHeader>
-        <HeaderTop>
+    <Section id="umrah" ref={ref}>
+      <Inner>
+        <SectionHeader $inView={inView}>
           <Title>{data.title || 'Umrah Packages 2026'}</Title>
-          <SliderControl aria-hidden="true">
-            <span>←</span>
-            <SliderLine />
-            <span>→</span>
-          </SliderControl>
-        </HeaderTop>
-        <Subtitle>{data.subtitle || 'Discover top flight deals for elite travel experiences at unprecedented prices'}</Subtitle>
-      </SectionHeader>
+          <Subtitle>{data.subtitle || 'Complete Umrah journeys with flight, hotel, visa & guidance'}</Subtitle>
+        </SectionHeader>
 
-      <CardsRow>
-        {packages.map((pkg, index) => (
-          <Card key={pkg.id}>
-            <CardImg>
-              <img
-                src={withImageFallback(pkg.img, index)}
-                alt={pkg.title}
-                loading="lazy"
-                onError={(event) => handleImageError(event, index)}
-              />
-              <NightsBadge>{pkg.nights}</NightsBadge>
-            </CardImg>
-            <CardBody>
-              <CardTitleRow>
-                <CardTitle>{pkg.title}</CardTitle>
-                <GreenDot />
-              </CardTitleRow>
-              <CardDesc>{pkg.desc}</CardDesc>
-              <CardMeta>
-                <MetaItem>🏨 {pkg.hotel}</MetaItem>
-                <MetaItem>🍽️ {pkg.meals}</MetaItem>
-              </CardMeta>
-              <CardFooter>
-                <Price>
-                  <div className="label">Starting from</div>
-                  <div className="amount">{pkg.price}</div>
-                </Price>
-                <DetailsBtn href={detailsHref}>{detailsLabel}</DetailsBtn>
-              </CardFooter>
-            </CardBody>
-          </Card>
-        ))}
-      </CardsRow>
+        <Grid>
+          {packages.map((pkg, i) => (
+            <Card key={pkg.id} $featured={pkg.featured} $inView={inView} $delay={i * 0.13}>
+              {pkg.bestValue && <BestValueBadge>★ BEST VALUE</BestValueBadge>}
+              <PackageName>{pkg.name}</PackageName>
+              <PackageMeta>{pkg.meta}</PackageMeta>
+              <PriceFrom>{pkg.priceFrom || 'From'}</PriceFrom>
+              <Price>{pkg.price}</Price>
+              <Divider />
+              <FeatureList>
+                {(pkg.features || []).map((f) => <FeatureItem key={f}>{f}</FeatureItem>)}
+              </FeatureList>
+              <BookBtn href="/umrah-packages" $featured={pkg.featured}>Book This Package →</BookBtn>
+            </Card>
+          ))}
+        </Grid>
+      </Inner>
     </Section>
   );
 }

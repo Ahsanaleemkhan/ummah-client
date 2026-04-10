@@ -7,16 +7,13 @@ import TrendingVisas from '../components/TrendingVisas';
 import MostPopularTours from '../components/MostPopularTours';
 import UmrahPackages from '../components/UmrahPackages';
 import FeaturesStrip from '../components/FeaturesStrip';
-import VideoTestimonials from '../components/VideoTestimonials';
-import PhotoGallery from '../components/PhotoGallery';
-import DestinationGrid from '../components/DestinationGrid';
-import JourneyBeginsCTA from '../components/JourneyBeginsCTA';
 import CustomerReviews from '../components/CustomerReviews';
+import NewsletterCTA from '../components/NewsletterCTA';
 import Footer from '../components/Footer';
 import { usePageContent } from '../lib/usePageContent';
 
 const Main = styled.main`
-  background: #ececec;
+  background: #f5f5f5;
   color: #222;
   min-height: 100vh;
 `;
@@ -26,40 +23,31 @@ export default function Home() {
 
   return (
     <Main>
-      {/* 1. Hero with navbar + search + airplane */}
+      {/* 1. Hero — dark green, two-column with search card */}
       <HomeHeroSection content={sections.hero} />
 
-      {/* 2. Popular Airlines logo strip */}
+      {/* 2. Service strip — Flights, Hotels, Visa, Umrah, Tours, Transfers */}
       <PopularAirlines content={sections.popularAirlines} />
 
-      {/* 3. Trending Visas two-column list */}
+      {/* 3. Trending Visas card grid (2×4) */}
       <TrendingVisas content={sections.trendingVisas} />
 
-      {/* 4. Most Popular Tours cards */}
+      {/* 4. Most Popular Tours — 4 cards */}
       <MostPopularTours content={sections.mostPopularTours} />
 
-      {/* 5. Umrah Packages 2026 */}
+      {/* 5. Umrah Packages 2026 — dark green pricing cards */}
       <UmrahPackages content={sections.umrahPackages} />
 
-      {/* 6. Features strip — Bundle & Save, One-Stop, Key Rewards */}
+      {/* 6. Why Travelers Choose Ummah — 4 features */}
       <FeaturesStrip />
 
-      {/* 7. Video Testimonials */}
-      <VideoTestimonials />
-
-      {/* 8. Photo collage + YouTube panel */}
-      <PhotoGallery />
-
-      {/* 9. Destination mosaic photo grid */}
-      <DestinationGrid />
-
-      {/* 10. "Your Ummah Journey Begins Here" CTA */}
-      <JourneyBeginsCTA content={sections.journeyCta} />
-
-      {/* 11. Customer Reviews / Trustpilot */}
+      {/* 7. What Our Travelers Say — 3 review cards */}
       <CustomerReviews />
 
-      {/* 12. Footer */}
+      {/* 8. Newsletter CTA — dark green */}
+      <NewsletterCTA />
+
+      {/* 9. Footer */}
       <Footer content={sharedSections.footer} />
     </Main>
   );
