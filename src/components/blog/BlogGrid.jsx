@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import styled, { keyframes } from 'styled-components';
 import { FiClock, FiUser, FiArrowRight, FiCalendar } from 'react-icons/fi';
 import { HiOutlineBookmarkAlt } from 'react-icons/hi';
@@ -134,7 +135,7 @@ const MetaItem = styled.span`
   }
 `;
 
-const ReadMoreLink = styled.a`
+const ReadMoreLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -157,6 +158,32 @@ const ReadMoreLink = styled.a`
   &:hover svg {
     transform: translateX(3px);
   }
+`;
+
+const CardReadLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+  color: #1B6B3A;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 0.9rem;
+  transition: gap 0.2s ease;
+
+  &:hover {
+    gap: 0.6rem;
+  }
+`;
+
+const EmptyState = styled.div`
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 14px;
+  padding: 1.4rem 1.2rem;
+  text-align: center;
+  color: #6f6f6f;
+  font-size: 0.84rem;
 `;
 
 /* Blog grid */
@@ -305,101 +332,27 @@ const DateInfo = styled.span`
   }
 `;
 
-/* ── Data ── */
-const featuredPost = {
-  img: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&q=80',
-  category: 'Umrah Guide',
-  title: 'The Ultimate First-Timer\'s Guide to Umrah 2026',
-  excerpt: 'Everything you need to know before your first Umrah — from visa requirements and packing essentials to step-by-step rituals at the Haram. This comprehensive guide covers preparation, Ihram rules, Tawaf, Sa\'i, and spiritual tips to maximize your sacred experience.',
-  author: 'Ahmad Malik',
-  initials: 'AM',
-  date: 'Mar 28, 2026',
-  readTime: '12 min read',
-};
+export default function BlogGrid({ activeCategory, posts = [] }) {
+  const availablePosts = Array.isArray(posts) ? posts : [];
+  const featuredPost = availablePosts.find((post) => post.featured) || availablePosts[0] || null;
 
-const posts = [
-  {
-    id: 1,
-    img: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=600&q=80',
-    category: 'Travel Tips',
-    title: '10 Essential Packing Tips for Your Umrah Journey',
-    excerpt: 'Pack smarter with our curated checklist covering clothing, health essentials, electronics, and spiritual items.',
-    author: 'Fatima Hassan',
-    initials: 'FH',
-    date: 'Mar 22, 2026',
-    readTime: '6 min',
-  },
-  {
-    id: 2,
-    img: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=600&q=80',
-    category: 'Destinations',
-    title: 'Exploring Madinah: Sacred Sites Beyond Masjid an-Nabawi',
-    excerpt: 'Discover the historical gems of Madinah including Mount Uhud, Quba Mosque, and the iconic date farms.',
-    author: 'Usman Ali',
-    initials: 'UA',
-    date: 'Mar 18, 2026',
-    readTime: '8 min',
-  },
-  {
-    id: 3,
-    img: 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=600&q=80',
-    category: 'Spirituality',
-    title: 'Maximizing Your Spiritual Experience During Umrah',
-    excerpt: 'Practical tips to maintain focus, make meaningful duas, and connect deeply with your faith throughout the journey.',
-    author: 'Ayesha Siddiqui',
-    initials: 'AS',
-    date: 'Mar 14, 2026',
-    readTime: '7 min',
-  },
-  {
-    id: 4,
-    img: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&q=80',
-    category: 'Travel Tips',
-    title: 'Navigating Jeddah Airport: A Complete Pilgrim\'s Guide',
-    excerpt: 'Step-by-step walkthrough of King Abdulaziz International Airport — immigration, transport, and helpful tips.',
-    author: 'Ahmad Malik',
-    initials: 'AM',
-    date: 'Mar 10, 2026',
-    readTime: '5 min',
-  },
-  {
-    id: 5,
-    img: 'https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=600&q=80',
-    category: 'Umrah Guide',
-    title: 'Umrah During Ramadan: What Makes It Special',
-    excerpt: 'Why performing Umrah in Ramadan is equivalent to Hajj in reward, and how to plan your blessed journey.',
-    author: 'Fatima Hassan',
-    initials: 'FH',
-    date: 'Mar 5, 2026',
-    readTime: '9 min',
-  },
-  {
-    id: 6,
-    img: 'https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=600&q=80',
-    category: 'Packing',
-    title: 'What to Wear for Umrah: Men\'s & Women\'s Clothing Guide',
-    excerpt: 'Complete guide to Ihram clothing, modest wear options, and weather-appropriate outfits for Makkah and Madinah.',
-    author: 'Ayesha Siddiqui',
-    initials: 'AS',
-    date: 'Feb 28, 2026',
-    readTime: '6 min',
-  },
-];
+  const categoryFiltered = activeCategory === 'All'
+    ? availablePosts
+    : availablePosts.filter((post) => post.category === activeCategory);
 
-export default function BlogGrid({ activeCategory }) {
-  const filtered = activeCategory === 'All'
-    ? posts
-    : posts.filter(p => p.category === activeCategory);
+  const filtered = activeCategory === 'All' && featuredPost
+    ? categoryFiltered.filter((post) => post.slug !== featuredPost.slug)
+    : categoryFiltered;
 
   return (
     <Section id="blog-posts">
       <Inner>
         {/* Featured Article */}
-        {activeCategory === 'All' && (
+        {activeCategory === 'All' && featuredPost ? (
           <FeaturedCard>
             <FeaturedImg>
               <img
-                src={withImageFallback(featuredPost.img, 0)}
+                src={withImageFallback(featuredPost.img || featuredPost.image, 0)}
                 alt={featuredPost.title}
                 loading="lazy"
                 onError={(event) => handleImageError(event, 0)}
@@ -413,24 +366,27 @@ export default function BlogGrid({ activeCategory }) {
               <FeaturedTitle>{featuredPost.title}</FeaturedTitle>
               <FeaturedExcerpt>{featuredPost.excerpt}</FeaturedExcerpt>
               <MetaRow>
-                <MetaItem><FiUser /> {featuredPost.author}</MetaItem>
+                <MetaItem><FiUser /> {featuredPost.author?.name || featuredPost.author}</MetaItem>
                 <MetaItem><FiCalendar /> {featuredPost.date}</MetaItem>
                 <MetaItem><FiClock /> {featuredPost.readTime}</MetaItem>
               </MetaRow>
-              <ReadMoreLink href="#blog">
+              <ReadMoreLink href={`/blog/${featuredPost.slug}`}>
                 Read Full Article <FiArrowRight />
               </ReadMoreLink>
             </FeaturedBody>
           </FeaturedCard>
-        )}
+        ) : null}
 
         {/* Articles Grid */}
-        <Grid>
-          {filtered.map((post, i) => (
-            <Card key={post.id} $delay={`${i * 0.08}s`}>
+        {filtered.length === 0 ? (
+          <EmptyState>No blog posts found for this category yet.</EmptyState>
+        ) : (
+          <Grid>
+            {filtered.map((post, i) => (
+              <Card key={post.slug || post.id} $delay={`${i * 0.08}s`}>
               <CardImg>
                 <img
-                  src={withImageFallback(post.img, i + 1)}
+                  src={withImageFallback(post.img || post.image, i + 1)}
                   alt={post.title}
                   loading="lazy"
                   onError={(event) => handleImageError(event, i + 1)}
@@ -444,17 +400,21 @@ export default function BlogGrid({ activeCategory }) {
                 </CardCategory>
                 <CardTitle>{post.title}</CardTitle>
                 <CardExcerpt>{post.excerpt}</CardExcerpt>
+                <CardReadLink href={`/blog/${post.slug}`}>
+                  Read Article <FiArrowRight />
+                </CardReadLink>
                 <CardFooter>
                   <AuthorInfo>
-                    <AuthorAvatar>{post.initials}</AuthorAvatar>
-                    <AuthorName>{post.author}</AuthorName>
+                    <AuthorAvatar>{post.author?.initials || post.initials}</AuthorAvatar>
+                    <AuthorName>{post.author?.name || post.author}</AuthorName>
                   </AuthorInfo>
                   <DateInfo><FiCalendar /> {post.date}</DateInfo>
                 </CardFooter>
               </CardBody>
             </Card>
-          ))}
-        </Grid>
+            ))}
+          </Grid>
+        )}
       </Inner>
     </Section>
   );

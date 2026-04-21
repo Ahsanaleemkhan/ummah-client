@@ -144,24 +144,77 @@ const Stars = styled.div`
 `;
 
 const defaultReviews = [
-  { initials: 'AR', name: 'Ahmed Raza',   sub: 'Lahore · Verified Traveler',     stars: 5, text: 'The Umrah package was seamless. Every detail was handled perfectly — from visa to hotel to transfers. Highly recommended for families.' },
-  { initials: 'SM', name: 'Sara Malik',   sub: 'Karachi · Verified Traveler',    stars: 5, text: 'Got my UK visa in under 2 weeks! The team was professional and kept me updated throughout. Best visa service in Pakistan.' },
-  { initials: 'HI', name: 'Hassan Iqbal', sub: 'Islamabad · Verified Traveler',  stars: 5, text: 'Dubai tour was absolutely perfect. 4 days, 5-star service. The group guide was amazing. Already booked Turkey for next year!' },
+  { initials: 'AR', name: 'Ahmed Raza', sub: 'Lahore - Verified Traveler', stars: 5, text: 'The Umrah package was seamless. Every detail was handled perfectly from visa to hotel to transfers. Highly recommended for families.' },
+  { initials: 'SM', name: 'Sara Malik', sub: 'Karachi - Verified Traveler', stars: 5, text: 'Got my UK visa in under 2 weeks. The team was professional and kept me updated throughout. Best visa service in Pakistan.' },
+  { initials: 'HI', name: 'Hassan Iqbal', sub: 'Islamabad - Verified Traveler', stars: 5, text: 'Our group Hajj package was exceptionally organized. Accommodation, transport, and guidance at every ritual point were handled with real care and professionalism.' },
 ];
 
-export default function CustomerReviews() {
+function buildInitials(name = '') {
+  const pieces = String(name).trim().split(/\s+/).filter(Boolean);
+
+  if (pieces.length === 0) {
+    return 'NA';
+  }
+
+  const first = pieces[0][0] || '';
+  const second = (pieces[1] && pieces[1][0]) || '';
+  return `${first}${second}`.toUpperCase();
+}
+
+function normalizeStars(rawValue) {
+  const numeric = Number(rawValue);
+  if (!Number.isFinite(numeric)) {
+    return 5;
+  }
+
+  return Math.max(1, Math.min(5, Math.round(numeric)));
+}
+
+function normalizeReviewItem(item) {
+  const name = String(item?.name || item?.author || '').trim();
+  if (!name) {
+    return null;
+  }
+
+  const text = String(item?.text || item?.review || item?.quote || '').trim();
+  const sub = String(item?.sub || item?.meta || item?.location || '').trim();
+
+  return {
+    name,
+    initials: String(item?.initials || '').trim().toUpperCase() || buildInitials(name),
+    sub: sub || 'Verified Traveler',
+    stars: normalizeStars(item?.stars ?? item?.rating),
+    text: text || 'Excellent service and smooth journey from start to finish.',
+  };
+}
+
+export default function CustomerReviews({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const normalizedContentReviews = Array.isArray(data.reviews)
+    ? data.reviews.map(normalizeReviewItem).filter(Boolean)
+    : [];
+  const reviews = normalizedContentReviews.length > 0
+    ? normalizedContentReviews
+    : defaultReviews.map((review) => normalizeReviewItem(review)).filter(Boolean);
+
+  const title = data.title || 'What Our Travelers Say';
+  const trustText = data.trustText || '4.9/5 on Trustpilot';
+  const trustStar = data.trustStar || '★';
+
   const [ref, inView] = useInView();
   return (
     <Section id="reviews" ref={ref}>
       <Inner>
         <SectionHeader $inView={inView}>
-          <Title>What Our Travelers Say</Title>
-          <TrustBadge><TrustStar>★</TrustStar>4.9/5 on Trustpilot</TrustBadge>
+          <Title>{title}</Title>
+          {trustText ? (
+            <TrustBadge><TrustStar>{trustStar}</TrustStar>{trustText}</TrustBadge>
+          ) : null}
         </SectionHeader>
 
         <Grid>
-          {defaultReviews.map((r, i) => (
-            <Card key={r.name} $inView={inView} $delay={i * 0.13}>
+          {reviews.map((r, i) => (
+            <Card key={`${r.name}-${i}`} $inView={inView} $delay={i * 0.13}>
               <QuoteIcon>&ldquo;</QuoteIcon>
               <ReviewText>{r.text}</ReviewText>
               <ReviewerRow>

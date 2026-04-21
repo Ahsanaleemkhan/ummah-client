@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 import HotelsHero from '../../components/hotels/HotelsHero';
+import HotelAccommodationHighlights from '../../components/hotels/HotelAccommodationHighlights';
 import HotelsGrid from '../../components/hotels/HotelsGrid';
 import Footer from '../../components/Footer';
 import { usePageContent } from '../../lib/usePageContent';
@@ -17,13 +18,16 @@ export default function HotelsPage() {
 
   return (
     <Main>
-      {/* 1. Hero with integrated top header + hotel search */}
+      {/* Hero with integrated top header + hotel search */}
       <HotelsHero content={sections.hero} />
 
-      {/* 2. Hotels page sections stack */}
+      {/* Accommodation service highlights */}
+      <HotelAccommodationHighlights />
+
+      {/* Hotels page sections stack */}
       <HotelsGrid />
 
-      {/* 3. Shared footer (same as Home) */}
+      {/* Shared footer (same as Home) */}
       <Footer content={sharedSections.footer} />
     </Main>
   );

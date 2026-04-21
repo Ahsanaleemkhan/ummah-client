@@ -13,12 +13,12 @@ const fadeUp = keyframes`
 const Section = styled.section`
   position: relative;
   background: linear-gradient(165deg, #0d4a24 0%, #1B6B3A 40%, #238c4e 100%);
-  padding: 8.5rem 2rem 5rem;
+  padding: 0 2rem 5rem;
   text-align: center;
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 7rem 1.25rem 3.5rem;
+    padding: 0 1.25rem 3.5rem;
   }
 `;
 
@@ -31,6 +31,14 @@ const PatternOverlay = styled.div`
     radial-gradient(circle at 75% 75%, #fff 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
+`;
+
+const Content = styled.div`
+  padding-top: 8rem;
+
+  @media (max-width: 768px) {
+    padding-top: 6rem;
+  }
 `;
 
 const Breadcrumb = styled.nav`
@@ -60,7 +68,7 @@ const SepIcon = styled(FiChevronRight)`
 
 const BookIcon = styled(HiOutlineBookOpen)`
   font-size: 3rem;
-  color: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.18);
   margin-bottom: 0.75rem;
   animation: ${fadeUp} 0.6s ease forwards;
   animation-delay: 0.15s;
@@ -105,16 +113,18 @@ export default function BlogHero({ content = null }) {
   return (
     <Section>
       <PatternOverlay />
-      <Breadcrumb>
-        <Link href="/">Home</Link>
-        <SepIcon />
-        <span className="current">{data.breadcrumbCurrent || 'Blog & Travel Tips'}</span>
-      </Breadcrumb>
-      <BookIcon />
-      <Title>{data.title || 'Blog & Travel Tips'}</Title>
-      <Desc>
-        {data.description || 'Expert guidance, spiritual insights, and practical travel tips to help you prepare for your sacred journey to the Holy Lands.'}
-      </Desc>
+      <Content>
+        <Breadcrumb>
+          <Link href="/">Home</Link>
+          <SepIcon />
+          <span className="current">{data.breadcrumbCurrent || 'Blog & Travel Tips'}</span>
+        </Breadcrumb>
+        <BookIcon />
+        <Title>{data.title || 'Blog & Travel Tips'}</Title>
+        <Desc>
+          {data.description || 'Expert guidance, spiritual insights, and practical travel tips to help you prepare for your sacred journey to the Holy Lands.'}
+        </Desc>
+      </Content>
     </Section>
   );
 }

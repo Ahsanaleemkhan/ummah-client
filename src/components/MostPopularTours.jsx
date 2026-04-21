@@ -230,9 +230,9 @@ const DetailsBtn = styled.a`
 
 const defaultTours = [
   { id: 'T1', img: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=80', category: 'Umrah',         categoryBg: '#c9a227', categoryColor: '#fff', days: '7 Days', caption: 'Makkah & Madinah', title: 'Makkah & Madinah', meta: '7 Days Package · All Inclusive', rating: '4.9', price: 'Rs. 85,000',  href: '/umrah-packages' },
-  { id: 'T2', img: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=600&q=80', category: 'International', categoryBg: '#0e7490', categoryColor: '#fff', days: '5 Days', caption: 'Istanbul, Turkey',  title: 'Istanbul, Turkey',  meta: '5 Days Package · All Inclusive', rating: '4.9', price: 'Rs. 1,20,000', href: '/tours' },
-  { id: 'T3', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80', category: 'Popular',       categoryBg: '#d97706', categoryColor: '#fff', days: '4 Days', caption: 'Dubai Explorer',   title: 'Dubai Explorer',   meta: '4 Days Package · All Inclusive', rating: '4.9', price: 'Rs. 75,000',  href: '/tours' },
-  { id: 'T4', img: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&q=80', category: 'Domestic',      categoryBg: '#7c3aed', categoryColor: '#fff', days: '3 Days', caption: 'Swat Valley',      title: 'Swat Valley',      meta: '3 Days Package · All Inclusive', rating: '4.9', price: 'Rs. 18,000',  href: '/tours' },
+  { id: 'T2', img: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=600&q=80', category: 'Ziyarah',       categoryBg: '#0e7490', categoryColor: '#fff', days: '5 Days', caption: 'Madinah Heritage', title: 'Madinah Heritage Tour', meta: 'Quba · Uhud · Qiblatain', rating: '4.9', price: 'Rs. 1,35,000', href: '/tours' },
+  { id: 'T3', img: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&q=80', category: 'Family',          categoryBg: '#d97706', categoryColor: '#fff', days: '6 Days', caption: 'Jeddah + Makkah',  title: 'Family Umrah Support Plan', meta: 'Flexible pacing · Family rooms', rating: '4.9', price: 'Rs. 1,55,000', href: '/tours' },
+  { id: 'T4', img: 'https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=600&q=80', category: 'Ramadan',      categoryBg: '#7c3aed', categoryColor: '#fff', days: '10 Days', caption: 'Ramadan Program', title: 'Ramadan Umrah Retreat', meta: 'Iftar support · Guided rituals', rating: '5.0', price: 'Rs. 2,10,000', href: '/umrah-packages' },
 ];
 
 export default function MostPopularTours({ content = null }) {
@@ -246,7 +246,7 @@ export default function MostPopularTours({ content = null }) {
         <SectionHeader $inView={inView}>
           <TitleBlock>
             <Title>{data.title || 'Most Popular Tours'}</Title>
-            <Subtitle>{data.subtitle || 'Handpicked journeys, unbeatable prices'}</Subtitle>
+            <Subtitle>{data.subtitle || 'Pilgrimage-focused journeys with guided support'}</Subtitle>
           </TitleBlock>
           <ViewAll href="/tours">View All Tours →</ViewAll>
         </SectionHeader>

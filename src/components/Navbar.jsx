@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { defaultNavLinks } from '../lib/navLinks';
 
 const HeaderShell = styled.header`
   background: ${({ $backgroundColor }) => $backgroundColor};
@@ -16,8 +17,7 @@ const HeaderShell = styled.header`
 `;
 
 const HeaderInner = styled.div`
-  max-width: 1040px;
-  margin: 0 auto;
+  max-width: 100%;
 `;
 
 const TopRow = styled.div`
@@ -161,18 +161,8 @@ const MobileLink = styled(Link)`
   }
 `;
 
-const navItems = [
-  { label: 'Flights', href: '/flights' },
-  { label: 'Hotels', href: '/hotels' },
-  { label: 'Umrah Packages', href: '/umrah-packages' },
-  { label: 'Tour Packages', href: '/tours' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Blog / Travel Tips', href: '/blog' },
-  { label: 'Contact', href: '/contact' },
-];
-
 export default function Navbar({
-  navLinks = navItems,
+  navLinks = defaultNavLinks,
   loginButtonText = 'LOGIN / REGISTER',
   loginButtonHref = '/contact',
   showLoginButton = false,

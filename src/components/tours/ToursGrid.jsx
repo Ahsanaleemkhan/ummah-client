@@ -222,101 +222,102 @@ const CustomizeBtn = styled(Link)`
 const defaultTourOffers = [
   {
     id: 1,
-    category: 'history',
-    typeLabel: 'Travel History',
-    title: 'Explore Europe (9 Days)',
-    price: 'PKR 680,000',
-    note: 'Guided landmarks itinerary',
-    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=900&q=80',
+    category: 'ziyarah',
+    typeLabel: 'Ziyarah Program',
+    title: 'Madinah Sacred Sites (3 Days)',
+    price: 'PKR 145,000',
+    note: 'Quba, Uhud, and Qiblatain with scholar guide',
+    image: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=900&q=80',
   },
   {
     id: 2,
     category: 'group',
-    typeLabel: 'Group Package',
-    title: 'Turkey and Cappadocia (8 Days)',
-    price: 'PKR 520,000',
-    note: 'Family friendly departures',
-    image: 'https://images.unsplash.com/photo-1641128324605-0f6f4ed2a8f7?w=900&q=80',
+    typeLabel: 'Group Program',
+    title: 'Makkah Historical Trail (2 Days)',
+    price: 'PKR 98,000',
+    note: 'Jabal al-Noor and historic site visits',
+    image: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=900&q=80',
   },
   {
     id: 3,
-    category: 'history',
-    typeLabel: 'Travel History',
-    title: 'Egypt Pyramids Quest (7 Days)',
-    price: 'PKR 490,000',
-    note: 'Cairo and Luxor highlights',
-    image: 'https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=900&q=80',
+    category: 'ziyarah',
+    typeLabel: 'Ziyarah Program',
+    title: 'Badr Heritage Excursion (2 Days)',
+    price: 'PKR 120,000',
+    note: 'Battlefield landmarks and guided reflections',
+    image: 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=900&q=80',
   },
   {
     id: 4,
     category: 'group',
-    typeLabel: 'Group Package',
-    title: 'Balkans Explorer (10 Days)',
-    price: 'PKR 610,000',
-    note: 'Bosnia, Serbia and Albania',
-    image: 'https://images.unsplash.com/photo-1524492412937-b33874b5fc96?w=900&q=80',
+    typeLabel: 'Group Program',
+    title: 'Taif Spiritual Retreat (3 Days)',
+    price: 'PKR 165,000',
+    note: 'Comfortable mountain stay with group transport',
+    image: 'https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=900&q=80',
   },
   {
     id: 5,
-    category: 'adventure',
-    typeLabel: 'Adventure Package',
-    title: 'Swiss Alps Adventure (8 Days)',
-    price: 'PKR 720,000',
-    note: 'Mountain rail journeys included',
-    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=900&q=80',
+    category: 'family',
+    typeLabel: 'Family Program',
+    title: 'Jeddah Arrival and Rest Plan (2 Days)',
+    price: 'PKR 110,000',
+    note: 'Airport pickup, hotel check-in, and family assistance',
+    image: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=900&q=80',
   },
   {
     id: 6,
-    category: 'adventure',
-    typeLabel: 'Adventure Package',
-    title: 'Dubai Desert Escape (6 Days)',
-    price: 'PKR 360,000',
-    note: 'Dune safari and marina cruise',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=900&q=80',
+    category: 'family',
+    typeLabel: 'Family Program',
+    title: 'Family Ziyarah in Madinah (4 Days)',
+    price: 'PKR 178,000',
+    note: 'Kid-friendly pacing with private family support',
+    image: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=900&q=80',
   },
   {
     id: 7,
-    category: 'adventure',
-    typeLabel: 'Adventure Package',
-    title: 'Malaysia Island and Jungle (9 Days)',
-    price: 'PKR 540,000',
-    note: 'Langkawi, KL and rainforest trails',
-    image: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900&q=80',
+    category: 'premium',
+    typeLabel: 'Premium Program',
+    title: 'VIP Haram-to-Haram Transfers (5 Days)',
+    price: 'PKR 260,000',
+    note: 'Executive transport with concierge coordination',
+    image: 'https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=900&q=80',
   },
   {
     id: 8,
-    category: 'history',
-    typeLabel: 'Travel History',
-    title: 'Morocco Heritage Trail (8 Days)',
-    price: 'PKR 500,000',
-    note: 'Marrakech, Fes and Chefchaouen',
-    image: 'https://images.unsplash.com/photo-1489493887464-892be6d1daae?w=900&q=80',
+    category: 'premium',
+    typeLabel: 'Premium Program',
+    title: 'Luxury Umrah Plus Stay (7 Days)',
+    price: 'PKR 340,000',
+    note: '5-star hotels, private transfers, and dedicated host',
+    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80',
   },
   {
     id: 9,
     category: 'group',
-    typeLabel: 'Group Package',
-    title: 'Azerbaijan Family Group (7 Days)',
-    price: 'PKR 430,000',
-    note: 'Ideal for first-time travelers',
-    image: 'https://images.unsplash.com/photo-1526481280695-3c4696f2f8e6?w=900&q=80',
+    typeLabel: 'Group Program',
+    title: 'Scholars-led Group Itinerary (5 Days)',
+    price: 'PKR 195,000',
+    note: 'Daily reminders and ritual guidance sessions',
+    image: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=900&q=80',
   },
   {
     id: 10,
-    category: 'history',
-    typeLabel: 'Travel History',
-    title: 'Jordan Petra Expedition (6 Days)',
-    price: 'PKR 470,000',
-    note: 'Petra, Wadi Rum and Amman',
-    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=900&q=80',
+    category: 'ziyarah',
+    typeLabel: 'Ziyarah Program',
+    title: 'Madinah Date Farms and Heritage Walk (2 Days)',
+    price: 'PKR 105,000',
+    note: 'Local heritage stops with comfortable transfer',
+    image: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=900&q=80',
   },
 ];
 
 const defaultTabs = [
-  { key: 'all', label: 'All Packages' },
-  { key: 'history', label: 'Travel History Packages' },
-  { key: 'adventure', label: 'Adventure Packages' },
-  { key: 'group', label: 'Group Packages' },
+  { key: 'all', label: 'All Programs' },
+  { key: 'ziyarah', label: 'Ziyarah Programs' },
+  { key: 'group', label: 'Group Programs' },
+  { key: 'family', label: 'Family Programs' },
+  { key: 'premium', label: 'Premium Programs' },
 ];
 
 export default function ToursGrid({ content = null }) {
@@ -353,7 +354,7 @@ export default function ToursGrid({ content = null }) {
           ))}
         </TabsRow>
 
-        <Heading>{data.heading || 'PACKAGE OFFERS'}</Heading>
+        <Heading>{data.heading || 'SAUDI TOUR PROGRAMS'}</Heading>
 
         <OffersGrid>
           {filtered.map((tour, index) => (
@@ -383,13 +384,13 @@ export default function ToursGrid({ content = null }) {
           <CustomizeInfo>
             <FaBoxOpen />
             <div>
-              <h3>{data.customizeTitle || 'Now you can customize your package.'}</h3>
-              <p>{data.customizeText || 'Tell us your dates, destination, and budget to get a tailored quote.'}</p>
+              <h3>{data.customizeTitle || 'Now you can customize your program.'}</h3>
+              <p>{data.customizeText || 'Tell us your Umrah dates, preferred ziyarah stops, and group size to get a tailored quote.'}</p>
             </div>
           </CustomizeInfo>
 
           <CustomizeBtn href={data.customizeButtonHref || '/contact'}>
-            {data.customizeButtonText || 'Request Your Package'} <FaPlaneDeparture />
+            {data.customizeButtonText || 'Request Custom Program'} <FaPlaneDeparture />
           </CustomizeBtn>
         </CustomizeCard>
       </Inner>

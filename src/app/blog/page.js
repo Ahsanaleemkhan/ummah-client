@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import styled from 'styled-components';
-import Navbar from '../../components/Navbar';
 import BlogHero from '../../components/blog/BlogHero';
 import BlogFilters from '../../components/blog/BlogFilters';
 import BlogGrid from '../../components/blog/BlogGrid';
 import BlogNewsletter from '../../components/blog/BlogNewsletter';
 import Footer from '../../components/Footer';
+import { blogPosts, getBlogCategories } from '../../lib/blogContent';
 import { usePageContent } from '../../lib/usePageContent';
 
 const Main = styled.main`
@@ -19,28 +19,27 @@ const Main = styled.main`
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('All');
   const { sections, sharedSections } = usePageContent('blog');
+  const categories = getBlogCategories();
 
   return (
     <Main>
-      {/* Navigation */}
-      <Navbar backgroundColor="#0f6a38" dark sticky={false} />
-
-      {/* 1. Hero */}
+      {/* Hero with embedded navbar */}
       <BlogHero content={sections.hero} />
 
-      {/* 2. Search + Category Filters */}
+      {/* Search + Category Filters */}
       <BlogFilters
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
+        categories={categories}
       />
 
-      {/* 3. Featured Post + Blog Grid */}
-      <BlogGrid activeCategory={activeCategory} />
+      {/* Featured Post + Blog Grid */}
+      <BlogGrid activeCategory={activeCategory} posts={blogPosts} />
 
-      {/* 4. Newsletter CTA */}
+      {/* Newsletter CTA */}
       <BlogNewsletter content={sections.newsletter} />
 
-      {/* 5. Footer */}
+      {/* Footer */}
       <Footer content={sharedSections.footer} />
     </Main>
   );

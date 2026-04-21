@@ -18,12 +18,12 @@ const planeFloat = keyframes`
 const Section = styled.section`
   position: relative;
   background: linear-gradient(165deg, #0d4a24 0%, #1B6B3A 40%, #238c4e 100%);
-  padding: 8.5rem 2rem 5rem;
+  padding: 0 2rem 5rem;
   text-align: center;
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 7rem 1.25rem 3.5rem;
+    padding: 0 1.25rem 3.5rem;
   }
 `;
 
@@ -56,6 +56,14 @@ const FloatingPlane = styled(MdFlight)`
     font-size: 5rem;
     transform: rotate(25deg);
     animation-delay: 1.5s;
+  }
+`;
+
+const Content = styled.div`
+  padding-top: 8rem;
+
+  @media (max-width: 768px) {
+    padding-top: 6rem;
   }
 `;
 
@@ -133,16 +141,18 @@ export default function FlightsHero({ content = null }) {
       <PatternOverlay />
       <FloatingPlane />
       <FloatingPlane />
-      <Breadcrumb>
-        <Link href="/">Home</Link>
-        <SepIcon />
-        <span className="current">{data.breadcrumbCurrent || 'Flights'}</span>
-      </Breadcrumb>
-      <PlaneIcon />
-      <Title>{data.title || 'Book Your Flights'}</Title>
-      <Desc>
-        {data.description || 'Find the best deals on domestic and international flights. Direct routes to Jeddah, Madinah, and 50+ destinations worldwide with trusted airline partners.'}
-      </Desc>
+      <Content>
+        <Breadcrumb>
+          <Link href="/">Home</Link>
+          <SepIcon />
+          <span className="current">{data.breadcrumbCurrent || 'Flights'}</span>
+        </Breadcrumb>
+        <PlaneIcon />
+        <Title>{data.title || 'Book Your Flights'}</Title>
+        <Desc>
+          {data.description || 'Find reliable fares to Jeddah and Madinah with pilgrim-friendly timings, trusted airline partners, and end-to-end booking support.'}
+        </Desc>
+      </Content>
     </Section>
   );
 }

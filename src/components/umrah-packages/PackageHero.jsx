@@ -16,16 +16,15 @@ const shimmer = keyframes`
 const Section = styled.section`
   position: relative;
   background: linear-gradient(165deg, #0d4a24 0%, #1B6B3A 40%, #238c4e 100%);
-  padding: 8.5rem 2rem 4.5rem;
+  padding: 0 2rem 4.5rem;
   text-align: center;
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 7rem 1.25rem 3.5rem;
+    padding: 0 1.25rem 3.5rem;
   }
 `;
 
-/* Subtle geometric pattern overlay */
 const PatternOverlay = styled.div`
   position: absolute;
   inset: 0;
@@ -53,6 +52,14 @@ const MosqueSilhouette = styled.div`
   }
 `;
 
+const Content = styled.div`
+  padding-top: 8rem;
+
+  @media (max-width: 768px) {
+    padding-top: 6rem;
+  }
+`;
+
 const Breadcrumb = styled.nav`
   display: flex;
   align-items: center;
@@ -69,20 +76,9 @@ const Breadcrumb = styled.nav`
     text-decoration: none;
     transition: color 0.2s;
   }
-
-  a:hover {
-    color: #fff;
-  }
-
-  .sep {
-    font-size: 0.65rem;
-    color: rgba(255,255,255,0.35);
-  }
-
-  .current {
-    color: #fff;
-    font-weight: 600;
-  }
+  a:hover { color: #fff; }
+  .sep { font-size: 0.65rem; color: rgba(255,255,255,0.35); }
+  .current { color: #fff; font-weight: 600; }
 `;
 
 const Title = styled.h1`
@@ -92,10 +88,10 @@ const Title = styled.h1`
   letter-spacing: 0.03em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
+  line-height: 1.1;
   animation: ${fadeUp} 0.6s ease forwards;
   animation-delay: 0.25s;
   opacity: 0;
-  line-height: 1.1;
 
   @media (max-width: 640px) {
     font-size: 2rem;
@@ -166,7 +162,17 @@ const Divider = styled.div`
   }
 `;
 
-export default function PackageHero() {
+const defaultStats = [
+  { value: '5,000+', label: 'Happy Pilgrims' },
+  { value: '15+',    label: 'Package Options' },
+  { value: '4.9★',   label: 'Avg. Rating' },
+  { value: '24/7',   label: 'Support' },
+];
+
+export default function PackageHero({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const stats = Array.isArray(data.stats) && data.stats.length >= 4 ? data.stats : defaultStats;
+
   return (
     <Section>
       <PatternOverlay />
@@ -187,39 +193,41 @@ export default function PackageHero() {
         </svg>
       </MosqueSilhouette>
 
-      <Breadcrumb>
-        <Link href="/">Home</Link>
-        <span className="sep">›</span>
-        <span className="current">Umrah Packages</span>
-      </Breadcrumb>
+      <Content>
+        <Breadcrumb>
+          <Link href="/">Home</Link>
+          <span className="sep">›</span>
+          <span className="current">{data.breadcrumbCurrent || 'Umrah Packages'}</span>
+        </Breadcrumb>
 
-      <Title>Umrah Packages 2026</Title>
-      <Subtitle>
-        Choose from our carefully curated Umrah packages designed to provide a seamless,
-        spiritually enriching journey to the Holy Lands
-      </Subtitle>
+        <Title>{data.title || 'Umrah Packages 2026'}</Title>
 
-      <StatsRow>
-        <Stat>
-          <div className="number">5,000+</div>
-          <div className="label">Happy Pilgrims</div>
-        </Stat>
-        <Divider />
-        <Stat>
-          <div className="number">15+</div>
-          <div className="label">Package Options</div>
-        </Stat>
-        <Divider />
-        <Stat>
-          <div className="number">4.9★</div>
-          <div className="label">Avg. Rating</div>
-        </Stat>
-        <Divider />
-        <Stat>
-          <div className="number">24/7</div>
-          <div className="label">Support</div>
-        </Stat>
-      </StatsRow>
+        <Subtitle>
+          {data.description || 'Choose from our carefully curated Umrah packages designed to provide a seamless, spiritually enriching journey to the Holy Lands.'}
+        </Subtitle>
+
+        <StatsRow>
+          <Stat>
+            <div className="number">{stats[0]?.value || defaultStats[0].value}</div>
+            <div className="label">{stats[0]?.label || defaultStats[0].label}</div>
+          </Stat>
+          <Divider />
+          <Stat>
+            <div className="number">{stats[1]?.value || defaultStats[1].value}</div>
+            <div className="label">{stats[1]?.label || defaultStats[1].label}</div>
+          </Stat>
+          <Divider />
+          <Stat>
+            <div className="number">{stats[2]?.value || defaultStats[2].value}</div>
+            <div className="label">{stats[2]?.label || defaultStats[2].label}</div>
+          </Stat>
+          <Divider />
+          <Stat>
+            <div className="number">{stats[3]?.value || defaultStats[3].value}</div>
+            <div className="label">{stats[3]?.label || defaultStats[3].label}</div>
+          </Stat>
+        </StatsRow>
+      </Content>
     </Section>
   );
 }

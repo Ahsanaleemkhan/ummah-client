@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import Navbar from './Navbar';
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(32px); }
@@ -36,7 +35,11 @@ const Hero = styled.section`
 const Inner = styled.div`
   max-width: 1140px;
   margin: 0 auto;
-  padding: 0 1.5rem 3.5rem;
+  padding: 5rem 1.5rem 3.5rem;
+
+  @media (max-width: 768px) {
+    padding-top: 4rem;
+  }
 `;
 
 /* ── Two-column layout ───────────────────────────────── */
@@ -268,11 +271,24 @@ const Field = styled.div`
     font-size: 0.78rem;
     color: #222;
     font-weight: 500;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0;
+  }
+
+  .val::placeholder {
+    color: #888;
   }
 `;
 
 const PassengerField = styled(Field)`
   grid-column: 1 / -1;
+`;
+
+const CardForm = styled.form`
+  margin: 0;
 `;
 
 const SearchBtn = styled.button`
@@ -331,33 +347,28 @@ const TAB_CONFIGS = {
 
 const TABS = Object.keys(TAB_CONFIGS);
 
-const defaultNavItems = [
-  { label: 'Flights', href: '/flights' },
-  { label: 'Hotels', href: '/hotels' },
-  { label: 'Umrah Packages', href: '/umrah-packages' },
-  { label: 'Tour Packages', href: '/tours' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Blog / Travel Tips', href: '/blog' },
-  { label: 'Contact', href: '/contact' },
-];
-
 export default function HomeHeroSection({ content = null }) {
   const data = content && typeof content === 'object' ? content : {};
-  const navItems = Array.isArray(data.navItems) && data.navItems.length > 0 ? data.navItems : defaultNavItems;
   const [activeTab, setActiveTab] = useState('Flights');
+  const [formValues, setFormValues] = useState({
+    from: '',
+    to: '',
+    dep: '',
+    ret: '',
+    passengers: '1 Adult, 0 Child',
+  });
   const cfg = TAB_CONFIGS[activeTab];
+
+  const handleFieldChange = (key, value) => {
+    setFormValues((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <Hero id="hero">
-      <Navbar
-        navLinks={navItems}
-        loginButtonText={data.loginButtonText || 'LOGIN / REGISTER'}
-        loginButtonHref={data.loginButtonHref || '/contact'}
-        backgroundColor="transparent"
-        dark
-        sticky={false}
-      />
-
       <Inner>
         <Columns>
           {/* LEFT */}
@@ -409,36 +420,68 @@ export default function HomeHeroSection({ content = null }) {
 
             <TabsRow>
               {TABS.map((tab) => (
-                <Tab key={tab} $active={activeTab === tab} onClick={() => setActiveTab(tab)}>
+                <Tab type="button" key={tab} $active={activeTab === tab} onClick={() => setActiveTab(tab)}>
                   {tab}
                 </Tab>
               ))}
             </TabsRow>
 
-            <FieldGrid>
-              <Field>
-                <div className="lbl">From</div>
-                <div className="val">{cfg.from}</div>
-              </Field>
-              <Field>
-                <div className="lbl">To</div>
-                <div className="val">{cfg.to}</div>
-              </Field>
-              <Field>
-                <div className="lbl">Departure</div>
-                <div className="val">{cfg.dep}</div>
-              </Field>
-              <Field>
-                <div className="lbl">Return</div>
-                <div className="val">{cfg.ret}</div>
-              </Field>
-              <PassengerField>
-                <div className="lbl">Passengers</div>
-                <div className="val">1 Adult, 0 Child</div>
-              </PassengerField>
-            </FieldGrid>
+            <CardForm onSubmit={handleSearch}>
+              <FieldGrid>
+                <Field>
+                  <div className="lbl">From</div>
+                  <input
+                    className="val"
+                    type="text"
+                    placeholder={cfg.from}
+                    value={formValues.from}
+                    onChange={(event) => handleFieldChange('from', event.target.value)}
+                  />
+                </Field>
+                <Field>
+                  <div className="lbl">To</div>
+                  <input
+                    className="val"
+                    type="text"
+                    placeholder={cfg.to}
+                    value={formValues.to}
+                    onChange={(event) => handleFieldChange('to', event.target.value)}
+                  />
+                </Field>
+                <Field>
+                  <div className="lbl">Departure</div>
+                  <input
+                    className="val"
+                    type="text"
+                    placeholder={cfg.dep}
+                    value={formValues.dep}
+                    onChange={(event) => handleFieldChange('dep', event.target.value)}
+                  />
+                </Field>
+                <Field>
+                  <div className="lbl">Return</div>
+                  <input
+                    className="val"
+                    type="text"
+                    placeholder={cfg.ret}
+                    value={formValues.ret}
+                    onChange={(event) => handleFieldChange('ret', event.target.value)}
+                  />
+                </Field>
+                <PassengerField>
+                  <div className="lbl">Passengers</div>
+                  <input
+                    className="val"
+                    type="text"
+                    placeholder="1 Adult, 0 Child"
+                    value={formValues.passengers}
+                    onChange={(event) => handleFieldChange('passengers', event.target.value)}
+                  />
+                </PassengerField>
+              </FieldGrid>
 
-            <SearchBtn type="button">{cfg.label}</SearchBtn>
+              <SearchBtn type="submit">{cfg.label}</SearchBtn>
+            </CardForm>
 
             <CardFooter>
               <FooterNote>🔒 Secure Booking</FooterNote>

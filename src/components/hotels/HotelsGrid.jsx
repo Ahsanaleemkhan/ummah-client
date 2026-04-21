@@ -462,33 +462,33 @@ const whyFeatures = [
   {
     icon: FaPercent,
     title: 'Book now, pay at the property',
-    text: 'No prepayment needed on selected hotels.',
+    text: 'Flexible booking options on selected Haram-area stays.',
   },
   {
     icon: FaCheckCircle,
-    title: '300M+ reviews from fellow travelers',
-    text: 'Verified ratings help you book with confidence.',
+    title: 'Verified pilgrim feedback',
+    text: 'Real reviews from Umrah and Hajj travelers like you.',
   },
   {
     icon: FaGlobeAsia,
-    title: '2M+ properties worldwide',
-    text: 'Hotels, resorts, apartments, and villas.',
+    title: 'Curated holy-city inventory',
+    text: 'Focused hotel options in Makkah, Madinah, and Jeddah.',
   },
   {
     icon: FaUserShield,
     title: 'Trusted 24/7 customer service',
-    text: 'Support available before, during, and after stay.',
+    text: 'Support available before, during, and after your pilgrimage.',
   },
 ];
 
 const offers = [
   {
     title: 'At least 15% off',
-    text: 'Save on your next stay with Early 2026 Deals. Book before May 31, 2026.',
+    text: 'Save on your next Umrah stay with early booking deals for peak seasons.',
   },
   {
     title: 'At least 15% off',
-    text: 'Earn more value with weekly flash hotel deals. Limited-time room discounts.',
+    text: 'Limited-time room discounts for Makkah and Madinah departures.',
   },
 ];
 
@@ -515,74 +515,74 @@ const featuredHotels = [
 
 const destinations = [
   {
-    title: 'Dubai',
-    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1200&q=80',
+    title: 'Makkah',
+    image: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1200&q=80',
     wide: true,
   },
   {
-    title: 'Istanbul',
-    image: 'https://images.unsplash.com/photo-1527838832700-5059252407fa?w=1200&q=80',
+    title: 'Madinah',
+    image: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=1200&q=80',
     wide: true,
   },
   {
-    title: 'Baku',
-    image: 'https://images.unsplash.com/photo-1606836576983-8b458e75221d?w=1200&q=80',
+    title: 'Jeddah',
+    image: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1200&q=80',
   },
   {
-    title: 'Kuala Lumpur',
-    image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1200&q=80',
+    title: 'Taif',
+    image: 'https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=1200&q=80',
   },
   {
-    title: 'Doha',
-    image: 'https://images.unsplash.com/photo-1567202121427-52b76ffad2e8?w=1200&q=80',
+    title: 'Badr Region',
+    image: 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1200&q=80',
   },
 ];
 
-const plannerTabs = ['Lahore', 'Karachi', 'Islamabad', 'Peshawar', 'Sialkot'];
+const plannerTabs = ['Makkah Core', 'Madinah Core', 'Family Stays', 'Premium Stays', 'Value Stays'];
 
 const plannerByCity = {
-  Lahore: [
-    { title: 'Lahore', sub: 'Gulberg', image: 'https://images.unsplash.com/photo-1455587734955-081b22074882?w=1200&q=80' },
-    { title: 'Sialkot', sub: 'Downtown', image: 'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=1200&q=80' },
-    { title: 'Rawalpindi', sub: 'Saddar', image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200&q=80' },
-    { title: 'Islamabad', sub: 'F-7', image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=80' },
-    { title: 'Peshawar', sub: 'City Center', image: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1200&q=80' },
+  'Makkah Core': [
+    { title: 'Clock Tower Area', sub: 'Haram Front', image: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1200&q=80' },
+    { title: 'Ajyad District', sub: 'Shuttle Friendly', image: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1200&q=80' },
+    { title: 'Misfalah Zone', sub: 'Value Rooms', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80' },
+    { title: 'Aziziyah', sub: 'Group Preferred', image: 'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?w=1200&q=80' },
+    { title: 'Jarwal', sub: 'Walking Access', image: 'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=1200&q=80' },
   ],
-  Karachi: [
-    { title: 'Karachi', sub: 'Clifton', image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80' },
-    { title: 'Hyderabad', sub: 'Main Road', image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1200&q=80' },
-    { title: 'Sukkur', sub: 'River View', image: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80' },
-    { title: 'Thatta', sub: 'Old City', image: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80' },
-    { title: 'Gwadar', sub: 'Coastal Road', image: 'https://images.unsplash.com/photo-1498503182468-3b51cbb6cb24?w=1200&q=80' },
+  'Madinah Core': [
+    { title: 'Central Haram North', sub: 'Premium Towers', image: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=1200&q=80' },
+    { title: 'Central Haram East', sub: 'Family Rooms', image: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=1200&q=80' },
+    { title: 'Quba Corridor', sub: 'Calm Location', image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80' },
+    { title: 'King Faisal Road', sub: 'Easy Transfers', image: 'https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200&q=80' },
+    { title: 'Sittin Area', sub: 'Budget Focus', image: 'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?w=1200&q=80' },
   ],
-  Islamabad: [
-    { title: 'Islamabad', sub: 'Blue Area', image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&q=80' },
-    { title: 'Murree', sub: 'Mall Road', image: 'https://images.unsplash.com/photo-1464207687429-7505649dae38?w=1200&q=80' },
-    { title: 'Nathia Gali', sub: 'Pine Valley', image: 'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=1200&q=80' },
-    { title: 'Taxila', sub: 'Historic Belt', image: 'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=1200&q=80' },
-    { title: 'Rawalpindi', sub: 'Committee Chowk', image: 'https://images.unsplash.com/photo-1505692952047-1a78307da8f2?w=1200&q=80' },
+  'Family Stays': [
+    { title: 'Family Suite Makkah', sub: '2 Bedroom Options', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80' },
+    { title: 'Family Suite Madinah', sub: 'Connected Rooms', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80' },
+    { title: 'Kids Friendly Floors', sub: 'Quiet Wings', image: 'https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200&q=80' },
+    { title: 'Wheelchair Support', sub: 'Accessible Entry', image: 'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=1200&q=80' },
+    { title: 'Family Dining Plan', sub: 'Meal Bundles', image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80' },
   ],
-  Peshawar: [
-    { title: 'Peshawar', sub: 'University Town', image: 'https://images.unsplash.com/photo-1560185007-5f0bb1866cab?w=1200&q=80' },
-    { title: 'Swat', sub: 'Mingora', image: 'https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?w=1200&q=80' },
-    { title: 'Abbottabad', sub: 'Hill Point', image: 'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=1200&q=80' },
-    { title: 'Nowshera', sub: 'GT Road', image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=80' },
-    { title: 'Mardan', sub: 'Main Bazar', image: 'https://images.unsplash.com/photo-1560185008-b033106af5c3?w=1200&q=80' },
+  'Premium Stays': [
+    { title: 'Haram View Towers', sub: '5-Star Collection', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80' },
+    { title: 'Executive Madinah Wing', sub: 'VIP Check-In', image: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=1200&q=80' },
+    { title: 'Private Transfer Hotels', sub: 'Airport Pickup', image: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1200&q=80' },
+    { title: 'Suite Upgrade Program', sub: 'Subject to Availability', image: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=1200&q=80' },
+    { title: 'Concierge Support', sub: 'Dedicated Team', image: 'https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=1200&q=80' },
   ],
-  Sialkot: [
-    { title: 'Sialkot', sub: 'Cantt', image: 'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1200&q=80' },
-    { title: 'Gujranwala', sub: 'Model Town', image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80' },
-    { title: 'Wazirabad', sub: 'City Core', image: 'https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=1200&q=80' },
-    { title: 'Sambrial', sub: 'Airport Road', image: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=1200&q=80' },
-    { title: 'Daska', sub: 'Downtown', image: 'https://images.unsplash.com/photo-1560185008-a33f9c2a8f06?w=1200&q=80' },
+  'Value Stays': [
+    { title: 'Economy Makkah Rooms', sub: 'Budget Friendly', image: 'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?w=1200&q=80' },
+    { title: 'Economy Madinah Rooms', sub: 'Daily Shuttle', image: 'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=1200&q=80' },
+    { title: 'Shared Group Floors', sub: 'Lower Cost Plan', image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80' },
+    { title: 'Flexible Stay Durations', sub: '7 to 28 Nights', image: 'https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200&q=80' },
+    { title: 'Umrah Value Bundle', sub: 'Stay + Transfer', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80' },
   ],
 };
 
 const propertyTypes = [
   { title: 'Hotels', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80' },
-  { title: 'Apartments', image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=80' },
-  { title: 'Resorts', image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=80' },
-  { title: 'Villas', image: 'https://images.unsplash.com/photo-1613977257362-c5a9e4d7fef0?w=1200&q=80' },
+  { title: 'Serviced Apartments', image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=80' },
+  { title: 'Family Suites', image: 'https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200&q=80' },
+  { title: 'Group Residences', image: 'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?w=1200&q=80' },
 ];
 
 const weekendDeals = [
@@ -606,7 +606,7 @@ const weekendDeals = [
   },
 ];
 
-const popularTabs = ['Lahore', 'Karachi', 'Islamabad', 'Sialkot', 'Peshawar'];
+const popularTabs = ['Makkah', 'Madinah', 'Jeddah', 'Taif', 'Group Friendly'];
 
 function HotelMiniCards({ items }) {
   return (
@@ -637,10 +637,10 @@ function HotelMiniCards({ items }) {
 }
 
 export default function HotelsGrid() {
-  const [plannerTab, setPlannerTab] = useState('Lahore');
-  const [popularTab, setPopularTab] = useState('Lahore');
+  const [plannerTab, setPlannerTab] = useState('Makkah Core');
+  const [popularTab, setPopularTab] = useState('Makkah');
 
-  const plannerCards = useMemo(() => plannerByCity[plannerTab] || plannerByCity.Lahore, [plannerTab]);
+  const plannerCards = useMemo(() => plannerByCity[plannerTab] || plannerByCity['Makkah Core'], [plannerTab]);
 
   return (
     <Section>
@@ -687,7 +687,7 @@ export default function HotelsGrid() {
 
         <Block>
           <BlockHeaderRow>
-            <Title>Why Ummah Travel?</Title>
+            <Title>Featured Haram Hotels</Title>
             <Arrows>
               <FaArrowLeft />
               <ArrowLine />
@@ -720,7 +720,7 @@ export default function HotelsGrid() {
         <Block>
           <BlockHeader>
             <Title>Quick And Easy Trip Planner</Title>
-            <Subtitle>Pick a vibe and explore the top destinations in Pakistan</Subtitle>
+            <Subtitle>Choose a stay style and explore hotel zones near Haram</Subtitle>
           </BlockHeader>
 
           <PlannerTabs>
@@ -771,7 +771,7 @@ export default function HotelsGrid() {
           <BlockHeaderRow>
             <div style={{ width: '100%' }}>
               <Title>Deals For The Weekend</Title>
-              <Subtitle>Save on stays for April 3 - April 5</Subtitle>
+              <Subtitle>Save on selected stays for your next departure</Subtitle>
             </div>
             <Arrows>
               <FaArrowLeft />
@@ -785,13 +785,13 @@ export default function HotelsGrid() {
 
         <Block>
           <SaveCard>
-            <h3>Travel More, Spend Less</h3>
+            <h3>Stay Better, Spend Smarter</h3>
             <SaveInner>
-              <h4>Sign in, save money</h4>
-              <p>Save 10% or more at participating properties with Genius member rates.</p>
+              <h4>Get a custom Umrah hotel plan</h4>
+              <p>Share your dates and budget to receive curated Makkah and Madinah options.</p>
               <SaveButtons>
-                <SaveBtn href="/contact">Sign in</SaveBtn>
-                <SaveBtn href="/contact" $secondary>Register</SaveBtn>
+                <SaveBtn href="/contact">Request Quote</SaveBtn>
+                <SaveBtn href="/contact" $secondary>Talk To Advisor</SaveBtn>
               </SaveButtons>
             </SaveInner>
           </SaveCard>

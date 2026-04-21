@@ -1,7 +1,6 @@
 'use client';
 
 import styled from 'styled-components';
-import Navbar from '../../components/Navbar';
 import FlightsHero from '../../components/flights/FlightsHero';
 import FlightSearch from '../../components/flights/FlightSearch';
 import PopularRoutes from '../../components/flights/PopularRoutes';
@@ -20,22 +19,19 @@ export default function FlightsPage() {
 
   return (
     <Main>
-      {/* Navigation */}
-      <Navbar backgroundColor="#0f6a38" dark sticky={false} />
-
-      {/* 1. Hero */}
+      {/* Hero with embedded navbar */}
       <FlightsHero content={sections.hero} />
 
-      {/* 2. Flight Search Form */}
+      {/* Flight Search Form */}
       <FlightSearch />
 
-      {/* 3. Popular Routes */}
+      {/* Popular Routes */}
       <PopularRoutes />
 
-      {/* 4. Airline Partners + Why Book */}
+      {/* Airline Partners + Why Book */}
       <AirlinePartners />
 
-      {/* 5. Footer */}
+      {/* Footer */}
       <Footer content={sharedSections.footer} />
     </Main>
   );

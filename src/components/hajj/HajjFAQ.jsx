@@ -1,58 +1,77 @@
 'use client';
 
 import { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { FiChevronDown, FiHelpCircle } from 'react-icons/fi';
+import { useInView } from '../../lib/useInView';
 
-const slideDown = keyframes`
-  from { opacity: 0; max-height: 0; }
-  to   { opacity: 1; max-height: 300px; }
+const enterT = (delay = 0) => `
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: ${delay}s;
+`;
+const exitT = `
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition-delay: 0s;
 `;
 
 const Section = styled.section`
-  background: #f7f8f5;
-  padding: 4.5rem 2rem;
-  @media (max-width: 768px) { padding: 3rem 1rem; }
+  background: #f5f5f5;
+  padding: 4rem 2rem 4.5rem;
+  @media (max-width: 768px) { padding: 3rem 1rem 3.5rem; }
 `;
 
 const Inner = styled.div`
-  max-width: 800px;
+  max-width: 1140px;
   margin: 0 auto;
 `;
 
 const SectionHeader = styled.div`
-  text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.25rem;
+  opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+  transform: ${({ $inView }) => ($inView ? 'translateX(0)' : 'translateX(-28px)')};
+  ${({ $inView }) => ($inView ? enterT(0) : exitT)}
 `;
 
 const Title = styled.h2`
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: #1B6B3A;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 0.5rem;
-  @media (max-width: 640px) { font-size: 1.6rem; }
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 0.35rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid #c9a227;
+  line-height: 1.2;
+  @media (max-width: 640px) { font-size: 1.4rem; }
 `;
 
 const Subtitle = styled.p`
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   color: #777;
+  margin: 0;
+  padding-left: 0.75rem;
+`;
+
+const FaqGrid = styled.div`
+  max-width: 820px;
+  margin: 0 auto;
+  opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+  transform: ${({ $inView }) => ($inView ? 'translateY(0)' : 'translateY(24px)')};
+  ${({ $inView }) => ($inView ? enterT(0.1) : exitT)}
 `;
 
 const FaqList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.55rem;
 `;
 
 const FaqItem = styled.div`
   background: #fff;
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-  transition: box-shadow 0.3s;
-  ${({ $open }) => $open && `box-shadow: 0 4px 20px rgba(27,107,58,0.1);`}
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  border: 1.5px solid ${({ $open }) => $open ? 'rgba(201,162,39,0.3)' : '#ebebeb'};
+  transition: border-color 0.25s, box-shadow 0.25s;
+  ${({ $open }) => $open && `box-shadow: 0 4px 20px rgba(201,162,39,0.1);`}
 `;
 
 const FaqQ = styled.button`
@@ -60,17 +79,17 @@ const FaqQ = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.35rem;
-  font-size: 0.88rem;
+  padding: 1rem 1.25rem;
+  font-size: 0.86rem;
   font-weight: 700;
-  color: ${({ $open }) => $open ? '#1B6B3A' : '#222'};
+  color: ${({ $open }) => $open ? '#1B6B3A' : '#1a1a1a'};
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
   transition: color 0.2s;
   font-family: inherit;
-  line-height: 1.4;
+  line-height: 1.45;
   gap: 0.75rem;
   &:hover { color: #1B6B3A; }
 `;
@@ -78,20 +97,24 @@ const FaqQ = styled.button`
 const QIcon = styled.span`
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  svg:first-child { font-size: 0.9rem; color: #1B6B3A; opacity: 0.4; }
+  gap: 0.45rem;
+
+  svg:first-child {
+    font-size: 0.88rem;
+    color: #c9a227;
+    flex-shrink: 0;
+  }
 `;
 
 const Toggle = styled.span`
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: ${({ $open }) => $open ? '#1B6B3A' : '#f0f1ec'};
+  background: ${({ $open }) => $open ? '#1B6B3A' : '#f0f0f0'};
   color: ${({ $open }) => $open ? '#fff' : '#555'};
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
   flex-shrink: 0;
   transition: all 0.3s;
   transform: ${({ $open }) => $open ? 'rotate(180deg)' : 'rotate(0)'};
@@ -99,11 +122,12 @@ const Toggle = styled.span`
 `;
 
 const FaqA = styled.div`
-  padding: 0 1.35rem 1.15rem;
-  font-size: 0.82rem;
-  color: #666;
-  line-height: 1.75;
-  animation: ${slideDown} 0.3s ease forwards;
+  padding: 0 1.25rem 1.1rem 2.85rem;
+  font-size: 0.8rem;
+  color: #555;
+  line-height: 1.8;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 0.85rem;
 `;
 
 const faqs = [
@@ -118,29 +142,33 @@ const faqs = [
 
 export default function HajjFAQ() {
   const [openIndex, setOpenIndex] = useState(0);
+  const [headerRef, headerInView] = useInView();
+  const [listRef, listInView] = useInView();
 
   return (
     <Section id="hajj-faq">
       <Inner>
-        <SectionHeader>
-          <Title>Hajj FAQs</Title>
-          <Subtitle>Answers to the most common questions about our Hajj packages</Subtitle>
+        <SectionHeader ref={headerRef} $inView={headerInView}>
+          <Title>Frequently Asked Questions</Title>
+          <Subtitle>Everything you need to know about our Hajj packages</Subtitle>
         </SectionHeader>
 
-        <FaqList>
-          {faqs.map((faq, i) => {
-            const isOpen = openIndex === i;
-            return (
-              <FaqItem key={i} $open={isOpen}>
-                <FaqQ $open={isOpen} onClick={() => setOpenIndex(prev => prev === i ? -1 : i)}>
-                  <QIcon><FiHelpCircle /> {faq.q}</QIcon>
-                  <Toggle $open={isOpen}><FiChevronDown /></Toggle>
-                </FaqQ>
-                {isOpen && <FaqA>{faq.a}</FaqA>}
-              </FaqItem>
-            );
-          })}
-        </FaqList>
+        <FaqGrid ref={listRef} $inView={listInView}>
+          <FaqList>
+            {faqs.map((faq, i) => {
+              const isOpen = openIndex === i;
+              return (
+                <FaqItem key={i} $open={isOpen}>
+                  <FaqQ $open={isOpen} onClick={() => setOpenIndex(prev => prev === i ? -1 : i)}>
+                    <QIcon><FiHelpCircle /> {faq.q}</QIcon>
+                    <Toggle $open={isOpen}><FiChevronDown /></Toggle>
+                  </FaqQ>
+                  {isOpen && <FaqA>{faq.a}</FaqA>}
+                </FaqItem>
+              );
+            })}
+          </FaqList>
+        </FaqGrid>
       </Inner>
     </Section>
   );

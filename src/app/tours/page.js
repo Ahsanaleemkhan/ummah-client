@@ -1,8 +1,8 @@
 'use client';
 
 import styled from 'styled-components';
-import Navbar from '../../components/Navbar';
 import ToursHero from '../../components/tours/ToursHero';
+import SaudiTransportServices from '../../components/tours/SaudiTransportServices';
 import ToursGrid from '../../components/tours/ToursGrid';
 import ToursNewsletter from '../../components/tours/ToursNewsletter';
 import CustomerReviews from '../../components/CustomerReviews';
@@ -20,22 +20,22 @@ export default function ToursPage() {
 
   return (
     <Main>
-      {/* 1. Shared site header */}
-      <Navbar backgroundColor="#0f6a38" dark sticky={false} />
-
-      {/* 2. Hero showcase */}
+      {/* Hero with embedded navbar */}
       <ToursHero content={sections.hero} />
 
-      {/* 3. Package filter tabs + offers + customize banner */}
+      {/* Ground transportation services */}
+      <SaudiTransportServices />
+
+      {/* Package filter tabs + offers + customize banner */}
       <ToursGrid content={sections.packages} />
 
-      {/* 4. Customer testimonials (shared with Home) */}
-      <CustomerReviews />
+      {/* Customer testimonials (shared with Home) */}
+      <CustomerReviews content={sections.customerReviews} />
 
-      {/* 5. Newsletter subscribe strip */}
+      {/* Newsletter subscribe strip */}
       <ToursNewsletter content={sections.newsletter} />
 
-      {/* 6. Shared site footer */}
+      {/* Shared site footer */}
       <Footer content={sharedSections.footer} />
     </Main>
   );

@@ -1,69 +1,80 @@
 'use client';
 
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { FiStar, FiArrowRight, FiCheck } from 'react-icons/fi';
 import { IoBedOutline } from 'react-icons/io5';
 import { MdFlightTakeoff, MdRestaurant } from 'react-icons/md';
 import { HiOutlineIdentification } from 'react-icons/hi';
+import { useInView } from '../../lib/useInView';
 
-const fadeUp = keyframes`
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+const enterT = (delay = 0) => `
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: ${delay}s;
+`;
+const exitT = `
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition-delay: 0s;
 `;
 
 const Section = styled.section`
-  background: #f7f8f5;
-  padding: 4.5rem 2rem;
-  @media (max-width: 768px) { padding: 3rem 1rem; }
+  background: #f5f5f5;
+  padding: 4rem 2rem 4.5rem;
+  @media (max-width: 768px) { padding: 3rem 1rem 3.5rem; }
 `;
 
 const Inner = styled.div`
-  max-width: 1100px;
+  max-width: 1140px;
   margin: 0 auto;
 `;
 
 const SectionHeader = styled.div`
-  text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
+  opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+  transform: ${({ $inView }) => ($inView ? 'translateX(0)' : 'translateX(-28px)')};
+  ${({ $inView }) => ($inView ? enterT(0) : exitT)}
 `;
 
 const Title = styled.h2`
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: #1B6B3A;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 0.5rem;
-  @media (max-width: 640px) { font-size: 1.6rem; }
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 0.35rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid #c9a227;
+  line-height: 1.2;
+  @media (max-width: 640px) { font-size: 1.4rem; }
 `;
 
 const Subtitle = styled.p`
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   color: #777;
+  margin: 0;
+  padding-left: 0.75rem;
 `;
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
-  @media (max-width: 900px) { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+  gap: 1.5rem;
+  @media (max-width: 960px) { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
 `;
 
 const Card = styled.div`
   background: #fff;
-  border-radius: 22px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-  transition: all 0.35s ease;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  transition: box-shadow 0.35s ease, transform 0.35s ease,
+              opacity 0.6s ease ${({ $delay }) => $delay || '0s'},
+              transform 0.6s ease ${({ $delay }) => $delay || '0s'};
   position: relative;
-  animation: ${fadeUp} 0.5s ease forwards;
-  animation-delay: ${({ $delay }) => $delay || '0s'};
-  opacity: 0;
-  border: 2px solid ${({ $highlight }) => $highlight ? 'rgba(27,107,58,0.3)' : 'transparent'};
+  border: 2px solid ${({ $highlight }) => $highlight ? 'rgba(27,107,58,0.25)' : '#ebebeb'};
+  opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+  transform: ${({ $inView }) => ($inView ? 'translateY(0)' : 'translateY(32px)')};
 
   &:hover {
-    box-shadow: 0 16px 56px rgba(27,107,58,0.14);
-    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(27,107,58,0.13);
+    transform: translateY(-6px);
   }
 `;
 
@@ -71,36 +82,36 @@ const PopularRibbon = styled.div`
   position: absolute;
   top: 16px;
   right: -30px;
-  background: linear-gradient(135deg, #f5a623, #e8911a);
+  background: linear-gradient(135deg, #c9a227, #b8911e);
   color: #fff;
-  font-size: 0.58rem;
+  font-size: 0.56rem;
   font-weight: 800;
-  padding: 0.25rem 2.5rem;
+  padding: 0.25rem 2.75rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   transform: rotate(45deg);
-  box-shadow: 0 2px 8px rgba(245,166,35,0.3);
+  box-shadow: 0 2px 8px rgba(201,162,39,0.35);
   z-index: 2;
 `;
 
 const CardHeader = styled.div`
   background: ${({ $bg }) => $bg || 'linear-gradient(135deg, #1B6B3A, #238c4e)'};
-  padding: 2rem 1.5rem 1.25rem;
+  padding: 1.75rem 1.5rem 1.35rem;
   text-align: center;
   position: relative;
 `;
 
 const TierLabel = styled.div`
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.6);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.3rem;
 `;
 
 const CardTitle = styled.h3`
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 900;
   color: #fff;
   margin-bottom: 0.85rem;
@@ -108,66 +119,67 @@ const CardTitle = styled.h3`
 
 const PriceBlock = styled.div`
   .amount {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 900;
     color: #fff;
     line-height: 1;
   }
   .per {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: rgba(255,255,255,0.55);
     font-weight: 400;
   }
   .note {
-    font-size: 0.65rem;
+    font-size: 0.63rem;
     color: rgba(255,255,255,0.45);
-    margin-top: 0.25rem;
+    margin-top: 0.22rem;
   }
 `;
 
 const CardBody = styled.div`
-  padding: 1.5rem;
+  padding: 1.35rem 1.35rem 1.5rem;
 `;
 
 const InfoRow = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.65rem;
-  margin-bottom: 1.25rem;
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
 `;
 
 const InfoChip = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.65rem;
-  background: #f7f8f5;
-  border-radius: 10px;
-  font-size: 0.72rem;
+  gap: 0.38rem;
+  padding: 0.45rem 0.6rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+  font-size: 0.7rem;
   font-weight: 600;
   color: #444;
-  svg { color: #1B6B3A; font-size: 0.9rem; flex-shrink: 0; }
+  svg { color: #1B6B3A; font-size: 0.85rem; flex-shrink: 0; }
 `;
 
 const FeatureList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: 0.45rem;
+  margin-bottom: 1.35rem;
 `;
 
 const FeatureItem = styled.div`
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: 0.76rem;
   color: #555;
-  line-height: 1.4;
+  line-height: 1.45;
 
   svg {
     color: #1B6B3A;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     flex-shrink: 0;
+    margin-top: 0.15rem;
   }
 `;
 
@@ -177,29 +189,28 @@ const BookBtn = styled.a`
   justify-content: center;
   gap: 0.4rem;
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.78rem;
   background: ${({ $primary }) => $primary ? '#1B6B3A' : 'transparent'};
   color: ${({ $primary }) => $primary ? '#fff' : '#1B6B3A'};
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   border: 2px solid #1B6B3A;
-  border-radius: 12px;
+  border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.25s;
-  letter-spacing: 0.04em;
+  transition: all 0.22s;
+  letter-spacing: 0.03em;
 
   &:hover {
-    background: ${({ $primary }) => $primary ? '#145230' : '#1B6B3A'};
+    background: #145230;
     color: #fff;
     transform: translateY(-1px);
   }
 
-  svg { font-size: 0.92rem; transition: transform 0.2s; }
+  svg { font-size: 0.88rem; transition: transform 0.2s; }
   &:hover svg { transform: translateX(3px); }
 `;
 
-/* Dummy data — ready for API swap */
 const hajjPackages = [
   {
     id: 1,
@@ -216,7 +227,7 @@ const hajjPackages = [
     transport: 'Group Bus',
     visa: 'Visa Included',
     features: [
-      'Shared rooms (4-6 per room) in Makkah & Mina',
+      'Shared rooms (4–6 per room) in Makkah & Mina',
       'Group transport between holy sites',
       'Experienced group leader & guide',
       'All Hajj rituals assistance',
@@ -277,22 +288,26 @@ const hajjPackages = [
   },
 ];
 
-export async function getHajjPackages() {
-  return hajjPackages;
-}
-
 export default function HajjPackages() {
+  const [headerRef, headerInView] = useInView();
+  const [gridRef, gridInView] = useInView();
+
   return (
     <Section id="hajj-packages">
       <Inner>
-        <SectionHeader>
+        <SectionHeader ref={headerRef} $inView={headerInView}>
           <Title>Choose Your Hajj Package</Title>
           <Subtitle>Three tiers crafted for every budget — all ensuring a blessed and comfortable pilgrimage</Subtitle>
         </SectionHeader>
 
-        <Grid>
+        <Grid ref={gridRef}>
           {hajjPackages.map((pkg, i) => (
-            <Card key={pkg.id} $delay={`${i * 0.12}s`} $highlight={pkg.highlight}>
+            <Card
+              key={pkg.id}
+              $highlight={pkg.highlight}
+              $inView={gridInView}
+              $delay={`${i * 0.12}s`}
+            >
               {pkg.popular && <PopularRibbon>Most Popular</PopularRibbon>}
               <CardHeader $bg={pkg.bg}>
                 <TierLabel>{pkg.tier} Package</TierLabel>

@@ -156,14 +156,14 @@ const Arrow = styled.div`
 `;
 
 const defaultVisas = [
-  { code: 'sa', name: 'Saudi Arabia',   type: 'Umrah / Visit Visa',    badge: 'Most Popular',    badgeColor: '#fff3d6', badgeText: '#c9a227', href: '/contact' },
-  { code: 'ae', name: 'UAE / Dubai',    type: 'Tourist Visa',          badge: 'Fast Approval',   badgeColor: '#e8f5e9', badgeText: '#1B6B3A', href: '/contact' },
-  { code: 'gb', name: 'United Kingdom', type: 'Visit / Work Visa',     badge: 'Interview Req.',  badgeColor: '#fff7ed', badgeText: '#ea580c', href: '/contact' },
-  { code: 'us', name: 'United States',  type: 'B1 / B2 Visa',         badge: 'Embassy Interview',badgeColor: '#eff6ff', badgeText: '#2563eb', href: '/contact' },
-  { code: 'tr', name: 'Turkey',         type: 'e-Visa',               badge: 'Easy Process',    badgeColor: '#e8f5e9', badgeText: '#1B6B3A', href: '/contact' },
-  { code: 'my', name: 'Malaysia',       type: 'Multiple Entry',       badge: 'Visa on Arrival', badgeColor: '#e0f2f1', badgeText: '#0d9488', href: '/contact' },
-  { code: 'eu', name: 'Schengen Zone',  type: 'Europe Multi-Country', badge: 'New Route',       badgeColor: '#e8eaf6', badgeText: '#3949ab', href: '/contact' },
-  { code: 'ca', name: 'Canada',         type: 'Visitor Visa',         badge: 'High Demand',     badgeColor: '#fff7ed', badgeText: '#d97706', href: '/contact' },
+  { code: 'sa', name: 'Saudi Arabia',   type: 'Umrah / Visit Visa',     badge: 'Most Popular',      badgeColor: '#fff3d6', badgeText: '#c9a227', href: '/contact' },
+  { code: 'us', name: 'United States',  type: 'B1 / B2 Visit Visa',     badge: 'Embassy Support',   badgeColor: '#eff6ff', badgeText: '#2563eb', href: '/contact' },
+  { code: 'gb', name: 'United Kingdom', type: 'Family / Visit Visa',    badge: 'Fast Documentation', badgeColor: '#e8f5e9', badgeText: '#1B6B3A', href: '/contact' },
+  { code: 'ca', name: 'Canada',         type: 'Visitor Visa',           badge: 'High Demand',       badgeColor: '#fff7ed', badgeText: '#d97706', href: '/contact' },
+  { code: 'au', name: 'Australia',      type: 'Visit Visa',             badge: 'Profile Review',    badgeColor: '#e0f2f1', badgeText: '#0d9488', href: '/contact' },
+  { code: 'ae', name: 'UAE',            type: 'Tourist Visa',           badge: 'Fast Approval',     badgeColor: '#e8f5e9', badgeText: '#1B6B3A', href: '/contact' },
+  { code: 'eu', name: 'Schengen Zone',  type: 'Short Stay Visa',        badge: 'Multi-Country',     badgeColor: '#e8eaf6', badgeText: '#3949ab', href: '/contact' },
+  { code: 'om', name: 'Oman',           type: 'Visit Visa',             badge: 'Simple Process',    badgeColor: '#f5f3ff', badgeText: '#6d28d9', href: '/contact' },
 ];
 
 export default function TrendingVisas({ content = null }) {
@@ -177,7 +177,7 @@ export default function TrendingVisas({ content = null }) {
         <SectionHeader $inView={inView}>
           <TitleBlock>
             <Title>{data.title || 'Trending Visas'}</Title>
-            <Subtitle>{data.subtitle || 'Most searched destinations by Pakistani travelers'}</Subtitle>
+            <Subtitle>{data.subtitle || 'Most requested visa categories for pilgrims and families'}</Subtitle>
           </TitleBlock>
           <ViewAll href="/contact">View All →</ViewAll>
         </SectionHeader>

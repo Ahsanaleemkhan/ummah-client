@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 import { HiOutlineFilter } from 'react-icons/hi';
@@ -108,9 +107,13 @@ const FilterTag = styled.button`
   }
 `;
 
-const categories = ['All', 'Umrah Guide', 'Travel Tips', 'Spirituality', 'Destinations', 'Packing'];
+const fallbackCategories = ['All'];
 
-export default function BlogFilters({ activeCategory, onCategoryChange }) {
+export default function BlogFilters({ activeCategory, onCategoryChange, categories = fallbackCategories }) {
+  const categoryList = Array.isArray(categories) && categories.length > 0
+    ? categories
+    : fallbackCategories;
+
   return (
     <Section>
       <Inner>
@@ -122,7 +125,7 @@ export default function BlogFilters({ activeCategory, onCategoryChange }) {
 
           <FilterRow>
             <FilterIcon />
-            {categories.map(cat => (
+            {categoryList.map((cat) => (
               <FilterTag
                 key={cat}
                 $active={activeCategory === cat}

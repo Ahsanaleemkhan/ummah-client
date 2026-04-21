@@ -1,12 +1,14 @@
 'use client';
 
 import styled from 'styled-components';
-import Navbar from '../../components/Navbar';
 import HajjHero from '../../components/hajj/HajjHero';
 import HajjPackages from '../../components/hajj/HajjPackages';
+import RamadanHajjPackages from '../../components/hajj/RamadanHajjPackages';
 import HajjTimeline from '../../components/hajj/HajjTimeline';
 import HajjFAQ from '../../components/hajj/HajjFAQ';
 import HajjCTA from '../../components/hajj/HajjCTA';
+import CustomerReviews from '../../components/CustomerReviews';
+import NewsletterCTA from '../../components/NewsletterCTA';
 import Footer from '../../components/Footer';
 import { usePageContent } from '../../lib/usePageContent';
 
@@ -21,12 +23,14 @@ export default function HajjPage() {
 
   return (
     <Main>
-      <Navbar backgroundColor="#0f6a38" dark sticky={false} />
       <HajjHero content={sections.hero} />
       <HajjPackages />
+      <RamadanHajjPackages />
       <HajjTimeline />
       <HajjFAQ />
+      <CustomerReviews content={sections.customerReviews} />
       <HajjCTA content={sections.cta} />
+      <NewsletterCTA />
       <Footer content={sharedSections.footer} />
     </Main>
   );

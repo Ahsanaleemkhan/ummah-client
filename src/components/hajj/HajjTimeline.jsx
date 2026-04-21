@@ -1,86 +1,97 @@
 'use client';
 
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { FiCheckCircle } from 'react-icons/fi';
 import { GiMountainRoad } from 'react-icons/gi';
 import { FaKaaba } from 'react-icons/fa';
 import { HiOutlineLocationMarker, HiOutlineSun } from 'react-icons/hi';
+import { useInView } from '../../lib/useInView';
 
-const fadeUp = keyframes`
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+const enterT = (delay = 0) => `
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: ${delay}s;
+`;
+const exitT = `
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition-delay: 0s;
 `;
 
 const Section = styled.section`
   background: #fff;
-  padding: 4.5rem 2rem;
-  @media (max-width: 768px) { padding: 3rem 1rem; }
+  padding: 4rem 2rem 4.5rem;
+  @media (max-width: 768px) { padding: 3rem 1rem 3.5rem; }
 `;
 
 const Inner = styled.div`
-  max-width: 800px;
+  max-width: 1140px;
   margin: 0 auto;
 `;
 
 const SectionHeader = styled.div`
-  text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2.75rem;
+  opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+  transform: ${({ $inView }) => ($inView ? 'translateX(0)' : 'translateX(-28px)')};
+  ${({ $inView }) => ($inView ? enterT(0) : exitT)}
 `;
 
 const Title = styled.h2`
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: #1B6B3A;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 0.5rem;
-  @media (max-width: 640px) { font-size: 1.6rem; }
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 0.35rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid #c9a227;
+  line-height: 1.2;
+  @media (max-width: 640px) { font-size: 1.4rem; }
 `;
 
 const Subtitle = styled.p`
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   color: #777;
+  margin: 0;
+  padding-left: 0.75rem;
 `;
 
 const Timeline = styled.div`
   position: relative;
-  padding-left: 3rem;
+  max-width: 820px;
+  margin: 0 auto;
+  padding-left: 3.25rem;
 
   &::before {
     content: '';
     position: absolute;
-    left: 18px;
+    left: 20px;
     top: 0;
     bottom: 0;
     width: 3px;
-    background: linear-gradient(180deg, #1B6B3A, #238c4e, rgba(27,107,58,0.15));
+    background: linear-gradient(180deg, #1B6B3A, #c9a227 60%, rgba(201,162,39,0.15));
     border-radius: 999px;
   }
 
   @media (max-width: 640px) {
-    padding-left: 2.5rem;
-    &::before { left: 14px; }
+    padding-left: 2.75rem;
+    &::before { left: 16px; }
   }
 `;
 
 const TimelineItem = styled.div`
   position: relative;
-  padding-bottom: 2.25rem;
-  animation: ${fadeUp} 0.5s ease forwards;
-  animation-delay: ${({ $delay }) => $delay || '0s'};
-  opacity: 0;
+  padding-bottom: 2rem;
+  opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+  transform: ${({ $inView }) => ($inView ? 'translateY(0)' : 'translateY(24px)')};
+  transition: opacity 0.55s ease ${({ $delay }) => $delay || '0s'},
+              transform 0.55s ease ${({ $delay }) => $delay || '0s'};
 
-  &:last-child {
-    padding-bottom: 0;
-  }
+  &:last-child { padding-bottom: 0; }
 `;
 
 const TimelineDot = styled.div`
   position: absolute;
-  left: -2.2rem;
+  left: -2.45rem;
   top: 0;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: ${({ $color }) => $color || '#1B6B3A'};
   display: flex;
@@ -88,51 +99,53 @@ const TimelineDot = styled.div`
   justify-content: center;
   color: #fff;
   font-size: 1rem;
-  box-shadow: 0 4px 14px ${({ $color }) => $color ? `${$color}44` : 'rgba(27,107,58,0.3)'};
+  box-shadow: 0 4px 14px ${({ $color }) => $color ? `${$color}55` : 'rgba(27,107,58,0.35)'};
   z-index: 1;
+  border: 3px solid #fff;
 
   @media (max-width: 640px) {
-    left: -1.85rem;
-    width: 32px;
-    height: 32px;
-    font-size: 0.85rem;
+    left: -2rem;
+    width: 34px;
+    height: 34px;
+    font-size: 0.88rem;
   }
 `;
 
 const TimelineCard = styled.div`
-  background: #f9faf7;
-  border-radius: 16px;
-  padding: 1.25rem 1.5rem;
-  border: 2px solid transparent;
+  background: #f5f5f5;
+  border-radius: 14px;
+  padding: 1.2rem 1.4rem;
+  border: 1.5px solid transparent;
   transition: all 0.3s;
 
   &:hover {
-    border-color: rgba(27,107,58,0.1);
+    border-color: rgba(201,162,39,0.25);
     background: #fff;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.07);
   }
 `;
 
 const DayLabel = styled.div`
   font-size: 0.62rem;
   font-weight: 700;
-  color: #1B6B3A;
+  color: #c9a227;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.28rem;
 `;
 
 const TimelineTitle = styled.h3`
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 800;
-  color: #1a1a2e;
-  margin-bottom: 0.35rem;
+  color: #1a1a1a;
+  margin-bottom: 0.3rem;
 `;
 
 const TimelineDesc = styled.p`
-  font-size: 0.8rem;
-  color: #777;
-  line-height: 1.65;
+  font-size: 0.78rem;
+  color: #666;
+  line-height: 1.7;
+  margin: 0;
 `;
 
 const steps = [
@@ -148,12 +161,12 @@ const steps = [
     title: 'Wuquf at Arafat',
     desc: 'The most important day of Hajj. Stand on the plain of Arafat from Dhuhr to Maghrib, supplicating and seeking forgiveness. Then proceed to Muzdalifah for the night.',
     icon: HiOutlineSun,
-    color: '#e8911a',
+    color: '#c9a227',
   },
   {
     day: 'Day 3 — 10th Dhul Hijjah',
     title: 'Stoning, Sacrifice & Tawaf',
-    desc: 'Perform Rami (stoning) at Jamarat al-Aqabah, Qurbani (sacrifice), shave/trim hair, and return to Makkah for Tawaf al-Ifadah and Sa\'i.',
+    desc: "Perform Rami (stoning) at Jamarat al-Aqabah, Qurbani (sacrifice), shave/trim hair, and return to Makkah for Tawaf al-Ifadah and Sa'i.",
     icon: HiOutlineLocationMarker,
     color: '#1B6B3A',
   },
@@ -174,19 +187,26 @@ const steps = [
 ];
 
 export default function HajjTimeline() {
+  const [headerRef, headerInView] = useInView();
+  const [timelineRef, timelineInView] = useInView();
+
   return (
     <Section id="hajj-timeline">
       <Inner>
-        <SectionHeader>
+        <SectionHeader ref={headerRef} $inView={headerInView}>
           <Title>Your Hajj Journey</Title>
-          <Subtitle>A day-by-day walkthrough of the sacred pilgrimage</Subtitle>
+          <Subtitle>A step-by-step walkthrough of the sacred five-day pilgrimage</Subtitle>
         </SectionHeader>
 
-        <Timeline>
+        <Timeline ref={timelineRef}>
           {steps.map((step, i) => {
             const Icon = step.icon;
             return (
-              <TimelineItem key={i} $delay={`${i * 0.1}s`}>
+              <TimelineItem
+                key={i}
+                $inView={timelineInView}
+                $delay={`${i * 0.1}s`}
+              >
                 <TimelineDot $color={step.color}><Icon /></TimelineDot>
                 <TimelineCard>
                   <DayLabel>{step.day}</DayLabel>

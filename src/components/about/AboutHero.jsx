@@ -12,11 +12,11 @@ const fadeUp = keyframes`
 const Section = styled.section`
   position: relative;
   background: linear-gradient(165deg, #0d4a24 0%, #1B6B3A 40%, #238c4e 100%);
-  padding: 8.5rem 2rem 5.5rem;
+  padding: 0 2rem 5.5rem;
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 7rem 1.25rem 4rem;
+    padding: 0 1.25rem 4rem;
   }
 `;
 
@@ -34,6 +34,11 @@ const PatternOverlay = styled.div`
 const Inner = styled.div`
   max-width: 1100px;
   margin: 0 auto;
+  padding-top: 8rem;
+
+  @media (max-width: 768px) {
+    padding-top: 6rem;
+  }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
@@ -63,18 +68,9 @@ const Breadcrumb = styled.nav`
     text-decoration: none;
     transition: color 0.2s;
   }
-
   a:hover { color: #fff; }
-
-  .sep {
-    font-size: 0.65rem;
-    color: rgba(255,255,255,0.3);
-  }
-
-  .current {
-    color: #fff;
-    font-weight: 600;
-  }
+  .sep { font-size: 0.65rem; color: rgba(255,255,255,0.3); }
+  .current { color: #fff; font-weight: 600; }
 
   @media (max-width: 768px) {
     justify-content: center;
@@ -154,7 +150,6 @@ const StatItem = styled.div`
   }
 `;
 
-/* Image collage on the right */
 const ImageSide = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -178,7 +173,6 @@ const ImgCell = styled.div`
 
   &:nth-child(1) {
     grid-row: 1 / 3;
-    border-radius: 16px;
   }
 
   img {
@@ -222,6 +216,7 @@ export default function AboutHero({ content = null }) {
   return (
     <Section>
       <PatternOverlay />
+
       <Inner>
         <TextSide>
           <Breadcrumb>
@@ -236,7 +231,7 @@ export default function AboutHero({ content = null }) {
           </Title>
 
           <Desc>
-            {data.description || 'Ummah Travel was founded with a single mission — to make the sacred journey of Umrah accessible, comfortable, and spiritually fulfilling for every Muslim around the world. Over the years, we\'ve grown into one of the most trusted names in Islamic travel.'}
+            {data.description || "Ummah Travel was founded with a single mission — to make the sacred journey of Umrah accessible, comfortable, and spiritually fulfilling for every Muslim around the world. Over the years, we've grown into one of the most trusted names in Islamic travel."}
           </Desc>
 
           <StatRow>

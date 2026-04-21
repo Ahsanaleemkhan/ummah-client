@@ -1,18 +1,20 @@
 'use client';
 
 import styled from 'styled-components';
-import HeroSection from '../../components/HeroSection';
-import PopularAirlines from '../../components/PopularAirlines';
-import PopularUmrahPackagesSection from '../../components/PopularUmrahPackagesSection';
-import WhatWeOfferSection from '../../components/WhatWeOfferSection';
-import DestinationGrid from '../../components/DestinationGrid';
-import JourneyBeginsCTA from '../../components/JourneyBeginsCTA';
+import PackageHero from '../../components/umrah-packages/PackageHero';
+import UmrahServicePrograms from '../../components/umrah-packages/UmrahServicePrograms';
+import PackageCards from '../../components/umrah-packages/PackageCards';
+import PackageCompare from '../../components/umrah-packages/PackageCompare';
+import WhyChooseUs from '../../components/umrah-packages/WhyChooseUs';
+import PackageFAQ from '../../components/umrah-packages/PackageFAQ';
+import PackageCTA from '../../components/umrah-packages/PackageCTA';
 import CustomerReviews from '../../components/CustomerReviews';
+import NewsletterCTA from '../../components/NewsletterCTA';
 import Footer from '../../components/Footer';
 import { usePageContent } from '../../lib/usePageContent';
 
 const Main = styled.main`
-  background: #ececec;
+  background: #fff;
   color: #222;
   min-height: 100vh;
 `;
@@ -22,28 +24,34 @@ export default function UmrahPackagesPage() {
 
   return (
     <Main>
-      {/* 1. Hero with embedded navbar */}
-      <HeroSection content={sections.hero} />
+      {/* Hero with embedded navbar */}
+      <PackageHero content={sections.hero} />
 
-      {/* 2. Popular airlines */}
-      <PopularAirlines content={sections.popularAirlines} />
+      {/* Core Umrah services */}
+      <UmrahServicePrograms />
 
-      {/* 3. Popular Umrah package cards */}
-      <PopularUmrahPackagesSection />
+      {/* Package cards listing */}
+      <PackageCards content={sections.packages} />
 
-      {/* 4. What we offer */}
-      <WhatWeOfferSection />
+      {/* Package comparison table */}
+      <PackageCompare content={sections.compare} />
 
-      {/* 5. Destination collage */}
-      <DestinationGrid />
+      {/* Why choose us */}
+      <WhyChooseUs content={sections.whyUs} />
 
-      {/* 6. Journey CTA card */}
-      <JourneyBeginsCTA content={sections.journeyCta} />
+      {/* FAQ */}
+      <PackageFAQ content={sections.faq} />
 
-      {/* 7. Customer reviews */}
-      <CustomerReviews />
+      {/* CTA banner */}
+      <PackageCTA content={sections.cta} />
 
-      {/* 8. Footer */}
+      {/* Customer reviews */}
+      <CustomerReviews content={sections.customerReviews} />
+
+      {/* Newsletter */}
+      <NewsletterCTA />
+
+      {/* Footer */}
       <Footer content={sharedSections.footer} />
     </Main>
   );

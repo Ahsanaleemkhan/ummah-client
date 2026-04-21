@@ -158,8 +158,8 @@ const airlines = [
   { name: 'Saudi Airlines', country: 'Saudi Arabia', color: '#006633' },
   { name: 'Emirates', country: 'UAE', color: '#d71920' },
   { name: 'PIA', country: 'Pakistan', color: '#006838' },
-  { name: 'Turkish Airlines', country: 'Turkey', color: '#c8102e' },
   { name: 'Qatar Airways', country: 'Qatar', color: '#5c0632' },
+  { name: 'Etihad Airways', country: 'UAE', color: '#8a6b2f' },
   { name: 'Flynas', country: 'Saudi Arabia', color: '#7b2d8e' },
 ];
 

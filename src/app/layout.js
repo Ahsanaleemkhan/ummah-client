@@ -2,6 +2,7 @@ import './globals.css';
 import StyledComponentsRegistry from '../lib/registry';
 import { ThemeProvider } from '../context/ThemeContext';
 import CmsDesignTokensProvider from '../components/CmsDesignTokensProvider';
+import SiteNavbar from '../components/SiteNavbar';
 
 export const metadata = {
   title: 'Ummah Travel — Premium Umrah, Flights, Hotels & Tour Packages',
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
         <StyledComponentsRegistry>
           <ThemeProvider>
             <CmsDesignTokensProvider>
+              <SiteNavbar />
               {children}
             </CmsDesignTokensProvider>
           </ThemeProvider>

@@ -12,12 +12,15 @@ import {
   FaSuitcaseRolling,
   FaUserAlt,
 } from 'react-icons/fa';
-import Navbar from '../Navbar';
 
 const Section = styled.section`
-  background: #0f6a38;
-  padding: 0.75rem 1.25rem 2.9rem;
+  background: linear-gradient(165deg, #0d4a24 0%, #1B6B3A 40%, #238c4e 100%);
+  padding: 4.5rem 1.25rem 5rem;
   position: relative;
+
+  @media (max-width: 768px) {
+    padding-top: 4rem;
+  }
 `;
 
 const Inner = styled.div`
@@ -174,16 +177,6 @@ const SearchButton = styled.button`
   }
 `;
 
-const defaultNavItems = [
-  { label: 'Flights', href: '/flights' },
-  { label: 'Hotels', href: '/hotels' },
-  { label: 'Tour Packages', href: '/tours' },
-  { label: 'Destinations', href: '/tours' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Blog / Travel Tips', href: '/blog' },
-  { label: 'Contact', href: '/contact' },
-];
-
 const defaultTabs = [
   { id: 'flight', label: 'Flight', icon: FaPlane },
   { id: 'hotels', label: 'Hotels', icon: FaHotel },
@@ -223,7 +216,6 @@ const tabIconById = {
 
 export default function HotelsHero({ content = null }) {
   const data = content && typeof content === 'object' ? content : {};
-  const navItems = Array.isArray(data.navItems) && data.navItems.length > 0 ? data.navItems : defaultNavItems;
   const tabs = (Array.isArray(data.tabs) && data.tabs.length > 0 ? data.tabs : defaultTabs)
     .map((tab) => ({
       id: tab?.id || 'hotels',
@@ -241,15 +233,6 @@ export default function HotelsHero({ content = null }) {
   return (
     <Section>
       <Inner>
-        <Navbar
-          navLinks={navItems}
-          loginButtonText={data.loginButtonText || 'LOGIN / REGISTER'}
-          loginButtonHref={data.loginButtonHref || '/contact'}
-          backgroundColor="#0f6a38"
-          dark
-          sticky={false}
-        />
-
         <Services>
           {tabs.map((tab) => {
             const Icon = tab.icon;

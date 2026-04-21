@@ -140,10 +140,10 @@ const offices = [
     phone: '+92 300 123 4567',
   },
   {
-    icon: '🇬🇧',
-    name: 'London Office',
-    address: '78 Whitechapel Road,\nLondon E1 1JX, UK',
-    phone: '+44 20 7123 4567',
+    icon: '🇵🇰',
+    name: 'Karachi Office',
+    address: 'Suite 12, Shahrah-e-Faisal,\nKarachi',
+    phone: '+92 21 3123 4567',
   },
   {
     icon: '🇸🇦',

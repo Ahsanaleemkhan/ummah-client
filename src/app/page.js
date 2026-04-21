@@ -23,31 +23,31 @@ export default function Home() {
 
   return (
     <Main>
-      {/* 1. Hero — dark green, two-column with search card */}
+      {/* Hero — dark green, two-column with search card */}
       <HomeHeroSection content={sections.hero} />
 
-      {/* 2. Service strip — Flights, Hotels, Visa, Umrah, Tours, Transfers */}
+      {/* Service strip — Flights, Hotels, Visa, Umrah, Tours, Transfers */}
       <PopularAirlines content={sections.popularAirlines} />
 
-      {/* 3. Trending Visas card grid (2×4) */}
+      {/* Trending Visas card grid (2×4) */}
       <TrendingVisas content={sections.trendingVisas} />
 
-      {/* 4. Most Popular Tours — 4 cards */}
+      {/* Most Popular Tours — 4 cards */}
       <MostPopularTours content={sections.mostPopularTours} />
 
-      {/* 5. Umrah Packages 2026 — dark green pricing cards */}
+      {/* Umrah Packages 2026 — dark green pricing cards */}
       <UmrahPackages content={sections.umrahPackages} />
 
-      {/* 6. Why Travelers Choose Ummah — 4 features */}
+      {/* Why Travelers Choose Ummah — 4 features */}
       <FeaturesStrip />
 
-      {/* 7. What Our Travelers Say — 3 review cards */}
-      <CustomerReviews />
+      {/* What Our Travelers Say — 3 review cards */}
+      <CustomerReviews content={sections.customerReviews} />
 
-      {/* 8. Newsletter CTA — dark green */}
+      {/* Newsletter CTA — dark green */}
       <NewsletterCTA />
 
-      {/* 9. Footer */}
+      {/* Footer */}
       <Footer content={sharedSections.footer} />
     </Main>
   );

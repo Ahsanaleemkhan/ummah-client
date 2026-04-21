@@ -1,8 +1,8 @@
 'use client';
 
 import styled from 'styled-components';
-import Navbar from '../../components/Navbar';
 import ContactHero from '../../components/contact/ContactHero';
+import VipLuxuryServices from '../../components/contact/VipLuxuryServices';
 import ContactForm from '../../components/contact/ContactForm';
 import MapSection from '../../components/contact/MapSection';
 import ContactFAQ from '../../components/contact/ContactFAQ';
@@ -20,22 +20,22 @@ export default function ContactPage() {
 
   return (
     <Main>
-      {/* Navigation */}
-      <Navbar backgroundColor="#0f6a38" dark sticky={false} />
-
-      {/* 1. Hero */}
+      {/* Hero with embedded navbar */}
       <ContactHero content={sections.hero} />
 
-      {/* 2. Contact Form + Info Cards */}
+      {/* VIP and luxury services */}
+      <VipLuxuryServices />
+
+      {/* Contact Form + Info Cards */}
       <ContactForm />
 
-      {/* 3. Map + Office Locations */}
+      {/* Map + Office Locations */}
       <MapSection />
 
-      {/* 4. FAQ */}
+      {/* FAQ */}
       <ContactFAQ />
 
-      {/* 5. Footer */}
+      {/* Footer */}
       <Footer content={sharedSections.footer} />
     </Main>
   );

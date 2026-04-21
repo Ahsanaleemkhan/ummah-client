@@ -234,7 +234,7 @@ export default function WhatWeOfferSection() {
 
           <ImageCard>
             <Image
-              src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1200&q=80"
+              src="/Umrah%20Packaeges/what%20we%20offer.jpg"
               alt="Pilgrims near Kaaba"
               fill
               priority={false}
