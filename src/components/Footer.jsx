@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import styled from 'styled-components';
 
 const FooterWrap = styled.footer`
@@ -36,21 +37,10 @@ const FooterGrid = styled.div`
 
 const BrandCol = styled.div``;
 
-const LogoBrand = styled.div`
-  font-size: 2.15rem;
-  font-weight: 800;
-  color: var(--app-heading-color, #1a1a1a);
-  line-height: 1;
-  letter-spacing: -0.02em;
-`;
-
-const LogoSub = styled.div`
-  font-size: 0.6rem;
-  font-weight: 400;
-  color: var(--app-primary-color, #1B6B3A);
-  font-style: italic;
-  letter-spacing: 0.12em;
-  margin-top: -1px;
+const LogoImg = styled(Image)`
+  height: 44px;
+  width: auto;
+  object-fit: contain;
   margin-bottom: 1rem;
 `;
 
@@ -139,8 +129,12 @@ export default function Footer({ content = null }) {
       <FooterInner>
         <FooterGrid>
           <BrandCol>
-            <LogoBrand>{data.brandMain || defaultFooterContent.brandMain}</LogoBrand>
-            <LogoSub>{data.brandSub || defaultFooterContent.brandSub}</LogoSub>
+            <LogoImg
+              src="/logo.png"
+              alt="Ummah Travel"
+              width={160}
+              height={44}
+            />
             <BrandDesc>
               {data.brandDesc || defaultFooterContent.brandDesc}
             </BrandDesc>

@@ -496,19 +496,19 @@ const featuredHotels = [
   {
     title: 'Fairmont Makkah Clock Tower',
     location: 'Makkah',
-    price: 'Rs. 45,000/-',
+    price: '$160',
     image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80',
   },
   {
     title: 'Swissotel Al Maqam',
     location: 'Makkah',
-    price: 'Rs. 50,000/-',
+    price: '$180',
     image: 'https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200&q=80',
   },
   {
     title: 'Pullman ZamZam',
     location: 'Madinah',
-    price: 'Rs. 50,000/-',
+    price: '$180',
     image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80',
   },
 ];
@@ -589,19 +589,19 @@ const weekendDeals = [
   {
     title: 'Madinah Hilton',
     location: 'Madinah',
-    price: 'Rs. 38,000/-',
+    price: '$135',
     image: 'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=1200&q=80',
   },
   {
     title: 'Anwar Al Madinah',
     location: 'Madinah',
-    price: 'Rs. 44,000/-',
+    price: '$155',
     image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80',
   },
   {
     title: 'Conrad Makkah',
     location: 'Makkah',
-    price: 'Rs. 52,000/-',
+    price: '$185',
     image: 'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?w=1200&q=80',
   },
 ];

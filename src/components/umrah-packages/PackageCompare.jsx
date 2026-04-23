@@ -175,9 +175,9 @@ export default function PackageCompare() {
             ))}
             <Tr>
               <Td style={{ fontWeight: 700, color: '#1a1a2e' }}>Starting Price</Td>
-              <HighlightTd>Rs. 95,000</HighlightTd>
-              <HighlightTd>Rs. 185,000</HighlightTd>
-              <HighlightTd>Rs. 385,000</HighlightTd>
+              <HighlightTd>$340</HighlightTd>
+              <HighlightTd>$650</HighlightTd>
+              <HighlightTd>$1,350</HighlightTd>
             </Tr>
           </tbody>
         </Table>

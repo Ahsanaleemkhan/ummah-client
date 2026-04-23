@@ -262,7 +262,7 @@ const packages = [
     distanceMakkah: 'Makkah I 1.6 KM',
     distanceMadinah: 'Madinah I 200 m',
     travellers: '4',
-    amount: '141,300',
+    amount: '505',
     button: 'Book Now',
   },
   {
@@ -344,14 +344,14 @@ export default function PopularUmrahPackagesSection() {
                       <TravellersPanel>
                         <Label>Travellers:</Label>
                         <TravellerCount>{pkg.travellers}</TravellerCount>
-                        <PriceHint>PKR 565,200</PriceHint>
+                        <PriceHint>$2,020</PriceHint>
                       </TravellersPanel>
                     </DistanceTravellersRow>
                   </Block>
                 </CardBody>
 
                 <PriceBar>
-                  <PriceCurrency>PKR</PriceCurrency>
+                  <PriceCurrency>$</PriceCurrency>
                   <PriceValue>{pkg.amount}</PriceValue>
                   <PriceSuffix>/ Pilgrim</PriceSuffix>
                 </PriceBar>

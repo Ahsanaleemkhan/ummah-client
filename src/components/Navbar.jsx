@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { defaultNavLinks } from '../lib/navLinks';
@@ -33,27 +34,19 @@ const TopRow = styled.div`
 
 const Logo = styled(Link)`
   display: flex;
-  flex-direction: column;
-  line-height: 1;
+  align-items: center;
   text-decoration: none;
   flex-shrink: 0;
 `;
 
-const LogoBrand = styled.span`
-  font-size: 1.95rem;
-  font-weight: 800;
-  color: ${({ $dark }) => ($dark ? '#ffffff' : '#131313')};
-  letter-spacing: -0.03em;
-  line-height: 1;
-`;
+const LogoImg = styled(Image)`
+  height: 40px;
+  width: auto;
+  object-fit: contain;
 
-const LogoSub = styled.span`
-  font-size: 0.58rem;
-  font-weight: 400;
-  color: ${({ $dark }) => ($dark ? '#d8ebdd' : '#1b6b3a')};
-  letter-spacing: 0.14em;
-  font-style: italic;
-  margin-top: -2px;
+  @media (max-width: 768px) {
+    height: 32px;
+  }
 `;
 
 const DesktopLinks = styled.ul`
@@ -177,8 +170,13 @@ export default function Navbar({
       <HeaderInner>
         <TopRow>
           <Logo href="/" onClick={() => setMobileOpen(false)}>
-            <LogoBrand $dark={dark}>ummah</LogoBrand>
-            <LogoSub $dark={dark}>travel</LogoSub>
+            <LogoImg
+              src="/logo.png"
+              alt="Ummah Travel"
+              width={160}
+              height={40}
+              priority
+            />
           </Logo>
 
           <DesktopLinks>
