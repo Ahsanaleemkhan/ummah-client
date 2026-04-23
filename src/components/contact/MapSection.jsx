@@ -134,16 +134,16 @@ const OfficePhone = styled.a`
 
 const offices = [
   {
-    icon: '🇵🇰',
-    name: 'Islamabad Office (HQ)',
-    address: 'Suite 405, Blue Area,\nJinnah Avenue, Islamabad',
-    phone: '+92 300 123 4567',
+    icon: '🇺🇸',
+    name: 'Head Office — Irving, TX',
+    address: 'Suite #5, 3445 N Belt Line Rd,\nIrving, TX 75062, USA',
+    phone: '+1 945-223-0620',
   },
   {
-    icon: '🇵🇰',
-    name: 'Karachi Office',
-    address: 'Suite 12, Shahrah-e-Faisal,\nKarachi',
-    phone: '+92 21 3123 4567',
+    icon: '🇺🇸',
+    name: 'New York Representative',
+    address: '123 Atlantic Ave,\nBrooklyn, NY 11201, USA',
+    phone: '+1 945-223-0620',
   },
   {
     icon: '🇸🇦',
@@ -164,11 +164,11 @@ export default function MapSection() {
       <MapWrapper>
         <MapFrame>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3318.8!2d73.0479!3d33.7294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbfd07891722f%3A0x6059515c3f22d72a!2sBlue%20Area%2C%20Islamabad!5e0!3m2!1sen!2s!4v1680000000000!5m2!1sen!2s"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3355.0!2d-96.9489!3d32.8573!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864e839d3c2a1b5b%3A0x1234567890abcdef!2s3445%20N%20Belt%20Line%20Rd%2C%20Irving%2C%20TX%2075062!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus"
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Ummah Travel Head Office - Blue Area, Islamabad"
+            title="Ummah Travel - 3445 N Belt Line Rd, Irving, TX 75062"
           />
         </MapFrame>
 

@@ -282,26 +282,26 @@ const contactInfo = [
   {
     icon: '📞',
     label: 'Phone',
-    value: '+92 300 123 4567',
-    sub: 'Mon–Sat, 9AM–8PM PKT',
+    value: '+1 945-223-0620',
+    sub: 'Mon–Sat, 9AM–6PM CST',
   },
   {
     icon: '💬',
     label: 'WhatsApp',
-    value: '+92 300 123 4567',
+    value: '+1 945-223-0620',
     sub: '24/7 instant replies',
   },
   {
     icon: '✉️',
     label: 'Email',
-    value: 'info@ummahtravel.com',
+    value: 'info@ummah.travel',
     sub: 'We reply within 2 hours',
   },
   {
     icon: '📍',
     label: 'Head Office',
-    value: 'Blue Area, Islamabad',
-    sub: 'Pakistan',
+    value: 'Suite #5, 3445 N Belt Line Rd',
+    sub: 'Irving, TX 75062, USA',
   },
 ];
 
@@ -371,7 +371,7 @@ export default function ContactForm() {
               </InputGroup>
               <InputGroup>
                 <Label htmlFor="phone">Phone Number</Label>
-                <Input id="phone" type="tel" placeholder="+92 300 000 0000" />
+                <Input id="phone" type="tel" placeholder="+1 (000) 000-0000" />
               </InputGroup>
             </FormRow>
 

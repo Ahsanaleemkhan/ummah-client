@@ -338,18 +338,18 @@ const FooterNote = styled.span`
 
 /* ── Tab field configs ──────────────────────────────── */
 const TAB_CONFIGS = {
-  Flights: { from: 'Lahore (LHE)', to: 'Destination', dep: 'Select Date', ret: 'Select Date', label: 'Search Flights' },
+  Umrah:   { from: 'Departure City', to: 'Makkah / Madinah', dep: 'Select Date', ret: 'Return Date',  label: 'Search Umrah' },
+  Flights: { from: 'New York (JFK)', to: 'Jeddah (JED)', dep: 'Select Date', ret: 'Select Date', label: 'Search Flights' },
   Hotels:  { from: 'City',         to: 'Hotel',       dep: 'Check-in',    ret: 'Check-out',   label: 'Search Hotels' },
-  Visa:    { from: 'Nationality',  to: 'Destination', dep: 'Travel Date', ret: 'Return Date',  label: 'Check Visa' },
   Tours:   { from: 'Country',      to: 'City',        dep: 'Start Date',  ret: 'End Date',     label: 'Find Tours' },
-  Umrah:   { from: 'Departure',    to: 'Arrival',     dep: 'Select Date', ret: 'Return Date',  label: 'Search Umrah' },
+  Visa:    { from: 'Nationality',  to: 'Destination', dep: 'Travel Date', ret: 'Return Date',  label: 'Check Visa' },
 };
 
 const TABS = Object.keys(TAB_CONFIGS);
 
 export default function HomeHeroSection({ content = null }) {
   const data = content && typeof content === 'object' ? content : {};
-  const [activeTab, setActiveTab] = useState('Flights');
+  const [activeTab, setActiveTab] = useState('Umrah');
   const [formValues, setFormValues] = useState({
     from: '',
     to: '',
@@ -374,12 +374,12 @@ export default function HomeHeroSection({ content = null }) {
           {/* LEFT */}
           <Left>
             <AnimBadge>
-              <Badge>Premium Travel Since 2009</Badge>
+              <Badge>Trusted Umrah & Hajj Specialists Since 2009</Badge>
             </AnimBadge>
 
             <AnimHeading>
               <Heading>
-                Your Sacred Journey,<br />
+                Your Umrah Journey,<br />
                 Crafted With <em>Perfection.</em>
               </Heading>
             </AnimHeading>

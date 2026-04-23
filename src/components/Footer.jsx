@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import styled from 'styled-components';
 
 const FooterWrap = styled.footer`
@@ -37,11 +36,31 @@ const FooterGrid = styled.div`
 
 const BrandCol = styled.div``;
 
-const LogoImg = styled(Image)`
-  height: 44px;
-  width: auto;
-  object-fit: contain;
+const LogoWrap = styled(Link)`
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-decoration: none;
   margin-bottom: 1rem;
+  line-height: 1;
+`;
+
+const LogoMain = styled.span`
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--app-heading-color, #1a1a1a);
+  letter-spacing: -0.03em;
+  line-height: 1;
+`;
+
+const LogoBadge = styled.span`
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  background: #1B6B3A;
+  padding: 0.18rem 0.5rem;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
 `;
 
 const BrandDesc = styled.p`
@@ -129,12 +148,10 @@ export default function Footer({ content = null }) {
       <FooterInner>
         <FooterGrid>
           <BrandCol>
-            <LogoImg
-              src="/logo.png"
-              alt="Ummah Travel"
-              width={160}
-              height={44}
-            />
+            <LogoWrap href="/">
+              <LogoMain>ummah</LogoMain>
+              <LogoBadge>travel</LogoBadge>
+            </LogoWrap>
             <BrandDesc>
               {data.brandDesc || defaultFooterContent.brandDesc}
             </BrandDesc>
