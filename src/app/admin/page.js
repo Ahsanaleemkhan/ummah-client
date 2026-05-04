@@ -47,7 +47,6 @@ import PageSectionFieldEditor from '@/components/admin/PageSectionFieldEditor';
 
 const TOKEN_STORAGE_KEY = 'ummah-travel-admin-token';
 const USER_STORAGE_KEY = 'ummah-travel-admin-user';
-const TEMP_AUTH_TOKEN = 'temporary-admin-session';
 
 const sectionConfig = [
   { id: 'dashboard', label: 'Dashboard', icon: FaChartLine },
@@ -461,6 +460,9 @@ const DataTable = styled.table`
     border-bottom: 1px solid #e2e8e2;
     padding: 0.5rem;
     text-align: left;
+      if (handleAuthFailure(error)) {
+        return;
+      }
     font-size: 0.7rem;
     vertical-align: top;
   }
@@ -667,7 +669,7 @@ function normalizeObjectContent(value) {
 }
 
 export default function AdminPage() {
-  const [token, setToken] = useState(TEMP_AUTH_TOKEN);
+  const [token, setToken] = useState(null);
   const [adminUser, setAdminUser] = useState(null);
   const [authReady, setAuthReady] = useState(false);
 
@@ -712,6 +714,16 @@ export default function AdminPage() {
   const [pageBuilderSaving, setPageBuilderSaving] = useState(false);
   const [pageBuilderError, setPageBuilderError] = useState('');
 
+  const handleAuthFailure = (error) => {
+    if (error?.status === 401 || error?.status === 403) {
+      handleLogout(false);
+      setNotice({ type: 'error', text: 'Session expired. Please sign in again.' });
+      return true;
+    }
+
+    return false;
+  };
+
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
@@ -720,7 +732,7 @@ export default function AdminPage() {
     const storedToken = window.localStorage.getItem(TOKEN_STORAGE_KEY);
     const storedUser = window.localStorage.getItem(USER_STORAGE_KEY);
 
-    setToken(storedToken || TEMP_AUTH_TOKEN);
+    setToken(storedToken || null);
 
     if (storedUser) {
       try {
@@ -767,6 +779,9 @@ export default function AdminPage() {
       setPageSectionValue(nextContent);
       setPageSectionRawValue(JSON.stringify(nextContent, null, 2));
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return;
+      }
       setPageBuilderError(error.message || 'Unable to load section content.');
       setPageSectionMeta(null);
       setPageSectionValue({});
@@ -787,6 +802,9 @@ export default function AdminPage() {
       const payload = await getAdminMedia(authToken, { limit: 400 });
       setAdminMediaAssets(Array.isArray(payload?.data) ? payload.data : []);
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return;
+      }
       setNotice({ type: 'error', text: error.message || 'Unable to load media library.' });
     } finally {
       setAdminMediaLoading(false);
@@ -853,6 +871,9 @@ export default function AdminPage() {
       const payload = await getAdminResources(authToken, currentResource, query);
       setResourceItems(payload?.data || []);
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return;
+      }
       setNotice({ type: 'error', text: error.message });
     } finally {
       setResourceLoading(false);
@@ -878,6 +899,9 @@ export default function AdminPage() {
         await bootAdminPanel(token);
       } catch (error) {
         if (cancelled) return;
+        if (handleAuthFailure(error)) {
+          return;
+        }
         setNotice({ type: 'error', text: error.message || 'Unable to initialize admin workspace.' });
       }
     };
@@ -914,7 +938,7 @@ export default function AdminPage() {
   }, [activeSection, token]);
 
   const handleLogout = (showMessage = true) => {
-    setToken(TEMP_AUTH_TOKEN);
+    setToken(null);
     setAdminUser(null);
     setOverview(null);
     setActivity([]);
@@ -1019,6 +1043,9 @@ export default function AdminPage() {
 
       await Promise.all([loadResources(token, searchTerm, resource), refreshOverviewAndActivity(token)]);
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return;
+      }
       setEditorError(error.message || 'Unable to save this record.');
     } finally {
       setEditorSaving(false);
@@ -1036,6 +1063,9 @@ export default function AdminPage() {
       setNotice({ type: 'success', text: `${resource} record deleted successfully.` });
       await Promise.all([loadResources(token, searchTerm, resource), refreshOverviewAndActivity(token)]);
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return;
+      }
       setNotice({ type: 'error', text: error.message || 'Unable to delete record.' });
     }
   };
@@ -1059,6 +1089,9 @@ export default function AdminPage() {
       setNotice({ type: 'success', text: `${integration.name} updated.` });
       await refreshOverviewAndActivity(token);
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return;
+      }
       setNotice({ type: 'error', text: error.message || 'Unable to update integration.' });
     }
   };
@@ -1081,6 +1114,9 @@ export default function AdminPage() {
       setNotice({ type: 'success', text: 'Site settings saved successfully.' });
       await refreshOverviewAndActivity(token);
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return;
+      }
       setNotice({ type: 'error', text: error.message || 'Unable to save settings.' });
     } finally {
       setSettingsSaving(false);
@@ -1142,6 +1178,9 @@ export default function AdminPage() {
 
       return uploadedMedia;
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return null;
+      }
       setNotice({ type: 'error', text: error.message || 'Unable to upload settings image.' });
       return null;
     } finally {
@@ -1172,6 +1211,9 @@ export default function AdminPage() {
 
       setNotice({ type: 'success', text: `Updated ${selectedPage}.${selectedSection} content.` });
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return;
+      }
       setPageBuilderError(error.message || 'Unable to save section content.');
     } finally {
       setPageBuilderSaving(false);
@@ -1227,6 +1269,9 @@ export default function AdminPage() {
 
       return uploadedMedia;
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return null;
+      }
       setPageBuilderError(error.message || 'Unable to upload image.');
       return null;
     } finally {
@@ -1252,6 +1297,9 @@ export default function AdminPage() {
 
       setNotice({ type: 'success', text: `Reset ${selectedPage}.${selectedSection} to defaults.` });
     } catch (error) {
+      if (handleAuthFailure(error)) {
+        return;
+      }
       setPageBuilderError(error.message || 'Unable to reset section content.');
     } finally {
       setPageBuilderSaving(false);

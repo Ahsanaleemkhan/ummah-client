@@ -336,69 +336,28 @@ const allPackages = [
     rating: '4.7',
     category: 'budget',
   },
-  {
-    id: 4,
-    img: 'https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=600&q=80',
-    nights: '28 Nights',
-    title: 'Ramadan Special Package',
-    desc: 'Spend the blessed month of Ramadan in the Holy Lands with premium Haram-facing rooms, Iftar & Suhoor, and spiritual guides.',
-    hotel: '5-Star Haram View',
-    meals: 'All Inclusive',
-    transport: 'Private Transport',
-    visa: 'Visa + Insurance',
-    price: '$1,950',
-    per: '/person',
-    rating: '5.0',
-    category: 'premium',
-    popular: true,
-  },
-  {
-    id: 5,
-    img: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=600&q=80',
-    nights: '7 Nights',
-    title: 'Express Umrah Package',
-    desc: 'Short on time? Our express package covers all rituals with 3-night Makkah and 4-night Madinah stays near the Haram.',
-    hotel: '4-Star Hotel',
-    meals: 'Breakfast Included',
-    transport: 'Group Transport',
-    visa: 'Visa Included',
-    price: '$340',
-    per: '/person',
-    rating: '4.6',
-    category: 'budget',
-  },
-  {
-    id: 6,
-    img: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&q=80',
-    nights: '14 Nights',
-    title: 'Family Umrah Package',
-    desc: 'Spacious family suites, kid-friendly amenities, flexible scheduling, and dedicated family concierge for a stress-free journey.',
-    hotel: '5-Star Suite',
-    meals: 'Full Board',
-    transport: 'Private Van',
-    visa: 'Family Visa Deal',
-    price: '$1,150',
-    per: '/person',
-    rating: '4.9',
-    category: 'economy',
-    popular: true,
-  },
 ];
+const defaultTabs = ['All', 'Budget', 'Economy', 'Premium'];
 
-const tabs = ['All', 'Budget', 'Economy', 'Premium'];
-
-export default function PackageCards() {
+export default function PackageCards({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const packages = Array.isArray(data.packages) && data.packages.length > 0
+    ? data.packages
+    : allPackages;
+  const tabs = Array.isArray(data.tabs) && data.tabs.length > 0
+    ? data.tabs
+    : defaultTabs;
   const [activeTab, setActiveTab] = useState('All');
 
   const filtered = activeTab === 'All'
-    ? allPackages
-    : allPackages.filter(p => p.category === activeTab.toLowerCase());
+    ? packages
+    : packages.filter(p => String(p.category || '').toLowerCase() === activeTab.toLowerCase());
 
   return (
     <Section id="packages-list">
       <SectionHeader>
-        <Title>Choose Your Package</Title>
-        <Subtitle>All packages include visa processing, return flights, and hotel accommodation</Subtitle>
+        <Title>{data.title || 'Choose Your Package'}</Title>
+        <Subtitle>{data.subtitle || 'All packages include visa processing, return flights, and hotel accommodation'}</Subtitle>
       </SectionHeader>
 
       <TabsRow>

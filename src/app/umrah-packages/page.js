@@ -28,7 +28,7 @@ export default function UmrahPackagesPage() {
       <PackageHero content={sections.hero} />
 
       {/* Core Umrah services */}
-      <UmrahServicePrograms />
+      <UmrahServicePrograms content={sections.services} />
 
       {/* Package cards listing */}
       <PackageCards content={sections.packages} />
@@ -49,7 +49,7 @@ export default function UmrahPackagesPage() {
       <CustomerReviews content={sections.customerReviews} />
 
       {/* Newsletter */}
-      <NewsletterCTA />
+      <NewsletterCTA content={sections.newsletter} />
 
       {/* Footer */}
       <Footer content={sharedSections.footer} />

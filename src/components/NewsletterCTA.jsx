@@ -80,7 +80,8 @@ const FootNote = styled.p`
   gap: 0.3rem;
 `;
 
-export default function NewsletterCTA() {
+export default function NewsletterCTA({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [ref, inView] = useInView();
@@ -93,27 +94,29 @@ export default function NewsletterCTA() {
   return (
     <Section id="newsletter" ref={ref}>
       <Inner $inView={inView}>
-        <Title>Get Exclusive Deals in Your Inbox</Title>
-        <Subtitle>Be first to know about our limited Umrah and tour offers.</Subtitle>
+        <Title>{data.title || 'Get Exclusive Deals in Your Inbox'}</Title>
+        <Subtitle>{data.subtitle || 'Be first to know about our limited Umrah and tour offers.'}</Subtitle>
 
         {submitted ? (
           <p style={{ color: '#c9a227', fontWeight: 700, fontSize: '0.9rem' }}>
-            ✓ You&apos;re subscribed! Watch for exclusive deals.
+            {data.successMessage || "✓ You're subscribed! Watch for exclusive deals."}
           </p>
         ) : (
           <Form onSubmit={handleSubmit}>
             <EmailInput
               type="email"
-              placeholder="Your email address..."
+              placeholder={data.placeholder || 'Your email address...'}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <SubscribeBtn type="submit">Subscribe →</SubscribeBtn>
+            <SubscribeBtn type="submit">{data.buttonText || 'Subscribe →'}</SubscribeBtn>
           </Form>
         )}
 
-        <FootNote>🔒 No spam. Unsubscribe anytime.</FootNote>
+        <FootNote>
+          {data.footnoteIcon || '🔒'} {data.footnote || 'No spam. Unsubscribe anytime.'}
+        </FootNote>
       </Inner>
     </Section>
   );

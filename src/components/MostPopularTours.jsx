@@ -229,10 +229,10 @@ const DetailsBtn = styled.a`
 `;
 
 const defaultTours = [
-  { id: 'T1', img: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=80', category: 'Umrah',         categoryBg: '#c9a227', categoryColor: '#fff', days: '7 Days', caption: 'Makkah & Madinah', title: 'Makkah & Madinah', meta: '7 Days Package · All Inclusive', rating: '4.9', price: '$300',  href: '/umrah-packages' },
-  { id: 'T2', img: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=600&q=80', category: 'Ziyarah',       categoryBg: '#0e7490', categoryColor: '#fff', days: '5 Days', caption: 'Madinah Heritage', title: 'Madinah Heritage Tour', meta: 'Quba · Uhud · Qiblatain', rating: '4.9', price: '$480', href: '/tours' },
-  { id: 'T3', img: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&q=80', category: 'Family',          categoryBg: '#d97706', categoryColor: '#fff', days: '6 Days', caption: 'Jeddah + Makkah',  title: 'Family Umrah Support Plan', meta: 'Flexible pacing · Family rooms', rating: '4.9', price: '$555', href: '/tours' },
-  { id: 'T4', img: 'https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=600&q=80', category: 'Ramadan',      categoryBg: '#7c3aed', categoryColor: '#fff', days: '10 Days', caption: 'Ramadan Program', title: 'Ramadan Umrah Retreat', meta: 'Iftar support · Guided rituals', rating: '5.0', price: '$750', href: '/umrah-packages' },
+  { id: 'T1', img: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=600&q=80', category: 'Umrah',         categoryBg: '#c9a227', categoryColor: '#fff', days: '7 Days', caption: 'Makkah & Madinah', title: 'Makkah & Madinah', meta: '7 Days Package · All Inclusive', rating: '4.9', price: '$800',  href: '/umrah-packages' },
+  { id: 'T2', img: 'https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=600&q=80', category: 'Ziyarah',       categoryBg: '#0e7490', categoryColor: '#fff', days: '5 Days', caption: 'Madinah Heritage', title: 'Madinah Heritage Tour', meta: 'Quba · Uhud · Qiblatain', rating: '4.9', price: '$450', href: '/tours' },
+  { id: 'T3', img: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&q=80', category: 'Family',          categoryBg: '#d97706', categoryColor: '#fff', days: '6 Days', caption: 'Jeddah + Makkah',  title: 'Family Umrah Support Plan', meta: 'Flexible pacing · Family rooms', rating: '4.9', price: '$950', href: '/tours' },
+  { id: 'T4', img: 'https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=600&q=80', category: 'Ramadan',      categoryBg: '#7c3aed', categoryColor: '#fff', days: '10 Days', caption: 'Ramadan Program', title: 'Ramadan Umrah Retreat', meta: 'Iftar support · Guided rituals', rating: '5.0', price: '$999', href: '/umrah-packages' },
 ];
 
 export default function MostPopularTours({ content = null }) {

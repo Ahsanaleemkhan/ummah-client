@@ -162,9 +162,9 @@ const BookBtn = styled.a`
 `;
 
 const defaultPackages = [
-  { id: 'ECO', name: 'Economy Package',  meta: '15 Nights · 3★ Hotel', priceFrom: 'From', price: '$300',   features: ['Return Flights', 'Umrah Visa', 'Madinah Transfer', 'Basic Guide'],                                  featured: false },
-  { id: 'STD', name: 'Standard Package', meta: '21 Nights · 4★ Hotel', priceFrom: 'From', price: '$450', features: ['Return Flights', 'Umrah Visa', 'All Transfers', 'Group Guidance', 'Ziyarah Tour'], featured: true,  bestValue: true },
-  { id: 'PRE', name: 'Premium Package',  meta: '26 Nights · 5★ Hotel', priceFrom: 'From', price: '$750', features: ['Business Class', 'Umrah Visa', 'Private Transfers', 'Personal Guide', 'All Meals'],  featured: false },
+  { id: 'ECO', name: 'Economy Package',  meta: '15 Nights · 3★ Hotel', priceFrom: 'From', price: '$1,950',   features: ['Return Flights', 'Umrah Visa', 'Madinah Transfer', 'Basic Guide'],                                  featured: false },
+  { id: 'STD', name: 'Standard Package', meta: '21 Nights · 4★ Hotel', priceFrom: 'From', price: '$2,150', features: ['Return Flights', 'Umrah Visa', 'All Transfers', 'Group Guidance', 'Ziyarah Tour'], featured: true,  bestValue: true },
+  { id: 'PRE', name: 'Premium Package',  meta: '26 Nights · 5★ Hotel', priceFrom: 'From', price: '$2,350', features: ['Business Class', 'Umrah Visa', 'Private Transfers', 'Personal Guide', 'All Meals'],  featured: false },
 ];
 
 export default function UmrahPackages({ content = null }) {

@@ -267,25 +267,56 @@ const madinahSites = [
   "Historical sites from the Prophet's life",
 ];
 
-export default function UmrahServicePrograms() {
+export default function UmrahServicePrograms({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const topCard = data.topCard || {};
+  const visaCard = data.visaCard || {};
+  const transportCard = data.transportCard || {};
+  const ziyarahCard = data.ziyarahCard || {};
+  const groupCard = data.groupCard || {};
+  const footer = data.footer || {};
+
+  const topFeatures = Array.isArray(topCard.features) && topCard.features.length > 0
+    ? topCard.features
+    : packageFeatures;
+  const visaList = Array.isArray(visaCard.features) && visaCard.features.length > 0
+    ? visaCard.features
+    : visaFeatures;
+  const transportList = Array.isArray(transportCard.features) && transportCard.features.length > 0
+    ? transportCard.features
+    : transportFeatures;
+  const groupList = Array.isArray(groupCard.features) && groupCard.features.length > 0
+    ? groupCard.features
+    : groupFeatures;
+
+  const ziyarahCities = ziyarahCard.cities || {};
+  const makkahCity = ziyarahCities.makkah || {};
+  const madinahCity = ziyarahCities.madinah || {};
+  const makkahList = Array.isArray(makkahCity.items) && makkahCity.items.length > 0
+    ? makkahCity.items
+    : makkahSites;
+  const madinahList = Array.isArray(madinahCity.items) && madinahCity.items.length > 0
+    ? madinahCity.items
+    : madinahSites;
+
   return (
     <Section>
       <Inner>
         <Header>
-          <Eyebrow>Services Overview</Eyebrow>
-          <Heading>Complete Umrah Services Designed For US Muslims</Heading>
+          <Eyebrow>{data.eyebrow || 'Services Overview'}</Eyebrow>
+          <Heading>{data.heading || 'Complete Umrah Services Designed For US Muslims'}</Heading>
           <Intro>
-            Your Umrah journey involves more than just a flight and hotel. It&apos;s a carefully coordinated experience that requires attention to every detail from visa processing to ground transportation to spiritual guidance. We handle it all, so you can focus on worship.
+            {data.intro || 'Your Umrah journey involves more than just a flight and hotel. It is a carefully coordinated experience that requires attention to every detail from visa processing to ground transportation to spiritual guidance. We handle it all, so you can focus on worship.'}
           </Intro>
         </Header>
 
         <TopCard>
-          <CardLabel>Complete Umrah Packages</CardLabel>
+          <CardLabel>{topCard.label || 'Complete Umrah Packages'}</CardLabel>
           <CardTitle>
-            All-inclusive packages tailored to your budget and needs
+            {topCard.title || 'All-inclusive packages tailored to your budget and needs'}
           </CardTitle>
           <FeatureGrid>
-            {packageFeatures.map((item) => (
+            {topFeatures.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </FeatureGrid>
@@ -293,26 +324,26 @@ export default function UmrahServicePrograms() {
 
         <DuoGrid>
           <ServiceCard>
-            <CardLabel>Umrah Visa Assistance</CardLabel>
-            <h4>Navigating Saudi visa requirements can be confusing</h4>
+            <CardLabel>{visaCard.label || 'Umrah Visa Assistance'}</CardLabel>
+            <h4>{visaCard.title || 'Navigating Saudi visa requirements can be confusing'}</h4>
             <p>
-              Navigating Saudi visa requirements can be confusing. We simplify the process.
+              {visaCard.description || 'Navigating Saudi visa requirements can be confusing. We simplify the process.'}
             </p>
             <ul>
-              {visaFeatures.map((item) => (
+              {visaList.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
           </ServiceCard>
 
           <ServiceCard>
-            <CardLabel>Ground Transportation</CardLabel>
-            <h4>From the moment you land to the moment you depart</h4>
+            <CardLabel>{transportCard.label || 'Ground Transportation'}</CardLabel>
+            <h4>{transportCard.title || 'From the moment you land to the moment you depart'}</h4>
             <p>
-              From the moment you land to the moment you depart.
+              {transportCard.description || 'From the moment you land to the moment you depart.'}
             </p>
             <ul>
-              {transportFeatures.map((item) => (
+              {transportList.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -321,25 +352,25 @@ export default function UmrahServicePrograms() {
 
         <SplitGrid>
           <ServiceCard>
-            <CardLabel>Guided Ziyarah Tours</CardLabel>
-            <h4>Deepen your spiritual experience with historic Islamic sites</h4>
+            <CardLabel>{ziyarahCard.label || 'Guided Ziyarah Tours'}</CardLabel>
+            <h4>{ziyarahCard.title || 'Deepen your spiritual experience with historic Islamic sites'}</h4>
             <p>
-              Deepen your spiritual experience with guided tours to historic Islamic sites.
+              {ziyarahCard.description || 'Deepen your spiritual experience with guided tours to historic Islamic sites.'}
             </p>
             <ZiyarahColumns>
               <CityCard>
-                <h5>In Makkah</h5>
+                <h5>{makkahCity.title || 'In Makkah'}</h5>
                 <ul>
-                  {makkahSites.map((item) => (
+                  {makkahList.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               </CityCard>
 
               <CityCard>
-                <h5>In Madinah</h5>
+                <h5>{madinahCity.title || 'In Madinah'}</h5>
                 <ul>
-                  {madinahSites.map((item) => (
+                  {madinahList.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
@@ -348,13 +379,13 @@ export default function UmrahServicePrograms() {
           </ServiceCard>
 
           <ServiceCard>
-            <CardLabel>Group & Family Packages</CardLabel>
-            <h4>Traveling with others? We specialize in group planning.</h4>
+            <CardLabel>{groupCard.label || 'Group & Family Packages'}</CardLabel>
+            <h4>{groupCard.title || 'Traveling with others? We specialize in group planning.'}</h4>
             <p>
-              Traveling with others? We specialize in group and family packages.
+              {groupCard.description || 'Traveling with others? We specialize in group and family packages.'}
             </p>
             <ul>
-              {groupFeatures.map((item) => (
+              {groupList.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -362,9 +393,11 @@ export default function UmrahServicePrograms() {
         </SplitGrid>
 
         <FooterRow>
-          <ActionBtn href="/umrah-packages">Explore Our Packages</ActionBtn>
-          <ActionBtn href="/contact" $outline>
-            Request a Custom Quote
+          <ActionBtn href={footer.primaryHref || '/umrah-packages'}>
+            {footer.primaryLabel || 'Explore Our Packages'}
+          </ActionBtn>
+          <ActionBtn href={footer.secondaryHref || '/contact'} $outline>
+            {footer.secondaryLabel || 'Request a Custom Quote'}
           </ActionBtn>
         </FooterRow>
       </Inner>

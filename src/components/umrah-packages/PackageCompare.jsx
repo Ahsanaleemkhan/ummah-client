@@ -146,12 +146,16 @@ function CellContent({ value }) {
   return value;
 }
 
-export default function PackageCompare() {
+export default function PackageCompare({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const tableRows = Array.isArray(data.rows) && data.rows.length > 0 ? data.rows : rows;
+  const startingPrices = data.startingPrices || {};
+
   return (
     <Section id="compare">
       <SectionHeader>
-        <Title>Compare Packages</Title>
-        <Subtitle>Find the perfect package that suits your needs and budget</Subtitle>
+        <Title>{data.title || 'Compare Packages'}</Title>
+        <Subtitle>{data.subtitle || 'Find the perfect package that suits your needs and budget'}</Subtitle>
       </SectionHeader>
 
       <TableWrapper>
@@ -165,7 +169,7 @@ export default function PackageCompare() {
             </tr>
           </Thead>
           <tbody>
-            {rows.map((row) => (
+            {tableRows.map((row) => (
               <Tr key={row.feature}>
                 <Td>{row.feature}</Td>
                 <Td><CellContent value={row.budget} /></Td>
@@ -175,9 +179,9 @@ export default function PackageCompare() {
             ))}
             <Tr>
               <Td style={{ fontWeight: 700, color: '#1a1a2e' }}>Starting Price</Td>
-              <HighlightTd>$340</HighlightTd>
-              <HighlightTd>$650</HighlightTd>
-              <HighlightTd>$1,350</HighlightTd>
+              <HighlightTd>{startingPrices.budget || '$340'}</HighlightTd>
+              <HighlightTd>{startingPrices.economy || '$650'}</HighlightTd>
+              <HighlightTd>{startingPrices.premium || '$1,350'}</HighlightTd>
             </Tr>
           </tbody>
         </Table>

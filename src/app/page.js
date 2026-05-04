@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 import HomeHeroSection from '../components/HomeHeroSection';
 import PopularAirlines from '../components/PopularAirlines';
-import TrendingVisas from '../components/TrendingVisas';
+import PopularDestinations from '../components/PopularDestinations';
 import MostPopularTours from '../components/MostPopularTours';
 import UmrahPackages from '../components/UmrahPackages';
 import FeaturesStrip from '../components/FeaturesStrip';
@@ -29,8 +29,8 @@ export default function Home() {
       {/* Service strip — Flights, Hotels, Visa, Umrah, Tours, Transfers */}
       <PopularAirlines content={sections.popularAirlines} />
 
-      {/* Trending Visas card grid (2×4) */}
-      <TrendingVisas content={sections.trendingVisas} />
+      {/* Popular Destinations — 6 cards */}
+      <PopularDestinations content={sections.popularDestinations} />
 
       {/* Most Popular Tours — 4 cards */}
       <MostPopularTours content={sections.mostPopularTours} />

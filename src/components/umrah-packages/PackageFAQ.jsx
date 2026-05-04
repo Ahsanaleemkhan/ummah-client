@@ -137,7 +137,9 @@ const faqs = [
   },
 ];
 
-export default function PackageFAQ() {
+export default function PackageFAQ({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const items = Array.isArray(data.faqs) && data.faqs.length > 0 ? data.faqs : faqs;
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggle = (i) => {
@@ -147,12 +149,12 @@ export default function PackageFAQ() {
   return (
     <Section id="faq">
       <SectionHeader>
-        <Title>Frequently Asked Questions</Title>
-        <Subtitle>Everything you need to know about our Umrah packages</Subtitle>
+        <Title>{data.title || 'Frequently Asked Questions'}</Title>
+        <Subtitle>{data.subtitle || 'Everything you need to know about our Umrah packages'}</Subtitle>
       </SectionHeader>
 
       <FaqList>
-        {faqs.map((faq, i) => {
+        {items.map((faq, i) => {
           const isOpen = openIndex === i;
           return (
             <FaqItem key={i} $open={isOpen}>

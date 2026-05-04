@@ -144,9 +144,9 @@ const Stars = styled.div`
 `;
 
 const defaultReviews = [
-  { initials: 'AR', name: 'Ahmed Raza', sub: 'Lahore - Verified Traveler', stars: 5, text: 'The Umrah package was seamless. Every detail was handled perfectly from visa to hotel to transfers. Highly recommended for families.' },
-  { initials: 'SM', name: 'Sara Malik', sub: 'Karachi - Verified Traveler', stars: 5, text: 'Got my UK visa in under 2 weeks. The team was professional and kept me updated throughout. Best visa service in Pakistan.' },
-  { initials: 'HI', name: 'Hassan Iqbal', sub: 'Islamabad - Verified Traveler', stars: 5, text: 'Our group Hajj package was exceptionally organized. Accommodation, transport, and guidance at every ritual point were handled with real care and professionalism.' },
+  { initials: 'MA', name: 'Mohammad Ali', sub: 'Verified · Trustpilot Review', stars: 5, text: 'Excellent service from start to finish. The team at Ummah Travel arranged everything perfectly for our family Umrah trip. Flights, hotels near Haram, and ground transport were all top quality. Very professional and responsive to all our needs. Highly recommend!' },
+  { initials: 'FK', name: 'Fatima Khan', sub: 'Verified · Trustpilot Review', stars: 5, text: 'I have used Ummah Travel twice now for Umrah and both times the experience has been outstanding. Their attention to detail is second to none. The hotels were exactly as described and the visa process was handled smoothly. Will definitely book again.' },
+  { initials: 'AS', name: 'Ahmed Siddiqui', sub: 'Verified · Trustpilot Review', stars: 5, text: 'Booked a group Umrah package through Ummah Travel and couldn\'t be happier. Everything was well organised from the moment we landed. The guide was knowledgeable and the accommodation was very close to the Haram. Great value for money and excellent customer service.' },
 ];
 
 function buildInitials(name = '') {
@@ -198,7 +198,7 @@ export default function CustomerReviews({ content = null }) {
     : defaultReviews.map((review) => normalizeReviewItem(review)).filter(Boolean);
 
   const title = data.title || 'What Our Travelers Say';
-  const trustText = data.trustText || '4.9/5 on Trustpilot';
+  const trustText = data.trustText || '4.6/5 on Trustpilot';
   const trustStar = data.trustStar || '★';
 
   const [ref, inView] = useInView();

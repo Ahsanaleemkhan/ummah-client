@@ -145,16 +145,19 @@ const features = [
   },
 ];
 
-export default function WhyChooseUs() {
+export default function WhyChooseUs({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const items = Array.isArray(data.features) && data.features.length > 0 ? data.features : features;
+
   return (
     <Section id="why-choose-us">
       <SectionHeader>
-        <Title>Why Choose Ummah Travel</Title>
-        <Subtitle>Trusted by thousands of pilgrims worldwide for seamless Umrah experiences</Subtitle>
+        <Title>{data.title || 'Why Choose Ummah Travel'}</Title>
+        <Subtitle>{data.subtitle || 'Trusted by thousands of pilgrims worldwide for seamless Umrah experiences'}</Subtitle>
       </SectionHeader>
 
       <Grid>
-        {features.map((f) => (
+        {items.map((f) => (
           <Card key={f.title}>
             <IconCircle>{f.icon}</IconCircle>
             <CardTitle>{f.title}</CardTitle>

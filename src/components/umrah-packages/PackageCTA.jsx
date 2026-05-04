@@ -207,7 +207,18 @@ const ContactItem = styled.div`
   }
 `;
 
-export default function PackageCTA() {
+const defaultContacts = [
+  { label: 'Call Us', value: '+92 300 123 4567', icon: '📞' },
+  { label: 'WhatsApp', value: '+92 300 123 4567', icon: '💬' },
+  { label: 'Email', value: 'info@ummahtravel.com', icon: '✉️' },
+];
+
+export default function PackageCTA({ content = null }) {
+  const data = content && typeof content === 'object' ? content : {};
+  const contacts = Array.isArray(data.contacts) && data.contacts.length > 0
+    ? data.contacts
+    : defaultContacts;
+
   return (
     <Section>
       <PatternOverlay />
@@ -215,45 +226,39 @@ export default function PackageCTA() {
       <GlowOrb />
 
       <Inner>
-        <Badge>Limited Time Offer — Ramadan 2026</Badge>
-        <Heading>Ready to Begin Your<br />Spiritual Journey?</Heading>
+        <Badge>{data.badge || 'Limited Time Offer — Ramadan 2026'}</Badge>
+        <Heading>{(data.heading || 'Ready to Begin Your\nSpiritual Journey?').split('\n').map((line, idx) => (
+          <span key={`${line}-${idx}`}>
+            {line}
+            <br />
+          </span>
+        ))}</Heading>
         <Desc>
-          Book your Umrah package today and receive an exclusive early-bird discount.
-          Our expert team is ready to craft your perfect pilgrimage experience.
+          {data.description || 'Book your Umrah package today and receive an exclusive early-bird discount. Our expert team is ready to craft your perfect pilgrimage experience.'}
         </Desc>
 
         <BtnRow>
-          <PrimaryBtn href="#book">
-            Book Your Package <span className="arrow">→</span>
+          <PrimaryBtn href={data.primaryButtonHref || '#book'}>
+            {data.primaryButtonText || 'Book Your Package'} <span className="arrow">→</span>
           </PrimaryBtn>
-          <SecondaryBtn href="#contact">
-            Talk to an Expert
+          <SecondaryBtn href={data.secondaryButtonHref || '#contact'}>
+            {data.secondaryButtonText || 'Talk to an Expert'}
           </SecondaryBtn>
         </BtnRow>
 
-        <ContactRow>
-          <ContactItem>
-            <span className="icon">📞</span>
-            <div className="text">
-              <div className="label">Call Us</div>
-              <div className="value">+92 300 123 4567</div>
-            </div>
-          </ContactItem>
-          <ContactItem>
-            <span className="icon">💬</span>
-            <div className="text">
-              <div className="label">WhatsApp</div>
-              <div className="value">+92 300 123 4567</div>
-            </div>
-          </ContactItem>
-          <ContactItem>
-            <span className="icon">✉️</span>
-            <div className="text">
-              <div className="label">Email</div>
-              <div className="value">info@ummahtravel.com</div>
-            </div>
-          </ContactItem>
-        </ContactRow>
+        {contacts.length > 0 && (
+          <ContactRow>
+            {contacts.map((item, index) => (
+              <ContactItem key={`${item?.label || 'contact'}-${index}`}>
+                <span className="icon">{item.icon || '✉️'}</span>
+                <div className="text">
+                  <div className="label">{item.label}</div>
+                  <div className="value">{item.value}</div>
+                </div>
+              </ContactItem>
+            ))}
+          </ContactRow>
+        )}
       </Inner>
     </Section>
   );
