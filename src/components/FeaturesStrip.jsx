@@ -89,9 +89,9 @@ const FeatureDesc = styled.p`
 function TrustedIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6l-9-4z" fill="#1B6B3A" opacity="0.2"/>
-      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6l-9-4z" stroke="#1B6B3A" strokeWidth="1.5" strokeLinejoin="round"/>
-      <path d="M9 12l2 2 4-4" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6l-9-4z" fill="#1B6B3A" opacity="0.2" />
+      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6l-9-4z" stroke="#1B6B3A" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M9 12l2 2 4-4" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -99,11 +99,11 @@ function TrustedIcon() {
 function InstallmentsIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <rect x="2" y="6" width="20" height="13" rx="2" fill="#1B6B3A" opacity="0.15"/>
-      <rect x="2" y="6" width="20" height="13" rx="2" stroke="#1B6B3A" strokeWidth="1.5"/>
-      <path d="M2 10h20" stroke="#1B6B3A" strokeWidth="1.5"/>
-      <path d="M6 14h3M6 16.5h5" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M6 4l2-2M18 4l-2-2" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round"/>
+      <rect x="2" y="6" width="20" height="13" rx="2" fill="#1B6B3A" opacity="0.15" />
+      <rect x="2" y="6" width="20" height="13" rx="2" stroke="#1B6B3A" strokeWidth="1.5" />
+      <path d="M2 10h20" stroke="#1B6B3A" strokeWidth="1.5" />
+      <path d="M6 14h3M6 16.5h5" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M6 4l2-2M18 4l-2-2" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -111,9 +111,9 @@ function InstallmentsIcon() {
 function PriceMatchIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <circle cx="11" cy="11" r="8" stroke="#1B6B3A" strokeWidth="1.5" fill="#1B6B3A" opacity="0.1"/>
-      <path d="M21 21l-4-4" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M8 11h6M11 8v6" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="11" cy="11" r="8" stroke="#1B6B3A" strokeWidth="1.5" fill="#1B6B3A" opacity="0.1" />
+      <path d="M21 21l-4-4" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M8 11h6M11 8v6" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -121,15 +121,15 @@ function PriceMatchIcon() {
 function SupportIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.47 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16l.27.92z" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="#1B6B3A" opacity="0.1"/>
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.47 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16l.27.92z" stroke="#1B6B3A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="#1B6B3A" opacity="0.1" />
     </svg>
   );
 }
 
 const FEATURES = [
-  { Icon: TrustedIcon,       title: '100% Trusted',       desc: 'IATA certified & government approved since 2009' },
-  { Icon: PriceMatchIcon,    title: 'Best Price Match',   desc: "Found cheaper? We'll match any price, guaranteed" },
-  { Icon: SupportIcon,       title: '24/7 Support',       desc: 'Round-the-clock help in Urdu & English' },
+  { Icon: TrustedIcon, title: '100% Trusted', desc: 'IATA certified & government approved since 2009' },
+  { Icon: PriceMatchIcon, title: 'Best Price Match', desc: "Found cheaper? We'll match any price, guaranteed" },
+  { Icon: SupportIcon, title: '24/7 Support', desc: 'Round-the-clock help in Urdu & English' },
 ];
 
 export default function FeaturesStrip() {
