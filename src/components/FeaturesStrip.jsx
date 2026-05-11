@@ -41,7 +41,7 @@ const Title = styled.h2`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   @media (max-width: 860px) { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 480px) { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
@@ -128,9 +128,8 @@ function SupportIcon() {
 
 const FEATURES = [
   { Icon: TrustedIcon,       title: '100% Trusted',       desc: 'IATA certified & government approved since 2009' },
-  { Icon: InstallmentsIcon,  title: 'Easy Installments',  desc: '0% markup payment plans on all packages' },
   { Icon: PriceMatchIcon,    title: 'Best Price Match',   desc: "Found cheaper? We'll match any price, guaranteed" },
-  { Icon: SupportIcon,       title: '24/7 Urdu Support',  desc: 'Round-the-clock help in Urdu & English' },
+  { Icon: SupportIcon,       title: '24/7 Support',       desc: 'Round-the-clock help in Urdu & English' },
 ];
 
 export default function FeaturesStrip() {
